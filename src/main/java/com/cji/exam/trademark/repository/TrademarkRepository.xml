@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cji.exam.trademark.repository.TrademarkRepository">
+	
+	<insert id="storedTrademark" >
+			INSERT INTO trademark
+				SET regDate = NOW(),
+					updateDate = NOW(),
+					projectId = #{projectId},
+					indexNo = #{indexNo},
+					title = #{title},
+					applicantName = #{applicantName},
+					applicationNumber = #{applicationNumber},
+					applicationDate = #{applicationDate},
+					publicationNumber = #{publicationNumber},
+					publicationDate = #{publicationDate},
+					registrationNumber = #{registrationNumber},
+					registrationDate = #{registrationDate},
+					registrationPublicNumber = #{registrationPublicNumber},
+					registrationPublicDate = #{registrationPublicDate},
+					priorityNumber = #{priorityNumber},
+					priorityDate = #{priorityDate},
+					internationalRegisterNumber = #{internationalRegisterNumber},
+					internationalRegisterDate = #{internationalRegisterDate},
+					applicationStatus = #{applicationStatus},
+					classificationCode = #{classificationCode},
+					viennaCode = #{viennaCode},
+					agentName = #{agentName},
+					regPrivilegeName = #{regPrivilegeName},
+					`fullText` = #{fullText},
+					drawing = #{drawing},
+					bigDrawing = #{bigDrawing}
+	</insert>
+
+</mapper>
