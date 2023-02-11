@@ -14,7 +14,7 @@ public interface ProjectRepository {
 	@Select("""
 			SELECT *
 			FROM ProjectVo
-			ORDER BY id
+			ORDER BY id DESC
 			""")
 	public List<ProjectVo> getProjects();
 	

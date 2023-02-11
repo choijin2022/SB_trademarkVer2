@@ -1,10 +1,15 @@
 package com.cji.exam.trademark.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cji.exam.trademark.service.ProjectService;
+import com.cji.exam.trademark.vo.ProjectVo;
 
 @Controller
 public class UserWorkspaceController {
@@ -18,9 +23,54 @@ public class UserWorkspaceController {
 	
 	
 	@RequestMapping("/usr/workspace/myWork")
-	public String myWorkspace() {
+	public String showMyWorkspace(Model model,@RequestParam(defaultValue = "3") int boardId,
+			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) {
+		
+//		Board board = boardService.getBoardById(boardId);
+//		if (board == null) {
+//			return rq.jsReturnOnView("존재하지 않는 게시판입니다", true);
+//		}
+		List<ProjectVo> projects = projectService.getProjects();
+		
+		int projectCount = projects.size();
+		
+		
+//		model.addAttribute("board", board);
+		model.addAttribute("projects", projects);
+		model.addAttribute("projectCount", projectCount);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
+		model.addAttribute("searchKeyword", searchKeyword);
+		
 		return "usr/workspace/myWork";
 	}
+	
+	@RequestMapping("/usr/workspace/list")
+	public String showList(Model model,@RequestParam(defaultValue = "3") int boardId,
+			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) {
+		
+//		Board board = boardService.getBoardById(boardId);
+//		if (board == null) {
+//			return rq.jsReturnOnView("존재하지 않는 게시판입니다", true);
+//		}
+		List<ProjectVo> projects = projectService.getProjects();
+		
+		int projectCount = projects.size();
+		
+		
+//		model.addAttribute("board", board);
+		model.addAttribute("projects", projects);
+		model.addAttribute("projectCount", projectCount);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
+		model.addAttribute("searchKeyword", searchKeyword);
+		
+		return "usr/workspace/list";
+	}
+	
+	
 	
 /*
 	@RequestMapping("/usr/project/createWork")

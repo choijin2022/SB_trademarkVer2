@@ -241,3 +241,168 @@ body {
 .active{
 	background-color: #cfcfcf;
 }
+
+
+
+.projectCard .projectCard-cts .info-item-wrapper .info-item-label {
+/*     flex: 1; */
+    font-size: 13px;
+    font-weight: bold;
+    color: #555555;
+}
+
+.projectCard {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #e4e7ea;
+    background-color: #fff;
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+
+.projectCard > * {
+    padding: 15px 20px;
+}
+
+/* .cts_infos{ */
+	
+/* } */
+
+.info-item-wrapper{
+	 display: flex;
+	 order: 1;
+}
+
+.info-item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 5;
+    height: 32px;
+}
+
+.info-item-label{
+	box-sizing: border-box;
+	width:100px;
+    font-size: 13px;
+    font-weight: normal;
+    color: #555555;
+	
+}
+
+.projectCard > * {
+    padding: 15px 25px;
+}
+
+.col-xs-7 {
+    width: 58.33333333%;
+}
+.col-xs-5 {
+    width: 41.66666667%;
+    float: left;
+}
+.projectMemo .project-memo-btn-wrapper .btn-project-memo {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: normal;
+    color: #555555;
+}
+
+.projectMemo .contents {
+    text-align: left;
+    height: 138px;
+    padding: 8px;
+    line-height: 18px;
+    white-space: pre-line;
+    word-break: break-all;
+}
+
+.projectMemo textarea {
+
+    border: 0;
+    word-break: break-all;
+    word-wrap: break-word;
+    background: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    line-height: 18px;
+    padding: 8px;
+    resize: none;
+}
+
+.projectMemo .project-memo-btn-wrapper {
+    text-align: right;
+}
+.projectMemo{
+	border: 1px solid #fff59d;
+	background: #fffce2;
+}
+.projectMemo textarea{
+	margin: 0 5px;;
+	background-color: #fff59d;
+	width: calc(100% - 10px);
+}
+
+.btn-text {
+    display: inline-block;
+    padding: 0 5px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: normal;
+    color: #555555;
+    margin-right: 6px;
+}
+
+.projectCard >header {
+	padding: 10px 20px;
+    display: table;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid rgba(77, 82, 89, 0.07);
+}
+
+
+.projectCard header .title {
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 20px;
+    width: calc(100% - 160px);
+}
+
+.projectCard header > div {
+    display: table-cell;
+    vertical-align: right;
+}
+
+.projectCard header > div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+.btn-icon{
+	display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: right;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: normal;
+    color: #555555;
+}
