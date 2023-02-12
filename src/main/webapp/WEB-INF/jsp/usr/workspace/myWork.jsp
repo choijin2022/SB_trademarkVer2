@@ -18,16 +18,22 @@
 	
 <!-- 	</nav> -->
 <!-- </div> -->
+<script>
+
+
+
+</script>
+
 
 <section class="text-xl">
 	<div class="container">
 		<div class="requireAuthentication">
 			<div id="warp" class="blankWrap myWork" style="height: 100%; padding-bottom: 0px;">
 				
-				<div class="project-manage-header project-manage">
+				<div class="project-manage-header project-manage ">
 					<header>
-						<div class="h-20 flex container mx-auto text-3xl">
-							<a class="h-full px-3 flex items-center" href="/usr/home/main"><span>로고</span></a>
+						<div class="h-16 flex container mx-auto text-3xl fixed">
+							<a class="h-full px-16 flex items-center" href="/usr/home/main"><span>로고</span></a>
 							<div class="flex-grow"></div>
 							<ul class="flex ">
 								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/trademark/trademarkApi2"><span>상표검색</span></a></li>
@@ -39,7 +45,7 @@
 				
 				<div class="blankContents project-manage-page" style="height: calc(100% - 60px); padding: 0px;">
 					<div class="fullTypeCntWrap" style="height: 100%; min-height: 770px;">
-						<div id="splitterWrap" class="myWorkFrameSetA FrameSplitter splitter_container splitter-vertical flex" style="min-height: 100%; height: 612.4px;">
+						<div class="myWorkFrameSetA FrameSplitter flex" style="min-height: 100%; height: 612.4px;">
 							
 <!-- 							<div class="splitter_panel hide-panel"> -->
 <!-- 								<div class="splitter_handle"> -->
@@ -54,14 +60,15 @@
 <!-- 								</div> -->
 <!-- 							</div> -->
 							
-							<div class="splitter_panel" style="width: 250px; top: 0px;">
+							<div class="splitter_panel" style="width: 280px;top: 0px;">
 								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;">
-									<div class="ltCnt myWorkSideBar side-bar" style="margin: 0px; height: 100%; overflow: auto; box-sizing: border-box; position: fixed;">
-										<div class="folder-list-btn-wrapper">
-											<div class="btn btn-grey btn-new-folder" title="새 폴더">
+									<div class="ltCnt myWorkSideBar side-bar " style="margin: 0px; height: 100%; overflow: auto; box-sizing: border-box; position: fixed;">
+										<div class="folder-list-btn-wrapper m-2 flex justify-evenly">
+											<div class="btn btn-grey btn-new-folder" title="새 폴더" style="width:60%; min-height:2rem; height:2rem;">
 												<i class="fas fa-plus mr-10"></i>
+												새폴더
 											</div>
-											<div class="btn btn-grey btn-sync" title="새로 고침">
+											<div class="btn btn-grey btn-sync" title="새로 고침" style="min-height:2rem; height:2rem;">
 												<i class="fas fa-sync"></i>
 											</div>
 										</div>
@@ -78,14 +85,14 @@
 														<li>
 															<div class="project-title project-link active">
 																<a href="">
-																	<span class="items project_item"></span>
+																	<span class="items project_item"> 프로젝트 이름</span>
 																</a>
 															</div>
  															<!--프로젝트 리스트 -->
 															<ul class="inTree hover" >
 																<li>${trademark.name }</li>
-																<li>test1</li>
-																<li>test2</li>
+																<li>리스트 1</li>
+																<li>리스트 2</li>
 															</ul>
 														</li>
 													</ul>
@@ -97,9 +104,10 @@
 							
 								</div>
 							</div>
-							<div class="splitter_panel" >
+							<div class="splitter_panel" style="width: calc(100% - 300px);">
 								<div id="MYWORK-CONTENT-SECTION" class="project-manage contents rtCnt" style="padding-bottom: 0px;"></div>
-									<div class="project-info-section" style="position: relative;">
+<!-- 									<div class="project-info-section " style="position: relative; z-index: -1;"> -->
+									<div class="project-info-section " style="position: relative; z-index: 0;">
 										<section>
 											<div class="projectCard" style="border-width: 0px;">
 												<header style="padding: 10px 0px; border-bottom: 0px">
@@ -111,7 +119,7 @@
 												</header>
 												<div class="projectCard-cts" >
 													<div class="row mb-2 flex flex justify-between">
-														<div class="cts_infos col-sm-7 col-xs-7" style="width: 48%; border:1px solid #e4e7ea;">
+														<div class="cts_infos project_info_width_40" style="border:1px solid #e4e7ea;">
 															<div class="m-3">
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">관리번호</span>
@@ -135,13 +143,11 @@
 																</div>
 															</div>
 														</div>
-														<div class="col-sm-5 col-xs-5">
+														<div class="project_memo_width_55_left" >
 															<div class="clearfix cts__memo">
 																<div class="projectMemo">
 																	<div class="memo__header">메모장</div>
-									<!-- 								<textarea name="" id="" cols="33" rows="5" style="display: none; opacity: 0; z-index: 0;"></textarea> -->
 																	<textarea name="" id="projectTextarea" cols="40" rows="5" ></textarea>
-									<!-- 								<div class="contents" style="opacity: 1; z-index: 999; overflow: hidden auto;"></div> -->
 																	<div class="contents" style="opacity: 1; overflow: hidden auto;"></div>
 																	
 																	<div class="project-memo-btn-wrapper">
@@ -161,7 +167,8 @@
 											</div>
 										</section>
 									</div>
-									<div class="project-patent-search-container">
+<!-- 									<div class="project-trademark-search-container" style="position: relative; z-index: -1;"> -->
+									<div class="project-trademark-search-container" style="position: relative; z-index: 0;">
 										<section >
 											<div class="mb-2 flex justify-between items-center">
 												<div>
@@ -171,9 +178,9 @@
 													<input type="hidden" name="boardId" value="${boardId }" />
 													
 													<select data-value="${searchKeywordTypeCode }" class="select select-bordered" name="searchKeywordTypeCode">
-														<option value="name">제목</option>
+														<option value="name">상표명</option>
 														<option value="body">내용</option>
-														<option value="name,body">제목 + 내용</option>
+														<option value="name,body">상표명 + 내용</option>
 													</select>
 													
 													<input class="ml-2 w-84 input input-bordered" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" maxlength="20" value="${searchKeyword }" />
@@ -184,7 +191,19 @@
 										</section>
 									
 									</div>
-							
+									<div>
+										<section>
+											<div class="sub-project-menu-box-1">
+												<input id="project-name" type="checkbox" />
+											    <label for="project-name">프로젝트 이름</label>
+												<ul class="project-sub-name">
+													<li><a class="bold" href="list?boardId=3">프로젝트 이름</a></li>
+													<li><a href="list?boardId=3&subBoardId=1">테스트 1</a></li>
+													<li><a href="">테스트 2</a></li>
+												</ul>
+											</div>
+										</section>
+									</div>
 							
 							</div>
 							
@@ -195,17 +214,7 @@
 					
 
 					
-					<section>
-						<div class="sub-project-menu-box-1">
-							<input id="project-name" type="checkbox" />
-						    <label for="project-name">프로젝트 이름</label>
-							<ul class="project-sub-name">
-								<li><a class="bold" href="list?boardId=3">프로젝트 이름</a></li>
-								<li><a href="list?boardId=3&subBoardId=1">테스트 1</a></li>
-								<li><a href="">테스트 2</a></li>
-							</ul>
-						</div>
-					</section>
+					
 				</div>
 			</div>
 		</div>					

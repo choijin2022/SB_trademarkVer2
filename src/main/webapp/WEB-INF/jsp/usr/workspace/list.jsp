@@ -1,170 +1,373 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="List" />
-<%@ include file="../common/head.jsp"%>
+<%-- <c:set var="pageTitle" value="MyWork" /> --%>
+<%@ include file="../common/fullTypeHead.jsp"%>
 
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="project-box-1">
-			<input id="project-name" type="checkbox" />
-		    <label for="project-name">프로젝트 이름</label>
-			<ul class="project-sub-name">
-				<li><a class="bold" href="list?boardId=3">프로젝트 이름</a></li>
-				<li><a href="list?boardId=3&subBoardId=1">테스트 1</a></li>
-				<li><a href="">테스트 2</a></li>
-			</ul>
-		</div>
-	</div>
-</section>
+<!-- <div class="side-bar"> -->
+<!-- 	<div class="status-icon"> -->
+<!-- 		<div>▶</div> -->
+<!--     	<div>▼</div> -->
+<!-- 	</div> -->
+<!-- 	<nav class="manu-box-1"> -->
+<!-- 	<input id="check-menu-btn" type="checkbox" /> -->
+<!--     <label for="check-menu-btn">프로젝트 이름</label> -->
+<!-- 		<ul class="menubars"> -->
+<!-- 			<li><a href="list?boardId=3">테스트 1</a></li> -->
+<!-- 			<li><a href="">테스트 2</a></li> -->
+<!-- 		</ul> -->
+	
+<!-- 	</nav> -->
+<!-- </div> -->
+<script>
 
 
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="mb-2 flex justify-between items-center">
-			<div>
-				<span>회원수 : ${membersCount }</span>
-			</div>
-			<form>
-				<select data-value="${authLevel }" class="select select-bordered" name="authLevel">
-					<option value="0">전체</option>
-					<option value="3">일반</option>
-					<option value="7">관리자</option>
-				</select>
+
+</script>
+
+
+<section class="text-xl">
+	<div class="container">
+		<div class="requireAuthentication">
+			<div id="warp" class="blankWrap myWork" style="height: 100%; padding-bottom: 0px;">
 				
-				<select data-value="${searchKeywordTypeCode }" class="select select-bordered" name="searchKeywordTypeCode">
-					<option value="loginId,name,nickname">전체</option>
-					<option value="loginId">아이디</option>
-					<option value="name">이름</option>
-					<option value="nickname">닉네임</option>
-				</select>
-				
-				<input class="ml-2 w-84 input input-bordered" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" maxlength="20" value="${searchKeyword }" />
-
-				<button class="ml-2 btn btn-active btn-ghost">검색</button>
-			</form>
-		</div>
-		<c:choose>
-			<c:when test="${membersCount == 0}">
-				<div class="text-center py-2">조건에 일치하는 검색결과가 없습니다</div>
-			</c:when>
-			<c:otherwise>
-				<div class="table-box-type-1">
-					<table class="table w-full">
-						<thead>
-							<tr>
-								<th><input type="checkbox" class="checkbox-all-member-id" /></th>
-								<th>번호</th>
-								<th>가입날짜</th>
-								<th>수정날짜</th>
-								<th>아이디</th>
-								<th>이름</th>
-								<th>닉네임</th>
-								<th>삭제여부</th>
-								<th>삭제날짜</th>
-							</tr>
-						</thead>
-		
-						<tbody>
-							<c:forEach var="member" items="${members}">
-								<c:if test="${member.authLevel != 7 }">
-									<tr class="hover">
-										<c:choose>
-											<c:when test="${member.delStatus != true }">
-												<td><input type="checkbox" class="checkbox-member-id" value="${member.id }" /></td>
-											</c:when>
-											<c:otherwise>
-												<td><input type="checkbox" class="checkbox-member-id" value="${member.id }" disabled/></td>
-											</c:otherwise>
-										</c:choose>
-										<td>${member.id}</td>
-										<td>${member.regDate.substring(2,16)}</td>
-										<td>${member.updateDate.substring(2,16)}</td>
-										<td>${member.loginId}</td>
-										<td>${member.name}</td>
-										<td>${member.nickname}</td>
-										<td>${member.delStatusStr()}</td>
-										<td>${member.delDateStr()}</td>
-									</tr>
-								</c:if>
-							</c:forEach>
-						</tbody>
-					</table>
+				<div class="project-manage-header project-manage ">
+					<header>
+						<div class="h-16 flex container mx-auto text-3xl fixed">
+							<a class="h-full px-16 flex items-center" href="/usr/home/main"><span>로고</span></a>
+							<div class="flex-grow"></div>
+							<ul class="flex ">
+								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/trademark/trademarkApi2"><span>상표검색</span></a></li>
+								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/workspace/main"><span>work</span></a></li>
+							</ul>
+						</div>
+					</header>
 				</div>
-			</c:otherwise>
-		</c:choose>
-		
-		<script>
-			$('.checkbox-all-member-id').change(function() {
-				const allCheck = $(this);
-				const allChecked = allCheck.prop('checked');
-				$('.checkbox-member-id').prop('checked', allChecked);
-				$('.checkbox-member-id:is(:disabled)').prop('checked', false)
-			})
-			
-			$('.checkbox-member-id').change(function() {
-				const checkboxMemberIdCount = $('.checkbox-member-id').length;
-				const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
-				const checkboxDisabledCount = $('.checkbox-member-id:is(:disabled)').length;
-				const allChecked = (checkboxMemberIdCount - checkboxDisabledCount) == checkboxMemberIdCheckedCount;
-				$('.checkbox-all-member-id').prop('checked', allChecked);
-			})
-		</script>
-
-		<div class="mt-2 flex justify-end">
-			<button class="btn-text-link btn btn-active btn-ghost btn-delete-selected-members">회원 삭제</button>
-		</div>
-		
-		<form method="POST" name="do-delete-members-form" action="doDeleteMembers">
-			<input type="hidden" name="ids" value="" />
-		</form>
-		
-		<script>
-			$('.btn-delete-selected-members').click(function() {
-				const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
-				if (values.length == 0) {
-					alert('선택한 회원이 없습니다');
-					return;
-				}
-				if (confirm('선택한 회원을 삭제하시겠습니까?') == false) {
-					return;
-				}
-				$('input[name=ids]').val(values.join(','));
-				$('form[name=do-delete-members-form]').submit();
-			})
-		</script>
-		
-		<div class="page-menu mt-2 flex justify-center">
-			<div class="btn-group">
-				<c:set var="pageMenuLen" value="5" />
-				<c:set var="startPage" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1}" />
-				<c:set var="endPage" value="${page + pageMenuLen <= pagesCount ? page + pageMenuLen : pagesCount}" />
 				
-				<c:set var="pageBaseUri" value="?searchKeywordTypeCode=${searchKeywordTypeCode }&searchKeyword=${searchKeyword }" />
-
-				<c:if test="${membersCount != 0 }">
-					<c:if test="${page == 1 }">
-						<a class="btn btn-sm btn-disabled">«</a>
-						<a class="btn btn-sm btn-disabled">&lt;</a>
-					</c:if>
-					<c:if test="${page > 1 }">
-						<a class="btn btn-sm" href="${pageBaseUri }&page=1">«</a>
-						<a class="btn btn-sm" href="${pageBaseUri }&page=${page - 1 }">&lt;</a>
-					</c:if>
-					<c:forEach begin="${startPage }" end="${endPage }" var="i">
-						<a class="btn btn-sm ${page == i ? 'btn-active' : ''}" href="${pageBaseUri }&page=${i }">${i }</a>
-					</c:forEach>
-					<c:if test="${page < pagesCount }">
-						<a class="btn btn-sm" href="${pageBaseUri }&page=${page + 1 }">&gt;</a>
-						<a class="btn btn-sm" href="${pageBaseUri }&page=${pagesCount }">»</a>
-					</c:if>
-					<c:if test="${page == pagesCount }">
-						<a class="btn btn-sm btn-disabled">&gt;</a>
-						<a class="btn btn-sm btn-disabled">»</a>
-					</c:if>
-				</c:if>
+				<div class="blankContents project-manage-page" style="height: calc(100% - 60px); padding: 0px;">
+					<div class="fullTypeCntWrap" style="height: 100%; min-height: 770px;">
+						<div class="myWorkFrameSetA FrameSplitter flex" style="min-height: 100%; height: 612.4px;">
+							
+<!-- 							<div class="splitter_panel hide-panel"> -->
+<!-- 								<div class="splitter_handle"> -->
+<!-- 									<em class="fa fa-caret-right" style="color: rgb(255, 255, 255); line-height: 195px;"></em> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							<div class="splitter_panel show-panel"> -->
+<!-- 								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;"> -->
+<!-- 									<div class="ltCnt myWorkSideBar"> -->
+<!-- 									<div id="projectTreeHandle" class="projectTreeHandle"></div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+							
+							<div class="splitter_panel" style="width: 280px;top: 0px;">
+								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;">
+									<div class="ltCnt myWorkSideBar side-bar " style="margin: 0px; height: 100%; overflow: auto; box-sizing: border-box; position: fixed;">
+										<div class="folder-list-btn-wrapper m-2 flex justify-evenly">
+											<div class="btn btn-grey btn-new-folder" title="새 폴더" style="width:60%; min-height:2rem; height:2rem;">
+												<i class="fas fa-plus mr-10"></i>
+												새폴더
+											</div>
+											<div class="btn btn-grey btn-sync" title="새로 고침" style="min-height:2rem; height:2rem;">
+												<i class="fas fa-sync"></i>
+											</div>
+										</div>
+										<div class="loader" style="display: none;">
+											<div class="loader-img fixed">
+												<img width="50" height="50" src="https://item.kakaocdn.net/do/c5c470298d527ef65eb52883f0f186c48f324a0b9c48f77dbce3a43bd11ce785" />
+											</div>
+										</div>
+										<div class="tree-wrapper hierarchyWrapper">
+											<dl class="projTechWrap" style="padding: 0px; height: calc(100% - 50px);">
+												<dt style="color: rgb(0, 153, 153); font-weight: bold; font-size: 14px;"></dt>
+												<dd>
+													<ul>
+														<li>
+															<div class="project-title project-link active">
+																<a href="">
+																	<span class="items project_item"> 프로젝트 이름</span>
+																</a>
+															</div>
+ 															<!--프로젝트 리스트 -->
+															<ul class="inTree hover" >
+																<li>${trademark.name }</li>
+																<li>리스트 1</li>
+																<li>리스트 2</li>
+															</ul>
+														</li>
+													</ul>
+												
+												</dd>
+											</dl>
+										</div>
+									</div>
+							
+								</div>
+							</div>
+							<div class="splitter_panel" style="width: calc(100% - 300px);">
+								<div id="MYWORK-CONTENT-SECTION" class="project-manage contents rtCnt" style="padding-bottom: 0px;"></div>
+<!-- 									<div class="project-info-section " style="position: relative; z-index: -1;"> -->
+									<div class="project-info-section " style="position: relative; z-index: 0;">
+										<section>
+											<div class="projectCard" style="border-width: 0px;">
+												<header style="padding: 10px 0px; border-bottom: 0px">
+													<div class="title">프로젝트 제목----------------------------------------------------------------</div>
+													<div class="projectCard__btnGroup text-right">
+														<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
+														<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
+													</div>
+												</header>
+												<div class="projectCard-cts" >
+													<div class="row mb-2 flex flex justify-between">
+														<div class="cts_infos project_info_width_40" style="border:1px solid #e4e7ea;">
+															<div class="m-3">
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">관리번호</span>
+																	<div class="editableInputWrap notHoverEdit"></div>
+																</div>
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">업체명</span>
+																	<div class="editableInputWrap notHoverEdit"></div>
+																</div>
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">생성일</span>
+																	<div>20230211</div>
+																</div>
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">최종수정일</span>
+																	<div>20230211</div>
+																</div>
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">상표수</span>
+																	<div>100</div>
+																</div>
+															</div>
+														</div>
+														<div class="project_memo_width_55_left" >
+															<div class="clearfix cts__memo">
+																<div class="projectMemo">
+																	<div class="memo__header">메모장</div>
+																	<textarea name="" id="projectTextarea" cols="40" rows="5" ></textarea>
+																	<div class="contents" style="opacity: 1; overflow: hidden auto;"></div>
+																	
+																	<div class="project-memo-btn-wrapper">
+																		<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
+																		<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a>
+																		</div>
+																		<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a>
+																		</div>
+																		<div class="btn-text"><span>저장</span></div>
+																		<div class="btn-text"><span>취소</span></div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</section>
+									</div>
+<!-- 									<div class="project-trademark-search-container" style="position: relative; z-index: -1;"> -->
+									<div class="project-trademark-search-container" style="position: relative; z-index: 0;">
+										<section >
+											<div class="mb-2 flex justify-between items-center">
+												<div>
+													<span>${projectCount } 개</span>
+												</div>
+												<form>
+													<input type="hidden" name="boardId" value="${boardId }" />
+													
+													<select data-value="${searchKeywordTypeCode }" class="select select-bordered" name="searchKeywordTypeCode">
+														<option value="name">상표명</option>
+														<option value="body">내용</option>
+														<option value="name,body">상표명 + 내용</option>
+													</select>
+													
+													<input class="ml-2 w-84 input input-bordered" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" maxlength="20" value="${searchKeyword }" />
+									
+													<button class="ml-2 btn btn-active btn-ghost">검색</button>
+												</form>
+											</div>
+										</section>
+									
+									</div>
+									<div class="project-trademard-list-container">
+										<section>
+											<c:choose>
+												<c:when test="${trademarkCount == 0}">
+													<div class="text-center py-2">조건에 일치하는 검색결과가 없습니다</div>
+												</c:when>
+												<c:otherwise>
+													<div class="table-box-type-1">
+														<table class="table w-full">
+															<thead>
+																<tr>
+																	<th style="width :2px"><input type="checkbox" class="checkbox-all-member-id" /></th>
+																	<th style="width :2.5px">No</th>
+																	<th>이미지</th>
+																	<td>이름</td>
+																	<th>출원번호</th>
+																	<th>출원일자</th>
+																	<th>상품분류</th>
+																	<th>유사군</th>
+																	<th>법적상태</th>
+																	<th>출원인 이름</th>
+																</tr>
+															</thead>
+											
+															<tbody>
+																<c:forEach var="trademark" items="${trademarks}">
+																	<tr class="hover">
+																		<td style="width :2px"><input type="checkbox" class="checkbox-member-id" value="${member.id }" /></td>
+																		<td style="width :2.5px">${trademark.indexNo}</td>
+																		<td>${trademark.bigDrawing}</td>
+																		<td>${trademark.name}</td>
+																		<td>${trademark.applicationNumber}</td>
+																		<td>${trademark.applicationDate}</td>
+																		<td>${trademark.classificationCode}</td>
+																		<td>${trademark.similarityCode}</td>
+																		<td>${trademark.applicationStatus}</td>
+																		<td>${trademark.applicantName}</td>
+																	</tr>
+																</c:forEach>
+															</tbody>
+														</table>
+													</div>
+												</c:otherwise>
+											</c:choose>
+											
+											<script>
+												$('.checkbox-all-member-id').change(function() {
+													const allCheck = $(this);
+													const allChecked = allCheck.prop('checked');
+													$('.checkbox-member-id').prop('checked', allChecked);
+													$('.checkbox-member-id:is(:disabled)').prop('checked', false)
+												})
+												
+												$('.checkbox-member-id').change(function() {
+													const checkboxMemberIdCount = $('.checkbox-member-id').length;
+													const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
+													const checkboxDisabledCount = $('.checkbox-member-id:is(:disabled)').length;
+													const allChecked = (checkboxMemberIdCount - checkboxDisabledCount) == checkboxMemberIdCheckedCount;
+													$('.checkbox-all-member-id').prop('checked', allChecked);
+												})
+											</script>
+									
+											<div class="mt-2 flex justify-end">
+												<button class="btn-text-link btn btn-active btn-ghost btn-delete-selected-members">상표 삭제</button>
+											</div>
+											
+											<form method="POST" name="do-delete-members-form" action="doDeleteMembers">
+												<input type="hidden" name="ids" value="" />
+											</form>
+											
+											<script>
+												$('.btn-delete-selected-members').click(function() {
+													const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
+													if (values.length == 0) {
+														alert('선택한 상표가 없습니다');
+														return;
+													}
+													if (confirm('선택한 상표를 삭제하시겠습니까?') == false) {
+														return;
+													}
+													$('input[name=ids]').val(values.join(','));
+													$('form[name=do-delete-members-form]').submit();
+												})
+											</script>
+											
+											<div class="page-menu mt-2 flex justify-center">
+												<div class="btn-group">
+													<c:set var="pageMenuLen" value="5" />
+													<c:set var="startPage" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1}" />
+													<c:set var="endPage" value="${page + pageMenuLen <= pagesCount ? page + pageMenuLen : pagesCount}" />
+													
+													<c:set var="pageBaseUri" value="?searchKeywordTypeCode=${searchKeywordTypeCode }&searchKeyword=${searchKeyword }" />
+									
+													<c:if test="${membersCount != 0 }">
+														<c:if test="${page == 1 }">
+															<a class="btn btn-sm btn-disabled">«</a>
+															<a class="btn btn-sm btn-disabled">&lt;</a>
+														</c:if>
+														<c:if test="${page > 1 }">
+															<a class="btn btn-sm" href="${pageBaseUri }&page=1">«</a>
+															<a class="btn btn-sm" href="${pageBaseUri }&page=${page - 1 }">&lt;</a>
+														</c:if>
+														<c:forEach begin="${startPage }" end="${endPage }" var="i">
+															<a class="btn btn-sm ${page == i ? 'btn-active' : ''}" href="${pageBaseUri }&page=${i }">${i }</a>
+														</c:forEach>
+														<c:if test="${page < pagesCount }">
+															<a class="btn btn-sm" href="${pageBaseUri }&page=${page + 1 }">&gt;</a>
+															<a class="btn btn-sm" href="${pageBaseUri }&page=${pagesCount }">»</a>
+														</c:if>
+														<c:if test="${page == pagesCount }">
+															<a class="btn btn-sm btn-disabled">&gt;</a>
+															<a class="btn btn-sm btn-disabled">»</a>
+														</c:if>
+													</c:if>
+												</div>
+											</div>
+										</section>
+										
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
+		</div>					
+	</div>
+</section>	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  표
+<section class="mt-8 text-xl">
+	<div class="container mx-auto px-3">
+		<div class="table-box-type-1 show-project-list">
+			<c:choose>
+				<c:when test="${projectCount == 0 }">
+					<div class="text-center mt-4">프로젝트가 없습니다</div>
+				</c:when>
+				<c:otherwise>
+					<div class="table-box-type-1 ">
+						<table class="table w-full">
+							<colgroup>
+								<col width="60" />
+								<col />
+								<col width="150" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>프로젝트</th>
+									<th>날짜</th>
+								</tr>
+							</thead>
+							<tbody >
+								<tr class="hover" id="\${value.id}">
+									<td>\${thisIndexNum}</td>
+									<td><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
+									<td>\${value.regDate.substring(0,11)}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </section>
+-->
 
 <%@ include file="../common/foot.jsp"%>

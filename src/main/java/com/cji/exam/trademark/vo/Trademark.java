@@ -50,14 +50,8 @@ public class Trademark {
 	private String drawing;
 	private String bigDrawing;
 	
+	// 유사군
+	private String similarityCode;
 	
-	// 상태
-//	private boolean addStatus;
-//	public String addStatusStr() {
-//		if(addStatus == false) {
-//			return "없음";
-//		}
-//		return "저장";
-//	}
 	
 }
