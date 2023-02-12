@@ -22,8 +22,32 @@ public class UserWorkspaceController {
 	}
 	
 	
+	@RequestMapping("/usr/workspace/main")
+	public String showWorkspaceMain(Model model,@RequestParam(defaultValue = "3") int boardId,
+			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) {
+		
+//		Board board = boardService.getBoardById(boardId);
+//		if (board == null) {
+//			return rq.jsReturnOnView("존재하지 않는 게시판입니다", true);
+//		}
+		List<ProjectVo> projects = projectService.getProjects();
+		
+		int projectCount = projects.size();
+		
+		
+//		model.addAttribute("board", board);
+		model.addAttribute("projects", projects);
+		model.addAttribute("projectCount", projectCount);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
+		model.addAttribute("searchKeyword", searchKeyword);
+		
+		return "usr/workspace/main";
+	}
+	
 	@RequestMapping("/usr/workspace/myWork")
-	public String showMyWorkspace(Model model,@RequestParam(defaultValue = "3") int boardId,
+	public String showMyWork(Model model,@RequestParam(defaultValue = "3") int boardId,
 			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword) {
 		
@@ -69,8 +93,6 @@ public class UserWorkspaceController {
 		
 		return "usr/workspace/list";
 	}
-	
-	
 	
 /*
 	@RequestMapping("/usr/project/createWork")

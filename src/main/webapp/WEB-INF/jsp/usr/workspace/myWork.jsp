@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="MyWork" />
-<%@ include file="../common/head.jsp"%>
+<%-- <c:set var="pageTitle" value="MyWork" /> --%>
+<%@ include file="../common/fullTypeHead.jsp"%>
 
 <!-- <div class="side-bar"> -->
 <!-- 	<div class="status-icon"> -->
@@ -19,175 +19,199 @@
 <!-- 	</nav> -->
 <!-- </div> -->
 
-
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="mb-2 flex justify-between items-center">
-			<div>
-				<span>${projectCount } 개</span>
-			</div>
-			<form>
-				<input type="hidden" name="boardId" value="${boardId }" />
+<section class="text-xl">
+	<div class="container">
+		<div class="requireAuthentication">
+			<div id="warp" class="blankWrap myWork" style="height: 100%; padding-bottom: 0px;">
 				
-				<select data-value="${searchKeywordTypeCode }" class="select select-bordered" name="searchKeywordTypeCode">
-					<option value="name">제목</option>
-					<option value="body">내용</option>
-					<option value="name,body">제목 + 내용</option>
-				</select>
+				<div class="project-manage-header project-manage">
+					<header>
+						<div class="h-20 flex container mx-auto text-3xl">
+							<a class="h-full px-3 flex items-center" href="/usr/home/main"><span>로고</span></a>
+							<div class="flex-grow"></div>
+							<ul class="flex ">
+								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/trademark/trademarkApi2"><span>상표검색</span></a></li>
+								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/workspace/main"><span>work</span></a></li>
+							</ul>
+						</div>
+					</header>
+				</div>
 				
-				<input class="ml-2 w-84 input input-bordered" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" maxlength="20" value="${searchKeyword }" />
-
-				<button class="ml-2 btn btn-active btn-ghost">검색</button>
-			</form>
-		</div>
-		<c:choose>
-			<c:when test="${projectCount == 0 }">
-				<div class="text-center mt-4">조건에 일치하는 검색결과가 없습니다</div>
-			</c:when>
-			<c:when test="false">
-				<section>
-					<div class="projectCard">
-						<header>
-							<div class="title">프로젝트 제목----------------------------------------------------------------</div>
-							<div class="projectCard__btnGroup text-right">
-								<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
-								<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
-							</div>
-						</header>
-						<div class="projectCard-cts">
-							<div class="row mb-2 flex">
-								<div class="cts_infos col-sm-7 col-xs-7">
-									<div class="info-item-wrapper">
-										<span class="info-item-label">관리번호</span>
-										<div class="editableInputWrap notHoverEdit"></div>
-									</div>
-									<div class="info-item-wrapper">
-										<span class="info-item-label">업체명</span>
-										<div class="editableInputWrap notHoverEdit"></div>
-									</div>
-									<div class="info-item-wrapper">
-										<span class="info-item-label">생성일</span>
-										<div>20230211</div>
-									</div>
-									<div class="info-item-wrapper">
-										<span class="info-item-label">최종수정일</span>
-										<div>20230211</div>
-									</div>
-									<div class="info-item-wrapper">
-										<span class="info-item-label">상표수</span>
-										<div>100</div>
-									</div>
-								</div>
-								<div class="col-sm-5 col-xs-5">
-									<div class="clearfix cts__memo">
-										<div class="projectMemo">
-											<div class="memo__header">메모장</div>
-			<!-- 								<textarea name="" id="" cols="33" rows="5" style="display: none; opacity: 0; z-index: 0;"></textarea> -->
-											<textarea name="" id="projectTextarea" cols="40" rows="5" ></textarea>
-			<!-- 								<div class="contents" style="opacity: 1; z-index: 999; overflow: hidden auto;"></div> -->
-											<div class="contents" style="opacity: 1; overflow: hidden auto;"></div>
-											
-											<div class="project-memo-btn-wrapper">
-												<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
-												<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a>
-												</div>
-												<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a>
-												</div>
-												<div class="btn-text"><span>저장</span></div>
-												<div class="btn-text"><span>취소</span></div>
+				<div class="blankContents project-manage-page" style="height: calc(100% - 60px); padding: 0px;">
+					<div class="fullTypeCntWrap" style="height: 100%; min-height: 770px;">
+						<div id="splitterWrap" class="myWorkFrameSetA FrameSplitter splitter_container splitter-vertical flex" style="min-height: 100%; height: 612.4px;">
+							
+<!-- 							<div class="splitter_panel hide-panel"> -->
+<!-- 								<div class="splitter_handle"> -->
+<!-- 									<em class="fa fa-caret-right" style="color: rgb(255, 255, 255); line-height: 195px;"></em> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							<div class="splitter_panel show-panel"> -->
+<!-- 								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;"> -->
+<!-- 									<div class="ltCnt myWorkSideBar"> -->
+<!-- 									<div id="projectTreeHandle" class="projectTreeHandle"></div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+							
+							<div class="splitter_panel" style="width: 250px; top: 0px;">
+								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;">
+									<div class="ltCnt myWorkSideBar side-bar" style="margin: 0px; height: 100%; overflow: auto; box-sizing: border-box; position: fixed;">
+										<div class="folder-list-btn-wrapper">
+											<div class="btn btn-grey btn-new-folder" title="새 폴더">
+												<i class="fas fa-plus mr-10"></i>
+											</div>
+											<div class="btn btn-grey btn-sync" title="새로 고침">
+												<i class="fas fa-sync"></i>
 											</div>
 										</div>
+										<div class="loader" style="display: none;">
+											<div class="loader-img fixed">
+												<img width="50" height="50" src="https://item.kakaocdn.net/do/c5c470298d527ef65eb52883f0f186c48f324a0b9c48f77dbce3a43bd11ce785" />
+											</div>
+										</div>
+										<div class="tree-wrapper hierarchyWrapper">
+											<dl class="projTechWrap" style="padding: 0px; height: calc(100% - 50px);">
+												<dt style="color: rgb(0, 153, 153); font-weight: bold; font-size: 14px;"></dt>
+												<dd>
+													<ul>
+														<li>
+															<div class="project-title project-link active">
+																<a href="">
+																	<span class="items project_item"></span>
+																</a>
+															</div>
+ 															<!--프로젝트 리스트 -->
+															<ul class="inTree hover" >
+																<li>${trademark.name }</li>
+																<li>test1</li>
+																<li>test2</li>
+															</ul>
+														</li>
+													</ul>
+												
+												</dd>
+											</dl>
+										</div>
 									</div>
-									
+							
 								</div>
 							</div>
+							<div class="splitter_panel" >
+								<div id="MYWORK-CONTENT-SECTION" class="project-manage contents rtCnt" style="padding-bottom: 0px;"></div>
+									<div class="project-info-section" style="position: relative;">
+										<section>
+											<div class="projectCard" style="border-width: 0px;">
+												<header style="padding: 10px 0px; border-bottom: 0px">
+													<div class="title">프로젝트 제목----------------------------------------------------------------</div>
+													<div class="projectCard__btnGroup text-right">
+														<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
+														<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
+													</div>
+												</header>
+												<div class="projectCard-cts" >
+													<div class="row mb-2 flex flex justify-between">
+														<div class="cts_infos col-sm-7 col-xs-7" style="width: 48%; border:1px solid #e4e7ea;">
+															<div class="m-3">
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">관리번호</span>
+																	<div class="editableInputWrap notHoverEdit"></div>
+																</div>
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">업체명</span>
+																	<div class="editableInputWrap notHoverEdit"></div>
+																</div>
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">생성일</span>
+																	<div>20230211</div>
+																</div>
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">최종수정일</span>
+																	<div>20230211</div>
+																</div>
+																<div class="info-item-wrapper">
+																	<span class="info-item-label">상표수</span>
+																	<div>100</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-5 col-xs-5">
+															<div class="clearfix cts__memo">
+																<div class="projectMemo">
+																	<div class="memo__header">메모장</div>
+									<!-- 								<textarea name="" id="" cols="33" rows="5" style="display: none; opacity: 0; z-index: 0;"></textarea> -->
+																	<textarea name="" id="projectTextarea" cols="40" rows="5" ></textarea>
+									<!-- 								<div class="contents" style="opacity: 1; z-index: 999; overflow: hidden auto;"></div> -->
+																	<div class="contents" style="opacity: 1; overflow: hidden auto;"></div>
+																	
+																	<div class="project-memo-btn-wrapper">
+																		<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
+																		<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a>
+																		</div>
+																		<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a>
+																		</div>
+																		<div class="btn-text"><span>저장</span></div>
+																		<div class="btn-text"><span>취소</span></div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</section>
+									</div>
+									<div class="project-patent-search-container">
+										<section >
+											<div class="mb-2 flex justify-between items-center">
+												<div>
+													<span>${projectCount } 개</span>
+												</div>
+												<form>
+													<input type="hidden" name="boardId" value="${boardId }" />
+													
+													<select data-value="${searchKeywordTypeCode }" class="select select-bordered" name="searchKeywordTypeCode">
+														<option value="name">제목</option>
+														<option value="body">내용</option>
+														<option value="name,body">제목 + 내용</option>
+													</select>
+													
+													<input class="ml-2 w-84 input input-bordered" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" maxlength="20" value="${searchKeyword }" />
+									
+													<button class="ml-2 btn btn-active btn-ghost">검색</button>
+												</form>
+											</div>
+										</section>
+									
+									</div>
+							
+							
+							</div>
+							
+						
 						</div>
 					</div>
-				</section>				
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="project" items="${projects}">
+					
+					
+
+					
 					<section>
-						<div class="projectCard">
-							<header>
-								<div class="title">
-									<div class="editableInputWrap notHoverEdit undefined">
-										<div class="editable__input">
-											<div class="input-comp-wrapper">
-												<input class="form-input-comp" type="hidden" value="${project.name}"/>
-											</div>
-										</div>
-										<div class="editable__label">
-											<a target="_blank" href="list"><span class="project-title-link">${project.name }</span></a>
-										</div>
-									</div>
-								</div>
-								<div class="projectCard__btnGroup text-right">
-									<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
-									<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
-								</div>
-							</header>
-							<div class="projectCard-cts">
-								<div class="row mb-2 flex">
-									<div class="cts_infos col-sm-7 col-xs-7">
-										<div class="info-item-wrapper">
-											<span class="info-item-label">관리번호</span>
-											<div class="editableInputWrap notHoverEdit"></div>
-										</div>
-										<div class="info-item-wrapper">
-											<span class="info-item-label">업체명</span>
-											<div class="editableInputWrap notHoverEdit"></div>
-										</div>
-										<div class="info-item-wrapper">
-											<span class="info-item-label">생성일</span>
-											<div>${project.regDate}</div>
-										</div>
-										<div class="info-item-wrapper">
-											<span class="info-item-label">최종수정일</span>
-											<div>${project.updateDate}</div>
-										</div>
-										<div class="info-item-wrapper">
-											<span class="info-item-label">상표수</span>
-											<div></div>
-										</div>
-									</div>
-									<div class="col-sm-5 col-xs-5">
-										<div class="clearfix cts__memo">
-											<div class="projectMemo">
-												<div class="memo__header">메모장</div>
-				<!-- 								<textarea name="" id="" cols="33" rows="5" style="display: none; opacity: 0; z-index: 0;"></textarea> -->
-												<textarea name="" id="projectTextarea" cols="40" rows="5" ></textarea>
-				<!-- 								<div class="contents" style="opacity: 1; z-index: 999; overflow: hidden auto;"></div> -->
-												<div class="contents" style="opacity: 1; overflow: hidden auto;"></div>
-												
-												<div class="project-memo-btn-wrapper">
-													<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
-													<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a>
-													</div>
-													<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a>
-													</div>
-													<div class="btn-text"><span>저장</span></div>
-													<div class="btn-text"><span>취소</span></div>
-												</div>
-											</div>
-										</div>
-										
-									</div>
-								</div>
-							</div>
+						<div class="sub-project-menu-box-1">
+							<input id="project-name" type="checkbox" />
+						    <label for="project-name">프로젝트 이름</label>
+							<ul class="project-sub-name">
+								<li><a class="bold" href="list?boardId=3">프로젝트 이름</a></li>
+								<li><a href="list?boardId=3&subBoardId=1">테스트 1</a></li>
+								<li><a href="">테스트 2</a></li>
+							</ul>
 						</div>
 					</section>
-				</c:forEach>
-			</c:otherwise>
-			
-		</c:choose>
-		
-		
-
-		
-		
+				</div>
+			</div>
+		</div>					
 	</div>
-</section>
+</section>	
+	
 
 
 
