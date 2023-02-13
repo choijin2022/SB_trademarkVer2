@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProjectVo {
 	private int id;
-	private int subProjectId;
 	private String regDate;
 	private String updateDate;
 	private String name;

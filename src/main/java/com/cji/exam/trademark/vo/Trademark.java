@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Trademark {
 	private int id;
 	private int projectId;
+	private int subProjectId;
 	private String regDate;
 	private String updateDate;
 	private String totalCount;

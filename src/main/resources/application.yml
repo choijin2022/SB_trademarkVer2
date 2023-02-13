@@ -11,5 +11,5 @@ spring:
     username: root
     password:
 mybatis:
-  type-aliases-package: com.cji.exam.demo.vo
+  type-aliases-package: com.cji.exam.trademark.vo
 

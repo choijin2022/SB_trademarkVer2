@@ -22,7 +22,7 @@ public class UserTrademarkController {
 	
 	@RequestMapping("/usr/trademark/storedTrademark")
 	@ResponseBody
-	public String doStoreTrademark(String test, @RequestParam(defaultValue = "0")int projectId) {
+	public String doStoreTrademark(String test, @RequestParam(defaultValue = "0")int projectId, @RequestParam(defaultValue = "0")int subProjectId) {
 		if(projectId == 0) {
 			return Utility.jsReplace(Utility.f("상표를 저장할 프로젝트를 선택해주세요."), "history.back()");
 		}
@@ -66,7 +66,13 @@ public class UserTrademarkController {
 //			int rowNum = Integer.parseInt(testArr2[23]);
 //			trademark.setNumOfRows(rowNum);
 			
-			trademarkService.storedTrademark(trademark);
+			int trademarkId = trademarkService.storedTrademark(trademark, projectId);
+			if(subProjectId !=0) {
+				trademarkService.connectTrademarkSub(trademarkId, projectId, subProjectId);
+			}
+			
+			trademarkService.connectTrademark(trademarkId, projectId);
+			
 			System.out.println(trademark);
 //			list.add(trademark);
 //			for(int j = 0; j < testArr2.length; j++) {

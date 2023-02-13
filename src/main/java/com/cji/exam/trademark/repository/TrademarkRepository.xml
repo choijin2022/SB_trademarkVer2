@@ -33,5 +33,41 @@
 					drawing = #{drawing},
 					bigDrawing = #{bigDrawing}
 	</insert>
+	
+	<insert id="createConnectTrademark" >
+			INSERT INTO connectTrademark
+				SET regDate = NOW(),
+					updateDate = NOW(),
+					trademarkId = #{trademarkId},
+					projectId = #{projectId}
+					
+					
+	</insert>
+	<insert id="createConnectTrademarkSub">
+			INSERT INTO connectTrademark
+				SET regDate = NOW(),
+					updateDate = NOW(),
+					trademarkId = #{trademarkId},
+					projectId = #{projectId},
+					subProjectId = #{subProjectId}
+					
+	</insert>
+	
+	<select id="getTrademarks" resultType="Trademark">
+		SELECT T.*, P.name AS projectName
+			FROM trademark AS T
+			JOIN projectVo AS P
+			ON T.projectId = P.id
+			WHERE T.projectId = #{projectId};
+			
+			
+	</select>
+	
+	<select id="getLastInsertId" resultType="Integer">
+		SELECT LAST_INSERT_ID()
+	</select>
+	
+	
 
+	
 </mapper>

@@ -84,16 +84,25 @@
 													<ul>
 														<li>
 															<div class="project-title project-link active">
-																<a href="">
-																	<span class="items project_item"> 프로젝트 이름</span>
+																<a href="list?projectId=${project.id}">
+																	<span class="items project_item"> ${project.name }</span>
 																</a>
 															</div>
  															<!--프로젝트 리스트 -->
-															<ul class="inTree hover" >
-																<li>${trademark.name }</li>
-																<li>리스트 1</li>
-																<li>리스트 2</li>
-															</ul>
+															<c:choose>
+																<c:when test="${subProjectCount == 0}">
+																	<ul class="inTree hover" >
+																		<li><a href="">${subProjectName}</a></li>
+																	</ul>
+																</c:when>
+																<c:otherwise>
+		 															<c:forEach var="subProjectName" items="${subProjectName}">
+																	<ul class="inTree hover" >
+																		<li><a href="">${subProjectName}</a></li>
+																	</ul>
+																	</c:forEach>
+																</c:otherwise>
+															</c:choose>
 														</li>
 													</ul>
 												
@@ -111,7 +120,7 @@
 										<section>
 											<div class="projectCard" style="border-width: 0px;">
 												<header style="padding: 10px 0px; border-bottom: 0px">
-													<div class="title">프로젝트 제목----------------------------------------------------------------</div>
+													<div class="title"> <span style="font-size:30px">${project.name } </span></div>
 													<div class="projectCard__btnGroup text-right">
 														<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
 														<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
@@ -171,9 +180,9 @@
 									<div class="project-trademark-search-container" style="position: relative; z-index: 0;">
 										<section >
 											<div class="mb-2 flex justify-between items-center">
-												<div>
-													<span>${projectCount } 개</span>
-												</div>
+												<c:if test="${trademarks.size() > 0}" >
+														<span>${trademarks.size()} 개</span>
+													</c:if>
 												<form>
 													<input type="hidden" name="boardId" value="${boardId }" />
 													
@@ -204,24 +213,24 @@
 																<tr>
 																	<th style="width :2px"><input type="checkbox" class="checkbox-all-member-id" /></th>
 																	<th style="width :2.5px">No</th>
-																	<th>이미지</th>
+																	<th style="width:150px;">이미지</th>
 																	<td>이름</td>
 																	<th>출원번호</th>
 																	<th>출원일자</th>
 																	<th>상품분류</th>
-																	<th>유사군</th>
+																	<th style="width :1px">유사군</th>
 																	<th>법적상태</th>
 																	<th>출원인 이름</th>
 																</tr>
 															</thead>
 											
-															<tbody>
+															<tbody style="font-size: 1rem;">
 																<c:forEach var="trademark" items="${trademarks}">
 																	<tr class="hover">
 																		<td style="width :2px"><input type="checkbox" class="checkbox-member-id" value="${member.id }" /></td>
 																		<td style="width :2.5px">${trademark.indexNo}</td>
-																		<td>${trademark.bigDrawing}</td>
-																		<td>${trademark.name}</td>
+																		<td><img style="width:200px;" src="${trademark.bigDrawing}"/></td>
+																		<td>${trademark.title}</td>
 																		<td>${trademark.applicationNumber}</td>
 																		<td>${trademark.applicationDate}</td>
 																		<td>${trademark.classificationCode}</td>

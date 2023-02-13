@@ -130,8 +130,11 @@ public class UserProjectController {
 		if (Utility.empty(subProjectName)) {
 			subProjectName = "새폴더";
 		}
-
-		int projectId = projectService.createProject(name, subProjectName);
+		
+		
+		
+		int projectId = projectService.newCreateProject(name);
+		int subProjectId = 	projectService.createSubProject(projectId, subProjectName);
 		
 		ProjectVo project = projectService.getProject(projectId);
 		

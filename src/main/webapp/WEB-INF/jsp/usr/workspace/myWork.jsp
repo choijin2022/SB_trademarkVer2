@@ -84,16 +84,25 @@
 													<ul>
 														<li>
 															<div class="project-title project-link active">
-																<a href="">
-																	<span class="items project_item"> 프로젝트 이름</span>
+																<a href="list?projectId=${project.id}">
+																	<span class="items project_item"> ${project.name }</span>
 																</a>
 															</div>
  															<!--프로젝트 리스트 -->
-															<ul class="inTree hover" >
-																<li>${trademark.name }</li>
-																<li>리스트 1</li>
-																<li>리스트 2</li>
-															</ul>
+ 															<c:choose>
+																<c:when test="${subProjectCount == 0}">
+																	<ul class="inTree hover" >
+																		<li><a href="">${subProjectName}</a></li>
+																	</ul>
+																</c:when>
+																<c:otherwise>
+		 															<c:forEach var="subProjectName" items="${subProjectName}">
+																	<ul class="inTree hover" >
+																		<li><a href="">${subProjectName}</a></li>
+																	</ul>
+																	</c:forEach>
+																</c:otherwise>
+															</c:choose>
 														</li>
 													</ul>
 												
@@ -172,15 +181,17 @@
 										<section >
 											<div class="mb-2 flex justify-between items-center">
 												<div>
-													<span>${projectCount } 개</span>
+													<c:if test="${subProjectCount > 0}" >
+														<span>${subProjectCount} 개</span>
+													</c:if>
 												</div>
 												<form>
 													<input type="hidden" name="boardId" value="${boardId }" />
 													
 													<select data-value="${searchKeywordTypeCode }" class="select select-bordered" name="searchKeywordTypeCode">
-														<option value="name">상표명</option>
+														<option value="title">상표명</option>
 														<option value="body">내용</option>
-														<option value="name,body">상표명 + 내용</option>
+														<option value="title,body">상표명 + 내용</option>
 													</select>
 													
 													<input class="ml-2 w-84 input input-bordered" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" maxlength="20" value="${searchKeyword }" />

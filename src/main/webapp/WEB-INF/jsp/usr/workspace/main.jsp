@@ -44,65 +44,9 @@
 			<c:when test="${projectCount == 0 }">
 				<div class="text-center mt-4">조건에 일치하는 검색결과가 없습니다</div>
 			</c:when>
-			<c:when test="false">
+			<c:when test="null">
 				<section>
-					<div class="projectCard">
-						<header>
-							<div class="title">프로젝트 제목----------------------------------------------------------------</div>
-							<div class="projectCard__btnGroup text-right">
-								<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
-								<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
-							</div>
-						</header>
-						<div class="projectCard-cts">
-							<div class="row mb-2 flex">
-								<div class="cts_infos col-sm-7 col-xs-7">
-									<div class="info-item-wrapper">
-										<span class="info-item-label">관리번호</span>
-										<div class="editableInputWrap notHoverEdit"></div>
-									</div>
-									<div class="info-item-wrapper">
-										<span class="info-item-label">업체명</span>
-										<div class="editableInputWrap notHoverEdit"></div>
-									</div>
-									<div class="info-item-wrapper">
-										<span class="info-item-label">생성일</span>
-										<div>20230211</div>
-									</div>
-									<div class="info-item-wrapper">
-										<span class="info-item-label">최종수정일</span>
-										<div>20230211</div>
-									</div>
-									<div class="info-item-wrapper">
-										<span class="info-item-label">상표수</span>
-										<div>100</div>
-									</div>
-								</div>
-								<div class="col-sm-5 col-xs-5">
-									<div class="clearfix cts__memo">
-										<div class="projectMemo">
-											<div class="memo__header">메모장</div>
-			<!-- 								<textarea name="" id="" cols="33" rows="5" style="display: none; opacity: 0; z-index: 0;"></textarea> -->
-											<textarea name="" id="projectTextarea" cols="40" rows="5" ></textarea>
-			<!-- 								<div class="contents" style="opacity: 1; z-index: 999; overflow: hidden auto;"></div> -->
-											<div class="contents" style="opacity: 1; overflow: hidden auto;"></div>
-											
-											<div class="project-memo-btn-wrapper">
-												<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
-												<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a>
-												</div>
-												<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a>
-												</div>
-												<div class="btn-text"><span>저장</span></div>
-												<div class="btn-text"><span>취소</span></div>
-											</div>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-						</div>
-					</div>
+					<div><span> 서버 또는 DB 연결 확인!!</span></div>
 				</section>				
 			</c:when>
 			<c:otherwise>
@@ -118,7 +62,7 @@
 											</div>
 										</div>
 										<div class="editable__label">
-											<a target="_blank" href="myWork"><span class="project-title-link">${project.name }</span></a>
+											<a target="_blank" href="myWork?projectId=${project.id}"><span class="project-title-link">${project.name }</span></a>
 										</div>
 									</div>
 								</div>

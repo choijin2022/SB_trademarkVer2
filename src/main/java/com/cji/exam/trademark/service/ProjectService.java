@@ -22,31 +22,54 @@ public class ProjectService {
 		return projectRepository.getProjects();
 	}
 	
-	public int createSubProject(String subProjectName) {
+//	public int createSubProject(String subProjectName) {
+//		
+//		projectRepository.createSubProject(subProjectName);
+//		int subProjectId =  projectRepository.getLastInsertId();
+//		
+//		return subProjectId;
+//	}
+	
+	public int newCreateProject(String name) {
+			
+			projectRepository.createProject(name);
+			int projectId =  projectRepository.getLastInsertId();
+			
+			return projectId;
+		}
+	
+	public int createSubProject(int projectId, String subProjectName) {
 		
-		projectRepository.createSubProject(subProjectName);
-		int subProjectId =  projectRepository.getLastInsertId();
+		projectRepository.createSubProject(projectId, subProjectName);
+		
+		int subProjectId = projectRepository.getLastInsertId();
+		
+		
+		System.out.println(subProjectId);
 		
 		return subProjectId;
 	}
-	
-	public int createProject(String name, String subProjectName) {
-		
-		int subProjectId = createSubProject(subProjectName);
-		 System.out.println(subProjectId);
-		 
-		projectRepository.createProject(name, subProjectId);
-		
-		int projectId = projectRepository.getLastInsertId();
-		System.out.println(projectId);
-		
-		return projectId;
-	}
-	
 	
 	public ProjectVo getProject(int projectId) {
 		
 		return projectRepository.getProject(projectId);
 	}
+	
+
+	public int getSubProjectCount(int projectId) {
+		
+		return projectRepository.getSubProjectCount(projectId);
+	}
+
+	public List<String> getSubProjectNames(int projectId) {
+		List<String> subProjectNames = projectRepository.getSubProjectNames(projectId);
+		System.out.println("subProjectNames : " + subProjectNames);
+		return subProjectNames;
+	}
+	public String getSubProjectName(int projectId) {
+		return projectRepository.getSubProjectName(projectId);
+	}
+	
+	
 
 }

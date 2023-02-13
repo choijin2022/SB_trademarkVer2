@@ -1,6 +1,7 @@
 package com.cji.exam.trademark.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,16 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cji.exam.trademark.service.ProjectService;
+import com.cji.exam.trademark.service.TrademarkService;
 import com.cji.exam.trademark.vo.ProjectVo;
+import com.cji.exam.trademark.vo.Rq;
+import com.cji.exam.trademark.vo.Trademark;
 
 @Controller
 public class UserWorkspaceController {
 	
 	private ProjectService projectService;
+	private TrademarkService trademarkservice;
+	private Rq rq;
 	
 	@Autowired
-	UserWorkspaceController( ProjectService projectService){
+	UserWorkspaceController( ProjectService projectService, TrademarkService trademarkservice, Rq rq){
 		this.projectService = projectService;
+		this.trademarkservice = trademarkservice;
+		this.rq = rq;
 	}
 	
 	
@@ -47,7 +55,7 @@ public class UserWorkspaceController {
 	}
 	
 	@RequestMapping("/usr/workspace/myWork")
-	public String showMyWork(Model model,@RequestParam(defaultValue = "3") int boardId,
+	public String showMyWork(Model model,@RequestParam(defaultValue = "0")int projectId, @RequestParam(defaultValue = "3") int boardId,
 			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword) {
 		
@@ -55,14 +63,32 @@ public class UserWorkspaceController {
 //		if (board == null) {
 //			return rq.jsReturnOnView("존재하지 않는 게시판입니다", true);
 //		}
-		List<ProjectVo> projects = projectService.getProjects();
+		if (projectId==0) {
+			return rq.jsReturnOnView("존재하지 않는 프로젝트입니다", true);
+		}
 		
-		int projectCount = projects.size();
+		ProjectVo project = projectService.getProject(projectId);
 		
+		int subProjectCount = projectService.getSubProjectCount(projectId);
+		
+		
+		if(subProjectCount > 1) {
+			List<String> subProjectName = projectService.getSubProjectNames(projectId);
+			model.addAttribute("subProjectName", subProjectName);
+		}else {
+			String subProjectName = projectService.getSubProjectName(projectId);
+			model.addAttribute("subProjectName", subProjectName);
+			System.out.println("subProjectName : " + subProjectName);
+		}
+		
+		//SubProject subProjects = projectService.getSubProjects(projectId);
+		
+		List<Trademark> trademarks = trademarkservice.getTrademarks(projectId);
 		
 //		model.addAttribute("board", board);
-		model.addAttribute("projects", projects);
-		model.addAttribute("projectCount", projectCount);
+		model.addAttribute("project", project);
+		model.addAttribute("subProjectCount", subProjectCount);
+		model.addAttribute("trademarks", trademarks);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
 		model.addAttribute("searchKeyword", searchKeyword);
@@ -71,22 +97,36 @@ public class UserWorkspaceController {
 	}
 	
 	@RequestMapping("/usr/workspace/list")
-	public String showList(Model model,@RequestParam(defaultValue = "3") int boardId,
+	public String showList(Model model, @RequestParam(defaultValue = "0")int projectId, @RequestParam(defaultValue = "0")int subProjectId, @RequestParam(defaultValue = "3") int boardId,
 			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword) {
 		
-//		Board board = boardService.getBoardById(boardId);
-//		if (board == null) {
-//			return rq.jsReturnOnView("존재하지 않는 게시판입니다", true);
-//		}
-		List<ProjectVo> projects = projectService.getProjects();
+		if (projectId==0) {
+			return rq.jsReturnOnView("존재하지 않는 프로젝트입니다", true);
+		}
 		
-		int projectCount = projects.size();
+		ProjectVo project = projectService.getProject(projectId);
 		
+		int subProjectCount = projectService.getSubProjectCount(projectId);
+		
+		
+		if(subProjectCount > 1) {
+			List<String> subProjectName = projectService.getSubProjectNames(projectId);
+			model.addAttribute("subProjectName", subProjectName);
+		}else {
+			String subProjectName = projectService.getSubProjectName(projectId);
+			model.addAttribute("subProjectName", subProjectName);
+			System.out.println("subProjectName : " + subProjectName);
+		}
+		
+		//SubProject subProjects = projectService.getSubProjects(projectId);
+		
+		List<Trademark> trademarks = trademarkservice.getTrademarks(projectId);
 		
 //		model.addAttribute("board", board);
-		model.addAttribute("projects", projects);
-		model.addAttribute("projectCount", projectCount);
+		model.addAttribute("project", project);
+		model.addAttribute("subProjectCount", subProjectCount);
+		model.addAttribute("trademarks", trademarks);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
 		model.addAttribute("searchKeyword", searchKeyword);
