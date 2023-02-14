@@ -67,7 +67,19 @@
 		SELECT LAST_INSERT_ID()
 	</select>
 	
+	<select id="getTrademarkById" resultType="Trademark">
+			SELECT *
+				FROM trademark
+				WHERE id = #{id}
 	
+	</select>
+	
+	
+	<delete id="deleteTrademarks">
+		DELETE FROM trademark
+			WHERE id = #{id}
+	
+	</delete>
 
 	
 </mapper>

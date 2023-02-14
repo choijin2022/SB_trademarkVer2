@@ -84,7 +84,7 @@
 													<ul>
 														<li>
 															<div class="project-title project-link active">
-																<a href="list?projectId=${project.id}">
+																<a href="myWork?projectId=${project.id}">
 																	<span class="items project_item"> ${project.name }</span>
 																</a>
 															</div>
@@ -92,13 +92,13 @@
  															<c:choose>
 																<c:when test="${subProjectCount == 0}">
 																	<ul class="inTree hover" >
-																		<li><a href="">${subProjectName}</a></li>
+																		<li><a href="list?projectId=${project.id}">${subProjectName}</a></li>
 																	</ul>
 																</c:when>
 																<c:otherwise>
 		 															<c:forEach var="subProjectName" items="${subProjectName}">
 																	<ul class="inTree hover" >
-																		<li><a href="">${subProjectName}</a></li>
+																		<li><a href="list?projectId=${project.id}">${subProjectName}</a></li>
 																	</ul>
 																	</c:forEach>
 																</c:otherwise>

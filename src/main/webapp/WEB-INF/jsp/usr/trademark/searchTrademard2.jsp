@@ -194,7 +194,10 @@ function selectAllTrademark(selectAll)  {
 	
 </section>
 
+<section>
 
+
+</section>
 
 <!-- <form method="POST" name="do-stored-trademark-form" action="../trademark/storedTrademark" onsubmit="return false;"> -->
 <form method="POST" name="do-stored-trademark-form" action="../trademark/storedTrademark" >
@@ -243,16 +246,10 @@ btnModal.addEventListener("click", function(event){
 // 	$('#project-sub-name-tr').attr('style', "display:none;");  //숨기기
 // 	$('#project-sub-name-td').attr('style', "display:none;");
 	
-	if(!setProjectId){
-		setProjectId = 0;
-    }
-
-    let params="projectId="+setProjectId;
-	
-	 $.ajax({
-		url:"/usr/project/getProject",      
-        data : params,      
-	  	success:function(data){
+	$.get('../project/getProject', {
+		
+		ajaxMode : 'Y'
+	}, function(data){
 		console.log("data---------------",data);
 		let projectLitHtml = ""
 		
@@ -264,346 +261,138 @@ btnModal.addEventListener("click", function(event){
 			`
 			$("#product-modal").html(projectLitHtml);
 		
-			}else{
+		}else{
+		console.log(data);
+		
+// 		console.log(data.data1[0].id);
+// 		console.log(data.data1[0]);
+		//$("#product-modal").empty();
+		
+		
+// 		 $.each(data,function(index, value) { 
+// // 			 console.log(value.data1); 
+// // 			 console.log(index);
+// // 			 console.log(value.id); 
+// // 			 console.log(value.name);
+// 			{index, value.id},
+// 			{index, value.name}
+			 
+// 		 }); 
+		 //리스트 생성
+		let thisIndexNum = 1;
+		console.log($('input[name=checkbox-member-id]').val());
+		 $.each(data,function(index, value) {
+			let thisIndex = $(this).find("index");
+			console.log(thisIndex);
 			console.log(data);
-			console.log(data)
-			
-			let supProjectListHtml = ""
-			
-			let thisIndexNum = 1;
-			$.each(data,function(index, value) {
-				let thisIndex = $(this).find("index");
-				
-				supProjectListHtml += `
-					<tr class="hover">
-						<td id="\${value.id}" class="select-sub-project-icon-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px' ></i></td>
-						<td >\${thisIndexNum}</td>
-						<td class="project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
-						<td>\${value.regDate.substring(0,11)}</td>
-					</tr>	
-					<tr class="hover sub-project-tr hidden" id="\${value.id}">
-						<td class="sub-project-td"></td>
-						<td class="sub-project-td"></td>
-						<td class="sub-project-td">subPorjectName</td>
-						<td class="sub-project-td">subPorjectDate</td>
-					</tr>
-					
-					`
-					
-				thisIndexNum++;
-						
-				});
-				
-				$("#product-modal").html(supProjectListHtml);
-				
-				
-				
-				
-				
-				// 특정 프로젝트 클릭시 프로젝트 id input
-				$('.select-project-td').click(function() {
-					
-					let projectId = parseInt($(this).attr('id'));
-					let selectId = projectId;
-					
-					if (projectId == 0) {
-						alert('선택한 프로젝트가 없습니다');
-						return;
-					}
-					
-					
-					
-					console.log(testStatus);
-					
-					console.log(projectIdStatus);
-	//					$('tr#' + projectId).removeClass("hidden");
-	//					$('tr').removeClass("hidden");
-	//					$(this).parent().closest("tr").removeClass("hidden");
-					//$(this).parent().parent().siblings('#' + projectId).removeClass("hidden");
-		           
-					
-					//$('.sub-project-tr').addClass("hidden");
-					
-					
-					
-		           if($(this).hasClass("active")){
-		            	$(this).parent().removeClass("active");
-		            	$(this).parent().siblings().removeClass("active");
-		                $(this).removeClass("active");
-		                $('.sub-project-tr').addClass("hidden");
-		                
-		            } else{
-		            	if($('.select-project-td').hasClass("active")){
-		                    $('.select-project-td').removeClass("active");
-		                    $('.select-project-td').parent().removeClass("active");
-		                    $('.select-project-td').parent().siblings().removeClass("active");
-		                    $('.sub-project-tr').addClass("hidden");
-		                }
-		                $(this).addClass("active");
-		                $(this).parent().addClass("active");
-		            	$(this).parent().siblings().addClass("active");
-		            	$(this).parent().parent().siblings('#' + projectId).removeClass("hidden");
-		            }
-	            
-		            let isActive = $('.select-project-td').hasClass("active");
-		            console.log("isActive");
-		            console.log(isActive);
-		            
-		            projectIdStatus = isActive;
-					if(testStatus && projectIdStatus){
-						$('.btn-stored-selected-trademark').removeAttr("disabled");
-					}else{
-						$('.btn-stored-selected-trademark').prop("disabled", true);
-					}
-					
-					
-					 
-					console.log(projectId);
-					setProjectId = projectId;
-					$('input[name=projectId]').val(setProjectId);
-					//$('input[name=project-set-id]').val(projectId);
-					console.log(setProjectId);
-					console.log($('input[name=checkbox-member-id]').val());
-					console.log($('input[name=projectId').val());
-				//$('form[name=do-stored-trademark-form]').submit();
-			
-				})
-			}
-			$('.modal_test').show();
-			$('.modal_body').show();
-			$('.project-create').hide();
-			
-			let btnClose = document.getElementById("modal-close-btn")
-			btnClose.addEventListener("click", function(event){
-				$('.modal_test').hide();
-				$('.modal_body').hide();
-			});
-			
-			let btnCreatProject = document.getElementById('show-creat-project-btn');
-			btnCreatProject.addEventListener("click", function(event){
-				$('.project-list').hide();
-				$('.project-create').show();
-				$('.show-creat-project-btn').hide();
-				$('.creat-project-btn').show();
-			});
-	 },   
-	    error:function(e){  
-	        alert(e.responseText);  
-	   }
-	});
-			
-	// subProject 가져오기
-	//let projectId = 0;
-	
-	$(document).on('click', '.select-sub-project-icon-td', function(){
-	    let projectId = parseInt($(this).attr('id'));
-	    console.log("projectId");
-	    console.log(projectId);
-	    
-	    $(this).parent().siblings('#' + projectId).removeClass("hidden");
-	    
-	    if($('.sub-project-tr').attr('id') == projectId){
-	    	 $(this).removeClass("hidden");
-	    }
-	    
-	    if(!projectId){
-	    	projectId = 0;
-	    }
+			console.log(index);
+			console.log(value.id);
+			projectLitHtml += `
+				<tr class="hover" id="\${value.id}">
+					<td id="\${value.id}" class="select-sub-project-icon-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px'></i></td>
+					<td class="select-sub-project-index">\${thisIndexNum}</td>
+					<td class="project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
+					<td>\${value.regDate.substring(0,11)}</td>
+				</tr>
 
-		//$('.sub-project-tr').removeClass("hidden");
-	    let params="projectId="+projectId;
-// 	 	$('.sub-project-tr').attr('style', "display:none;");  //숨기기
-// 	 	$('.sub-project-td').attr('style', "display:none;");
-	   
-	    
-	    $.ajax({      
-	        url:"/usr/project/getAllProject",      
-	        data : params,      
-	        success:function(data){   
-	        	
-	        	console.log(data)
-	        	
-				console.log("subProjects")
 				
-				//console.log(\${subProjects.id});
-				
-				let supProjectListHtml = ""
-				
-				let thisIndexNum = 1;
-				$.each(data,function(index, value) {
-					let thisIndex = $(this).find("index");
-					
-					supProjectListHtml += `
-						<tr class="hover">
-							<td id="\${value.id}" class="select-sub-project-icon-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px' ></i></td>
-							<td >\${thisIndexNum}</td>
-							<td class="project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
-							<td>\${value.regDate.substring(0,11)}</td>
-						</tr>	
-						<tr class="hover sub-project-tr hidden" id="\${value.id}">
-							<td class="sub-project-td"></td>
-							<td class="sub-project-td"></td>
-							<td class="sub-project-td">subPorjectName</td>
-							<td class="sub-project-td">subPorjectDate</td>
-						</tr>
-						
-						`
-						
-					thisIndexNum++;
-							
-					});
-					
-					$("#product-modal").html(supProjectListHtml);
-					
-					
-					
-					
-					
-					// 특정 프로젝트 클릭시 프로젝트 id input
-					$('.select-project-td').click(function() {
-						
-						let projectId = parseInt($(this).attr('id'));
-						let selectId = projectId;
-						
-						if (projectId == 0) {
-							alert('선택한 프로젝트가 없습니다');
-							return;
-						}
-						
-						
-						
-						console.log(testStatus);
-						
-						console.log(projectIdStatus);
-// 						$('tr#' + projectId).removeClass("hidden");
-// 						$('tr').removeClass("hidden");
-// 						$(this).parent().closest("tr").removeClass("hidden");
-						//$(this).parent().parent().siblings('#' + projectId).removeClass("hidden");
-			           
-						
-						//$('.sub-project-tr').addClass("hidden");
-						
-						
-						
-			           if($(this).hasClass("active")){
-			            	$(this).parent().removeClass("active");
-			            	$(this).parent().siblings().removeClass("active");
-			                $(this).removeClass("active");
-			                $('.sub-project-tr').addClass("hidden");
-			                
-			            } else{
-			            	if($('.select-project-td').hasClass("active")){
-			                    $('.select-project-td').removeClass("active");
-			                    $('.select-project-td').parent().removeClass("active");
-			                    $('.select-project-td').parent().siblings().removeClass("active");
-			                    $('.sub-project-tr').addClass("hidden");
-			                }
-			                $(this).addClass("active");
-			                $(this).parent().addClass("active");
-			            	$(this).parent().siblings().addClass("active");
-			            	$(this).parent().parent().siblings('#' + projectId).removeClass("hidden");
-			            }
-		            
-			            let isActive = $('.select-project-td').hasClass("active");
-			            console.log("isActive");
-			            console.log(isActive);
-			            
-			            projectIdStatus = isActive;
-						if(testStatus && projectIdStatus){
-							$('.btn-stored-selected-trademark').removeAttr("disabled");
-						}else{
-							$('.btn-stored-selected-trademark').prop("disabled", true);
-						}
-						
-						
-						 
-						console.log(projectId);
-						setProjectId = projectId;
-						$('input[name=projectId]').val(setProjectId);
-						//$('input[name=project-set-id]').val(projectId);
-						console.log(setProjectId);
-						console.log($('input[name=checkbox-member-id]').val());
-						console.log($('input[name=projectId').val());
-					//$('form[name=do-stored-trademark-form]').submit();
-					
-					})
-	        },   
-	        error:function(e){  
-	            alert(e.responseText);  
-	        }  
-	    });  
-	
-	
-	}); 
-	
-	
-	/*
-	// 다시 project 가져오기
-	$(document).on('click', '.project-name-td-select', function(){
-		projectId = parseInt($(this).attr('id'));
-	    
-		if(!projectId){
-	    	projectId = 0;
-	    }
-	    
-		let params="projectId="+projectId;
-		$.get('/usr/project/getSubProject', {
-			data : params,
-			ajaxMode : 'Y'
-		}, function(data){
-			console.log("data---------------",data);
-			let projectLitHtml = ""
+
+			`
+// 				<tr id="select-sub-project-tr" class="hover " id="\${value.id}">
+// 					<td colspan="4" id="project-sub-name-td" ></td>
+// 				</tr>			
+			thisIndexNum++;
+			console.log(projectLitHtml);
 			
-			if(data == null){
-				projectLitHtml = `
-					<tr class="hover" >
-						<td colspan="3">프로젝트가 없습니다.</td>
-					</tr>
-				`
-				$("#product-modal").html(projectLitHtml);
 			
-			}else{
-			console.log(data);
-			 //리스트 생성
-			let thisIndexNum = 1;
-			console.log($('input[name=checkbox-member-id]').val());
-			 $.each(data,function(index, value) {
-				let thisIndex = $(this).find("index");
-				console.log(thisIndex);
-				console.log(data);
-				console.log(index);
-				console.log(value.id);
-				projectLitHtml += `
-					<tr class="hover" id="\${value.id}">
-						<td id="\${value.id}" class="select-sub-project-icon-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px'></i></td>
-						<td>\${thisIndexNum}</td>
-						<td class="project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
-						<td>\${value.regDate.substring(0,11)}</td>
-					</tr>
-					<tr class="hover sub-project-tr hidden" id="\${value.id}">
-						<td class="sub-project-td"></td>
-						<td class="sub-project-td"></td>
-						<td class="sub-project-td">subPorjectName</td>
-						<td class="sub-project-td">subPorjectDate</td>
-					</tr>
-	
-				`
-				thisIndexNum++;
-				console.log(projectLitHtml);
-				
-				
-			 }); 
+			
+		 }); 
 		 
-			$("#product-modal").html(projectLitHtml);
+		$("#product-modal").html(projectLitHtml);
+		
+		
+		
+// 		$(document).ready(function(){
+// 		    //스크롤 발생 이벤트 처리
+// 		    $('#product-modal').scroll(function(){
+// 		        var scrollT = $(this).scrollTop(); //스크롤바의 상단위치
+// 		        var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
+// 		        var contentH = $('#product-modal').height(); //문서 전체 내용을 갖는 div의 높이
+// 		        if(scrollT + scrollH +1 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
+// 		            $('#product-modal').append(projectLitHtml);
+// 		        }
+// 		    });
+// 		}); 
+		
+		
+// 		$('#product-modal').scroll(function(){
+// 		    //product-modal 에서 스크롤변화가 발생할때 호출
+// 		});
+		
+		
+		//리스트 생성 연습
+// 		let projectLitHtml = `
+// 			<c:forEach var="project" items="${projects}">
+// 			<tr class="hover">
+// 				<td>${project.id}</td>
+// 				<td><a class="hover:underline" href="detail?id=${project.id}">${project.name}</a></td>
+// 				<td>${project.regDate.substring(2,16)}</td>
+// 			</tr>
+// 		</c:forEach>
+		
+// 		`;
+//     	console.log(projectLitHtml);
+//     	$("#product-modal").append(projectLitHtml);
+       		
+       	
+	//1	
+// 		let html = `
+// 			<c:forEach var="project" items="${projects}">
+// 			<tr class="hover">
+// 				<td>${project.id}</td>
+// 				<td><a class="hover:underline" href="detail?id=${project.id}">${project.name}</a></td>
+// 				<td>${project.regDate.substring(2,16)}</td>
+// 			</tr>
+// 		</c:forEach>
+// 		`
+// 		$(".show-project-list").empty();
+//     	$(".show-project-list").append(html);
+		
+		//2
+//        	let html = `
+//    			<tr class="hover" id="\${$(this).find("id")}">
+//    				<td>
+//    					<input type="checkbox" name="test" class="test" />
+//    				</td>
+// 				<td >\${$(this).find("id")}</td>
+// 				<td >\${ $(this).find("name") }</td>
+// 				<td >\${ $(this).find("regDate") }</td>
+// 			</tr>
+//    		`
+
+			
+			
+// 			//  style 제거
+// 			if(selectId != 0){
+// // 				parStyle.removeProperty("background");
+// // 				sibStyle.removeProperty("background");
+
+// 				$("#parStyle").css("background", "");
+// 				$("#sibStyle").css("background", "");
+
+				
+// 			}
 			
 			console.log(testStatus);
 			
 			console.log(projectIdStatus);
 			
+			
 			// 특정 프로젝트 클릭시 프로젝트 id input
 			$('.select-project-td').click(function() {
 				
-				projectId = parseInt($(this).attr('id'));
+				
+				let projectId = parseInt($(this).attr('id'));
 				let selectId = projectId;
 				
 				if (projectId == 0) {
@@ -611,8 +400,26 @@ btnModal.addEventListener("click", function(event){
 					return;
 				}
 				
+				
+				
 				console.log(testStatus);
+				
 				console.log(projectIdStatus);
+				//$('.btn-stored-selected-trademark').removeAttr("disabled");
+			
+// 			let parStyle = $('this').parent().prop("style");
+// 			let sibStyle = $('.select-project-td').siblings().prop("style");
+// 			console.log(parStyle);
+// 			console.log(sibStyle);
+			
+			
+			
+			// 선택한 프로젝트 style 변화
+// 			let parStyle = $(this).parent().css("background", "grey");
+// 			let sibStyle = $(this).parent().siblings().css("background", "grey");
+			// $(.btn-stored-selected-trademark.prop("disabled", true);
+// 			console.log($(this).closest('td').prop('tagName'));
+			//console.log($(this).closest('td').prop('style'));
 			
             if($(this).hasClass("active")){
             	$(this).parent().removeClass("active");
@@ -639,25 +446,179 @@ btnModal.addEventListener("click", function(event){
 			}else{
 				$('.btn-stored-selected-trademark').prop("disabled", true);
 			}
+			
+// 			.css("background", "grey");
+// 			('span').closest('div').prop('tagName');
+			
+			 
 			console.log(projectId);
 			setProjectId = projectId;
 			$('input[name=projectId]').val(setProjectId);
+			//$('input[name=project-set-id]').val(projectId);
 			console.log(setProjectId);
 			console.log($('input[name=checkbox-member-id]').val());
 			console.log($('input[name=projectId').val());
 			
+			
+			
+			
+			
+			
+			
+			
+			//$('form[name=do-stored-trademark-form]').submit();
+			
 			})
 			
-			}
-	
+			
+			
+			
+			
+			
+		}
+	 
+		$('.modal_test').show();
+		$('.modal_body').show();
+		$('.project-create').hide();
+		
+	// 	$('.modal_test').css('display', 'block');
+	// 	$('.modal_body').css('display', 'block');
+	//  	document.getElementById('modal').className += '_block';
+	//  	document.getElementById('modal_body').className += '_block';
+	// 	document.getElementById('modal').className = 'show';
+	// 	alert(document.getElementById('modal').className);
+		let btnClose = document.getElementById("modal-close-btn")
+		btnClose.addEventListener("click", function(event){
+			$('.modal_test').hide();
+			$('.modal_body').hide();
+// 			if(!xhr){
+// 				xhr.abort();
+// 			}
 		});
-	
+		
+		let btnCreatProject = document.getElementById('show-creat-project-btn');
+		btnCreatProject.addEventListener("click", function(event){
+			$('.project-list').hide();
+			$('.project-create').show();
+			$('.show-creat-project-btn').hide();
+			$('.creat-project-btn').show();
+		});
+		
+		
 	});
 	
+			
+	// subProject 가져오기
+// 	$(".select-sub-project-icon-td").click(function(){  
+	$(document).on('click', '.select-sub-project-icon-td', function(){
+	    let projectId = parseInt($(this).attr('id'));
+	    let params="projectId="+projectId;
+	   
+	    $.ajax({      
+	        url:"/usr/project/getSubProject",      
+	        data : params,      
+	        success:function(data){   
+				console.log(data)
+				
+				let supProjectListHtml = ""
+				
+				let thisIndexNum = 1;
+				$.each(data,function(index, value) {
+					let thisIndex = $(this).find("index");
+					
+					supProjectListHtml += `
+						<tr class="hover" id="\${value.id}">
+							<td class="select-sub-project-icon-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px'></i></td>
+							<td class="select-sub-project-index">\${thisIndexNum}</td>
+							<td class="project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
+							<td>\${value.regDate.substring(0,11)}</td>
+						</tr>	
+						<tr>
+							<td></td>
+							<td></td>
+							<td>subPorjectName</td>
+							<td>subPorjectDate</td>
+						</tr>
+						`
+						
+					thisIndexNum++;
+							
+					});
+					
+					$("#product-modal").html(supProjectListHtml);
+					
+					
+				        
+	        },   
+	        error:function(e){  
+	            alert(e.responseText);  
+	        }  
+	    });  
+	
+	
+	}); 
+	
+
+			
+	// 프로젝트 아이콘 클릭시 		
+// 	$('.select-sub-project-icon-td').click(function() {
+// 		let getProjectId = 1;
+		
+// 		console.log($('input[name=projectId]').val());
+		
+		
+// 	});
+	/*
+		$.get('../project/getSubProject', {
+			projectId : getProjectId,
+			ajaxMode : 'Y'
+		}, function(data){
+			console.log(data)
+			
+			let supProjectListHtml = ""
+			
+		//			$('.project-sub-name-tr').show();
+		// 		$('#project-sub-name-tr').attr('style', "display:'';");  //나타내기
+		// 		$('#project-sub-name-td').attr('style', "display:'';"); 
+				
+			let thisIndexNum = 1;
+				$.each(data,function(index, value) {
+					let thisIndex = $(this).find("index");
+					
+					supProjectListHtml += `
+						<tr class="hover" id="\${value.id}">
+							<td class="select-sub-project-icon-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px'></i></td>
+							<td class="select-sub-project-index">\${thisIndexNum}</td>
+							<td class="project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
+							<td>\${value.regDate.substring(0,11)}</td>
+						</tr>	
+						<tr>
+							<td></td>
+							<td></td>
+							<td>subPorjectName</td>
+							<td>subPorjectDate</td>
+						</tr>
+						`
+						
+					thisIndexNum++;
+						
+				});
+				
+				$("#product-modal").html(supProjectListHtml);
+				
+				
+		});
+		
 	*/
+	
 });
+
+
 //
-//
+
+	
+	
+	
 // 체크박스에 선택한 상표 저장 
 $('.btn-stored-selected-trademark').click(function() {
 	const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
@@ -688,11 +649,9 @@ $('.btn-stored-selected-trademark').click(function() {
 })
 
 
-
 function pageUrl(pageNo) {
-//  	numOfRows = ${trademarks[0].numOfRows};
- 	numOfRows = 10;
- 	searchString = "${trademarks[0].searchString}";
+ 	let numOfRows = ${trademarks[0].numOfRows};
+ 	let searchString = "${trademarks[0].searchString}";
 	
 	
 	$('input[name=numOfRows]').val(numOfRows);

@@ -1,7 +1,6 @@
 package com.cji.exam.trademark.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cji.exam.trademark.service.ProjectService;
 import com.cji.exam.trademark.service.TrademarkService;
+import com.cji.exam.trademark.service.WorkspaceService;
 import com.cji.exam.trademark.vo.ProjectVo;
 import com.cji.exam.trademark.vo.Rq;
 import com.cji.exam.trademark.vo.Trademark;
@@ -21,12 +21,14 @@ public class UserWorkspaceController {
 	private ProjectService projectService;
 	private TrademarkService trademarkservice;
 	private Rq rq;
+	private WorkspaceService worksapceService;
 	
 	@Autowired
-	UserWorkspaceController( ProjectService projectService, TrademarkService trademarkservice, Rq rq){
+	UserWorkspaceController( ProjectService projectService, TrademarkService trademarkservice, Rq rq,WorkspaceService worksapceService){
 		this.projectService = projectService;
 		this.trademarkservice = trademarkservice;
 		this.rq = rq;
+		this.worksapceService = worksapceService;
 	}
 	
 	
@@ -133,6 +135,27 @@ public class UserWorkspaceController {
 		
 		return "usr/workspace/list";
 	}
+	
+	
+	
+	@RequestMapping("/usr/workspace/download")
+	public String doDownloadTrademarks(Model model, @RequestParam(defaultValue = "") String ids, @RequestParam(defaultValue = "3") int boardId,
+			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) {
+		
+		if (ids == null) {
+			return rq.jsReturnOnView("상표를 다시 선택해주세요", true);
+		}
+		
+		worksapceService.doWordParser();
+		
+		
+		
+		
+		return "usr/workspace/download";
+	}
+	
+	
 	
 /*
 	@RequestMapping("/usr/project/createWork")

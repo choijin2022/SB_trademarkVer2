@@ -1,5 +1,8 @@
 package com.cji.exam.trademark.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +70,7 @@ public class UserTrademarkController {
 //			trademark.setNumOfRows(rowNum);
 			
 			int trademarkId = trademarkService.storedTrademark(trademark, projectId);
+			
 			if(subProjectId !=0) {
 				trademarkService.connectTrademarkSub(trademarkId, projectId, subProjectId);
 			}
@@ -130,4 +134,26 @@ public class UserTrademarkController {
 //	public String showList() {
 //		return "usr/trademark/list";
 //	}
+	
+	@RequestMapping("/usr/trademark/doDeleteTrademarks")
+	@ResponseBody
+	public String doDeleteTrademarks(@RequestParam(defaultValue = "") String ids) {
+		
+		if (Utility.empty(ids)) {
+			return Utility.jsHistoryBack("선택한 상표가 없습니다");
+		}
+		
+		
+		
+		List<Integer> trademarkIds = new ArrayList<>();
+		
+		for (String idStr : ids.split(",")) {
+			trademarkIds.add(Integer.parseInt(idStr));
+		}
+		
+		trademarkService.deleteTrademarks(trademarkIds);
+		
+		return Utility.jsReplace(Utility.f("%d개 상표를 삭제했습니다", trademarkIds.size()), "/usr/workspace/main");
+	}
+	
 }

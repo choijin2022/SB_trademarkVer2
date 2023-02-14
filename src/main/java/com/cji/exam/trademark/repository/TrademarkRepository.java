@@ -18,4 +18,10 @@ public interface TrademarkRepository {
 	public int getLastInsertId();
 
 	public void createConnectTrademark(int trademarkId, int projectId);
+	
+	public void createConnectTrademarkSub(int trademarkId, int projectId, int subProjectId);
+	
+	public void deleteTrademarks(int trademarkIds);
+
+	public Trademark getTrademarkById(int trademarkId);
 }

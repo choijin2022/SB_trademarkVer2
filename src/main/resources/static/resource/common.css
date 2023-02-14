@@ -551,6 +551,7 @@ dd .inTree >li{
 .menubars { display: none; }
 
 
+/* #project-name { display: none; } */
 #project-name { display: none; }
 #project-name:checked ~ .project-sub-name { display: block; } 
 .project-sub-name { display: none; }
@@ -566,6 +567,11 @@ dd .inTree >li{
 
 .myWorkFrameSetA> .rtCnt {
     padding: 15px 15px 0 15px;
+}
+
+
+.hidden {
+    display:none;
 }
 
 

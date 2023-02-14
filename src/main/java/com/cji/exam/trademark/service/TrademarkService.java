@@ -46,4 +46,24 @@ public class TrademarkService {
 		trademarkRepository.createConnectTrademarkSub(trademarkId,projectId,subProjectId);
 	}
 
+	
+	public void deleteTrademarks(List<Integer> trademarkIds) {
+		for (int trademarkId : trademarkIds) {
+			Trademark trademark = getTrademarkById(trademarkId);
+			
+			if (trademark != null) {
+				deleteTrademark(trademark);
+			}
+		}
+	}
+
+	private Trademark getTrademarkById(int trademarkId) {
+		
+		return trademarkRepository.getTrademarkById(trademarkId);
+	}
+
+	private void deleteTrademark(Trademark trademark) {
+		trademarkRepository.deleteTrademarks(trademark.getId());
+	}
+	
 }

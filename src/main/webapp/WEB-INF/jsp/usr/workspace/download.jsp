@@ -249,20 +249,13 @@
 											
 											
 											
-											<div class="mt-2 flex justify-between">
-												<button class="btn-text-link btn btn-active btn-ghost btn-download-selected-trademark">상표 다운로드</button>
+											<div class="mt-2 flex justify-end">
 												<button class="btn-text-link btn btn-active btn-ghost btn-delete-selected-trademark">상표 삭제</button>
 											</div>
-											
-											<form method="POST" name="do-download-trademarks-form" action="/usr/workspace/download">
-												<input type="hidden" name="ids" value="" />
-											</form>
 											
 											<form method="POST" name="do-delete-trademarks-form" action="/usr/trademark/doDeleteTrademarks">
 												<input type="hidden" name="ids" value="" />
 											</form>
-											
-											
 																						
 											<div class="page-menu mt-2 flex justify-center">
 												<div class="btn-group">
@@ -300,63 +293,41 @@
 										
 										
 										<script>
-										// 삭제
-										$('.btn-delete-selected-trademark').click(function() {
-											
-											const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
-											if (values.length == 0) {
-												alert('선택한 상표가 없습니다');
-												return;
-											}
-											if (confirm('선택한 상표를 삭제하시겠습니까?') == false) {
-												return;
-											}
-											
-											console.log(values);
-											
-											$('input[name=ids]').val(values.join(','));
-											$('form[name=do-delete-trademarks-form]').submit();
-											
-											console.log($('form[name=do-delete-trademarks-form]'));
-										})
+												$('.btn-delete-selected-trademark').click(function() {
+													
+													const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
+													if (values.length == 0) {
+														alert('선택한 상표가 없습니다');
+														return;
+													}
+													if (confirm('선택한 상표를 삭제하시겠습니까?') == false) {
+														return;
+													}
+													
+													console.log(values);
+													
+													$('input[name=ids]').val(values.join(','));
+													$('form[name=do-delete-trademarks-form]').submit();
+													
+													console.log($('form[name=do-delete-trademarks-form]'));
+												})
+												
+													$('.checkbox-all-member-id').change(function() {
+													const allCheck = $(this);
+													const allChecked = allCheck.prop('checked');
+													$('.checkbox-member-id').prop('checked', allChecked);
+													$('.checkbox-member-id:is(:disabled)').prop('checked', false)
+												})
+												
+												$('.checkbox-member-id').change(function() {
+													const checkboxMemberIdCount = $('.checkbox-member-id').length;
+													const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
+													const checkboxDisabledCount = $('.checkbox-member-id:is(:disabled)').length;
+													const allChecked = (checkboxMemberIdCount - checkboxDisabledCount) == checkboxMemberIdCheckedCount;
+													$('.checkbox-all-member-id').prop('checked', allChecked);
+												})
+											</script>
 										
-										// 다운로드
-										$('.btn-download-selected-trademark').click(function() {
-											
-											const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
-											if (values.length == 0) {
-												alert('선택한 상표가 없습니다');
-												return;
-											}
-											if (confirm('선택한 상표를 다운로드하시겠습니까?') == false) {
-												return;
-											}
-											
-											console.log(values);
-											
-											$('input[name=ids]').val(values.join(','));
-											$('form[name=do-download-trademarks-form]').submit();
-											
-										console.log($('form[name=do-delete-trademarks-form]'));
-										})
-									
-									
-										//체크박스 선택
-											$('.checkbox-all-member-id').change(function() {
-											const allCheck = $(this);
-											const allChecked = allCheck.prop('checked');
-											$('.checkbox-member-id').prop('checked', allChecked);
-											$('.checkbox-member-id:is(:disabled)').prop('checked', false)
-										})
-										
-										$('.checkbox-member-id').change(function() {
-											const checkboxMemberIdCount = $('.checkbox-member-id').length;
-											const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
-											const checkboxDisabledCount = $('.checkbox-member-id:is(:disabled)').length;
-											const allChecked = (checkboxMemberIdCount - checkboxDisabledCount) == checkboxMemberIdCheckedCount;
-											$('.checkbox-all-member-id').prop('checked', allChecked);
-										})
-										</script>
 										
 									</div>
 							</div>
@@ -380,43 +351,5 @@
 
 
 
-<!--  표
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="table-box-type-1 show-project-list">
-			<c:choose>
-				<c:when test="${projectCount == 0 }">
-					<div class="text-center mt-4">프로젝트가 없습니다</div>
-				</c:when>
-				<c:otherwise>
-					<div class="table-box-type-1 ">
-						<table class="table w-full">
-							<colgroup>
-								<col width="60" />
-								<col />
-								<col width="150" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>프로젝트</th>
-									<th>날짜</th>
-								</tr>
-							</thead>
-							<tbody >
-								<tr class="hover" id="\${value.id}">
-									<td>\${thisIndexNum}</td>
-									<td><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
-									<td>\${value.regDate.substring(0,11)}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</div>
-</section>
--->
 
 <%@ include file="../common/foot.jsp"%>

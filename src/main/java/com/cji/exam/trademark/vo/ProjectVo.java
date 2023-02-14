@@ -15,4 +15,7 @@ public class ProjectVo {
 	private int delStatus;
 	private String delDate;
 	
+	private int subProjecId;
+	private String subProjectName;
+	
 }

@@ -14,6 +14,7 @@ import com.cji.exam.trademark.service.ProjectService;
 import com.cji.exam.trademark.util.Utility;
 import com.cji.exam.trademark.vo.ProjectVo;
 import com.cji.exam.trademark.vo.ResultData;
+import com.cji.exam.trademark.vo.SubProject;
 
 @Controller
 public class UserProjectController {
@@ -112,6 +113,9 @@ public class UserProjectController {
 //			return ResultData.from("F-1", "프로젝트가 존재하지 않습니다");
 //		}
 		int projectCount = projects.size();
+		
+		
+		
 		System.out.println("projectCount : "+projectCount);
 		model.addAttribute("projects", projects);
 		model.addAttribute("projectCount", projectCount);
@@ -119,6 +123,53 @@ public class UserProjectController {
 		return  projects;
 	}
 	
+	@RequestMapping("/usr/project/getAllProject")
+	@ResponseBody
+	public List<ProjectVo> getAllProject(Model model, @RequestParam(defaultValue = "0")int projectId) {
+		
+//		List<ProjectVo> projects = projectService.getProjects();
+		List<ProjectVo> projects = projectService.getAllProjects();
+		
+//		if(projects == null) {
+//			return ResultData.from("F-1", "프로젝트가 존재하지 않습니다");
+//		}
+		
+		int projectCount = projects.size();
+		
+		List<SubProject> subProjects = projectService.getSubprojects();
+		
+		System.out.println("projectCount : "+projectCount);
+		model.addAttribute("projects", projects);
+		model.addAttribute("subProjects", subProjects);
+		model.addAttribute("projectCount", projectCount);
+		
+		return  projects;
+	}
+	
+	
+	/*
+	@RequestMapping("/usr/project/getAllProject")
+	@ResponseBody
+	public String getAllProject(Model model, @RequestParam(defaultValue = "0")int projectId) {
+		
+		List<ProjectVo> projects = projectService.getProjects();
+		
+//		if(projects == null) {
+//			return ResultData.from("F-1", "프로젝트가 존재하지 않습니다");
+//		}
+		
+		int projectCount = projects.size();
+		
+		List<SubProject> subProjects = projectService.getSubprojects();
+		
+		System.out.println("projectCount : "+projectCount);
+		model.addAttribute("projects", projects);
+		model.addAttribute("subProjects", subProjects);
+		model.addAttribute("projectCount", projectCount);
+		
+		return  "/usr/project/getAllProject";
+	}
+	*/
 	@RequestMapping(value="/usr/project/createProject", method = { RequestMethod.POST })
 	@ResponseBody
 	public ResultData<ProjectVo> doCreateProject(@RequestParam("name") String name, @RequestParam("subProjectName") String subProjectName) {
@@ -135,6 +186,7 @@ public class UserProjectController {
 		
 		int projectId = projectService.newCreateProject(name);
 		int subProjectId = 	projectService.createSubProject(projectId, subProjectName);
+		System.out.println(subProjectId);
 		
 		ProjectVo project = projectService.getProject(projectId);
 		

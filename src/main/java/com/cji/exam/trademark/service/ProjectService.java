@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cji.exam.trademark.repository.ProjectRepository;
 import com.cji.exam.trademark.vo.ProjectVo;
+import com.cji.exam.trademark.vo.SubProject;
 
 @Service
 public class ProjectService {
@@ -55,6 +56,9 @@ public class ProjectService {
 		return projectRepository.getProject(projectId);
 	}
 	
+	public SubProject getSubproject(int projectId) {
+		return projectRepository.getSubproject(projectId);
+	}
 
 	public int getSubProjectCount(int projectId) {
 		
@@ -68,6 +72,14 @@ public class ProjectService {
 	}
 	public String getSubProjectName(int projectId) {
 		return projectRepository.getSubProjectName(projectId);
+	}
+
+	public List<ProjectVo> getAllProjects() {
+		return projectRepository.getAllProjects();
+	}
+
+	public List<SubProject> getSubprojects() {
+		return projectRepository.getSubprojects();
 	}
 	
 	
