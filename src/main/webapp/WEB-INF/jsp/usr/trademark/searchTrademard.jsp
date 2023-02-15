@@ -6,7 +6,7 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-			<form>
+		<form>
 			<div class="table-box-type-1">
 				<table class="table table-zebra w-full">
 <%-- 					<colgroup> --%>
@@ -49,8 +49,22 @@
 	</div>
 </section>
 
+<div>${subProjects}</div>
+
+<section>
+<%-- 	<c:forEach var="subProject" items="${subProjects}"> --%>
+<!-- 		<tr> -->
+<%-- 			<td>${subProject.id }</td> --%>
+<%-- 			<td>${subProject.name }</td> --%>
+<!-- 		</tr> -->
+<%-- 	</c:forEach> --%>
+	
+</section>
 
 <script>
+
+
+
 $('.checkbox-all-member-id').change(function() {
 	const allCheck = $(this);
 	const allChecked = allCheck.prop('checked');
@@ -217,6 +231,9 @@ const modal_body =document.getElementById("modal_body")
 const btnModal = document.getElementById("btn-modal")
 
 btnModal.addEventListener("click", function(event){
+	
+	console.log(${subProjects[0]});
+	
 	let testStatus = false;
 	let projectIdStatus = false;
 	
@@ -266,7 +283,6 @@ btnModal.addEventListener("click", function(event){
 		
 			}else{
 			console.log(data);
-			console.log(data)
 			
 			let supProjectListHtml = ""
 			

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cji.exam.trademark.service.ProjectService;
 import com.cji.exam.trademark.service.TrademarkService;
 import com.cji.exam.trademark.util.Utility;
 import com.cji.exam.trademark.vo.Trademark;
@@ -18,9 +19,11 @@ public class UserTrademarkController {
 	
 	private TrademarkService trademarkService;
 	
+	
 	@Autowired
 	UserTrademarkController(TrademarkService trademarkService){
 		this.trademarkService = trademarkService;
+		
 	}
 	
 	@RequestMapping("/usr/trademark/storedTrademark")

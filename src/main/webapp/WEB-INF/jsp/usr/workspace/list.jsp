@@ -253,8 +253,8 @@
 												<button class="btn-text-link btn btn-active btn-ghost btn-download-selected-trademark">상표 다운로드</button>
 												<button class="btn-text-link btn btn-active btn-ghost btn-delete-selected-trademark">상표 삭제</button>
 											</div>
-											
 											<form method="POST" name="do-download-trademarks-form" action="/usr/workspace/download">
+<!-- 											<form method="get" name="do-download-trademarks-form" action="/api/word"> -->
 												<input type="hidden" name="ids" value="" />
 											</form>
 											
@@ -333,6 +333,7 @@
 											}
 											
 											console.log(values);
+											
 											
 											$('input[name=ids]').val(values.join(','));
 											$('form[name=do-download-trademarks-form]').submit();

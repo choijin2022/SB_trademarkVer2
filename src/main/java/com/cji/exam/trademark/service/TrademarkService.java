@@ -1,11 +1,10 @@
 package com.cji.exam.trademark.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cji.exam.trademark.repository.TrademarkRepository;
 import com.cji.exam.trademark.vo.Trademark;
@@ -65,5 +64,25 @@ public class TrademarkService {
 	private void deleteTrademark(Trademark trademark) {
 		trademarkRepository.deleteTrademarks(trademark.getId());
 	}
+
+	public List<Trademark> getTrademarksByTrademarkId(List<Integer> trademarkIds) {
+		
+		//return trademarkRepository.getTrademarksByTrademarkId(trademarkIds);
+	
+		List<Trademark> trademarks = new ArrayList<>();
+		for (int trademarkId : trademarkIds) {
+			
+			Trademark trademark = getTrademarkById(trademarkId);
+			
+			if (trademark != null) {
+				trademarks.add(trademark);
+				}
+			}
+		
+		return trademarks;
+	}
+		
+	
+	
 	
 }

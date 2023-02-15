@@ -1,5 +1,6 @@
 package com.cji.exam.trademark.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,13 +142,23 @@ public class UserWorkspaceController {
 	@RequestMapping("/usr/workspace/download")
 	public String doDownloadTrademarks(Model model, @RequestParam(defaultValue = "") String ids, @RequestParam(defaultValue = "3") int boardId,
 			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
-			@RequestParam(defaultValue = "") String searchKeyword) {
+			@RequestParam(defaultValue = "") String searchKeyword) throws Exception {
 		
 		if (ids == null) {
 			return rq.jsReturnOnView("상표를 다시 선택해주세요", true);
 		}
 		
-		worksapceService.doWordParser();
+		List<Integer> trademarkIds = new ArrayList<>();
+		
+		for (String idStr : ids.split(",")) {
+			trademarkIds.add(Integer.parseInt(idStr));
+		}
+		List<Trademark> trademarks = trademarkservice.getTrademarksByTrademarkId(trademarkIds);
+		
+		System.out.println(trademarks);
+		
+		worksapceService.doTrademarksSetToWork(trademarks);
+		//worksapceService.doWordParser();
 		
 		
 		

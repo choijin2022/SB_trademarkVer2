@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,12 +19,24 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.cji.exam.trademark.service.ProjectService;
+import com.cji.exam.trademark.service.TrademarkService;
+import com.cji.exam.trademark.vo.SubProject;
 import com.cji.exam.trademark.vo.Trademark;
 
 @Controller
 public class UserApiController {
 //	private static final int numOfRows = 50;
-			
+	private ProjectService projectService;
+	
+	@Autowired
+	UserApiController(ProjectService projectService){
+		this.projectService = projectService;
+		
+	}
+	
+	
+	
 	@RequestMapping("/usr/trademark/trademarkApi2")
 	public String trademarkApi2() {
 		return "usr/trademark/trademarkApi2";
@@ -161,11 +174,14 @@ public class UserApiController {
 					
 				}
 			}
-			// ??
+			
+			List<SubProject> subProjects =  projectService.getSubprojects();
+			
 //			model.addAttribute("numOfRows", numOfRows);
 			model.addAttribute("trademarks", trademarks);
+			model.addAttribute("subProjects", subProjects);
 			System.out.println(trademarks);
-			
+			System.out.println("SubProjects"+subProjects);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
