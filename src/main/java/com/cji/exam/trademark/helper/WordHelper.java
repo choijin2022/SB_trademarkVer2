@@ -15,6 +15,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 public class WordHelper {
@@ -34,8 +35,8 @@ public class WordHelper {
             r1.setFontFamily("맑은 고딕");
             r1.addBreak();
             
+         // Creating first Row
             XWPFTable table = doc.createTable();
-            // Creating first Row
             XWPFTableRow row1 = table.getRow(0);
             row1.getCell(0).setText("No");
             row1.addNewTableCell().setText("유사도");
@@ -44,6 +45,8 @@ public class WordHelper {
             row1.addNewTableCell().setText("출원번호/우선권 ");
             row1.addNewTableCell().setText("출원인/등록권자 ");
             row1.addNewTableCell().setText("유사군/품목");
+//            row1.setAlignment(ParagraphAlignment.CENTER);
+            
             /*
             // Creating second Row
             XWPFTableRow row2 = table.createRow();
@@ -51,18 +54,15 @@ public class WordHelper {
             row2.getCell(1).setText("Python, Kotlin");
             row2.getCell(2).setText("Android, React");
 */
-            /*
-            // add png image
-            XWPFRun r4 = doc.createParagraph().createRun();
-            r4.addBreak();
-            XWPFParagraph p = doc.createParagraph();
-            XWPFRun r = p.createRun();
-            try (FileInputStream is = new FileInputStream(imgFile)) {
-                r.addPicture(is, Document.PICTURE_TYPE_PNG, imgFile, 
-                        Units.toEMU(500), Units.toEMU(200));
+            //
+/*
+            // Creating second Row
+            XWPFTableRow row2 = table.createRow();
+            row2.getCell(0).setText("C, C ++");
+            row2.getCell(1).setText("Python, Kotlin");
+            row2.getCell(2).setText("Android, React");
+    */        
 
-            }
-*/
             ByteArrayOutputStream b = new ByteArrayOutputStream();
             doc.write(b);
             return new ByteArrayInputStream(b.toByteArray());

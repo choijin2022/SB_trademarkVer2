@@ -1,6 +1,7 @@
 package com.cji.exam.trademark.controller;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.core.io.InputStreamResource;
@@ -16,17 +17,18 @@ import com.cji.exam.trademark.helper.WordHelper;
 @RestController
 @RequestMapping("/api")
 public class WordController {
+    
 
     @GetMapping(value = "/word", 
             produces = "application/vnd.openxmlformats-"
                     + "officedocument.wordprocessingml.document")
     public ResponseEntity<InputStreamResource> word() 
             throws IOException, InvalidFormatException {
-
+    	//FileOutputStream out = new FileOutputStream("C:\\cji_d\\01.sts\\wordTest");
         ByteArrayInputStream bis = WordHelper.generateWord();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", 
-                "inline; filename=mydoc.docx");
+                "inline; filename=test.docx");
         return ResponseEntity.ok().headers(headers).
                 body(new InputStreamResource(bis));
     }

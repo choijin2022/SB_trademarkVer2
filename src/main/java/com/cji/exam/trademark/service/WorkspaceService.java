@@ -55,17 +55,36 @@ public class WorkspaceService {
 		
 	}
 
-	public void doTrademarksSetToWork(List<Trademark> trademarks) {
+	public void doTrademarksSetToWork(List<Trademark> trademarks) throws IOException, InvalidFormatException {
 		//경로에 파일 생성
-//		String TEMPPATH = "C:\\cji_d\\01.sts\\wordTest\\TemplateVer01.docx";
 		String TEMPPATH = "C:\\cji_d\\01.sts\\wordTest\\test.docx";
+//		String TEMPPATH = "C:\\Users\\cjidi\\Downloads\\test.docx";
 		FileOutputStream fos = null;
 		try {
 			File file = new File(TEMPPATH);
-			XWPFDocument doc = new XWPFDocument(new FileInputStream(file));
-			XWPFTable table = null;
+			XWPFDocument doc = new XWPFDocument();
+//			XWPFDocument doc = new XWPFDocument(new FileInputStream(file));
+			//XWPFTable table = null;
+			XWPFParagraph p1 = doc.createParagraph();
+            XWPFRun r1 = p1.createRun();
+            r1.setFontSize(10);
+            r1.setText("유사판단 (유사도 표시 극히 동일, 유사 : ★ /  다소 동일, 유사 : ☆ )");
+            r1.setFontFamily("맑은 고딕");
+            r1.addBreak();
+            
+         // Creating first Row
+            XWPFTable table = doc.createTable();
+            XWPFTableRow row1 = table.getRow(0);
+            row1.getCell(0).setText("No");
+            row1.addNewTableCell().setText("유사도");
+            row1.addNewTableCell().setText("표장");
+            row1.addNewTableCell().setText("현재상태");
+            row1.addNewTableCell().setText("출원번호/우선권 ");
+            row1.addNewTableCell().setText("출원인/등록권자 ");
+            row1.addNewTableCell().setText("유사군/품목");
 			
 			// -------- 테이블 요소 구하기
+			/*
 			Iterator<IBodyElement> docElementsIterator = doc.getBodyElementsIterator();
 			while(docElementsIterator.hasNext()) {
 				IBodyElement docElement = docElementsIterator.next();
@@ -76,15 +95,22 @@ public class WorkspaceService {
 					table = xwpfTableList.get(0);
 				}
 			}
+			*/
 			// ----------------------------
-			XWPFTableRow row = table.createRow();
+			
 			for(Trademark trademark : trademarks) {
+				XWPFTableRow row = table.createRow();
+				String imgF = trademark.getBigDrawing();
+				XWPFParagraph p = doc.createParagraph();
+				
 				row.getCell(0).setText(trademark.getIndexNo());
-				row.addNewTableCell().setText(trademark.getApplicationStatus());
-				row.addNewTableCell().setText("");
-				row.addNewTableCell().setText(trademark.getApplicationNumber());
-				row.addNewTableCell().setText(trademark.getApplicantName());
-				row.addNewTableCell().setText("");
+				row.getCell(1).setText(trademark.getApplicationStatus());
+				row.getCell(2).setText("");
+				row.getCell(3).setText(trademark.getApplicationNumber());
+				row.getCell(4).setText(trademark.getApplicantName());
+				row.getCell(5).setText("");
+				row.getCell(6).setText("");
+			
 			}
 			
 			fos = new FileOutputStream(new File(TEMPPATH));
@@ -96,5 +122,8 @@ public class WorkspaceService {
 			e.printStackTrace();
 		}
 		File file = new File(TEMPPATH);
+		
 	}
+	
+	
 }

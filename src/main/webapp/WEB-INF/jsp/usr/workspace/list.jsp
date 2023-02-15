@@ -250,9 +250,15 @@
 											
 											
 											<div class="mt-2 flex justify-between">
+												<button class="btn-text-link btn btn-active btn-ghost btn-create-word-file">워드 생성</button>
 												<button class="btn-text-link btn btn-active btn-ghost btn-download-selected-trademark">상표 다운로드</button>
 												<button class="btn-text-link btn btn-active btn-ghost btn-delete-selected-trademark">상표 삭제</button>
 											</div>
+<!-- 											생성 -->
+											<form method="GET" name="do-create-word-form" action="/api/word">
+												<input type="hidden" name="ids" value="" />
+											</form>
+											
 											<form method="POST" name="do-download-trademarks-form" action="/usr/workspace/download">
 <!-- 											<form method="get" name="do-download-trademarks-form" action="/api/word"> -->
 												<input type="hidden" name="ids" value="" />
@@ -261,8 +267,6 @@
 											<form method="POST" name="do-delete-trademarks-form" action="/usr/trademark/doDeleteTrademarks">
 												<input type="hidden" name="ids" value="" />
 											</form>
-											
-											
 																						
 											<div class="page-menu mt-2 flex justify-center">
 												<div class="btn-group">
@@ -338,9 +342,27 @@
 											$('input[name=ids]').val(values.join(','));
 											$('form[name=do-download-trademarks-form]').submit();
 											
-										console.log($('form[name=do-delete-trademarks-form]'));
+										console.log($('form[name=do-download-trademarks-form]'));
 										})
-									
+										
+										// word생성
+										$('.btn-create-word-file').click(function() {
+											const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
+											if (values.length == 0) {
+												alert('선택한 상표가 없습니다');
+												return;
+											}
+											if (confirm('word를 생성하겠습니까?') == false) {
+												return;
+											}
+											
+											console.log(values);
+											
+											$('input[name=ids]').val(values.join(','));
+											$('form[name=do-create-word-form]').submit();
+											
+											console.log($('form[name=do-delete-trademarks-form]'));
+										})
 									
 										//체크박스 선택
 											$('.checkbox-all-member-id').change(function() {

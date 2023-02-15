@@ -248,7 +248,6 @@
 											</c:choose>
 											
 											
-											
 											<div class="mt-2 flex justify-end">
 												<button class="btn-text-link btn btn-active btn-ghost btn-delete-selected-trademark">상표 삭제</button>
 											</div>
