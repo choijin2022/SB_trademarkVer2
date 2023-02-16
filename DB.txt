@@ -1,0 +1,223 @@
+# DB 삭제/생성/선택
+DROP DATABASE IF EXISTS sb_td;
+CREATE DATABASE sb_td;
+USE sb_td;
+
+# trademark 테이블 생성
+CREATE TABLE trademark(
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	projectId INT UNSIGNED NOT NULL,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	indexNo VARCHAR(5),
+	title VARCHAR(200),
+	applicantName TEXT,
+	applicationNumber VARCHAR(40) NOT NULL,
+	applicationDate VARCHAR(20),
+	publicationNumber VARCHAR(20),
+	publicationDate VARCHAR(20),
+	registrationNumber VARCHAR(20),
+	registrationDate VARCHAR(20),
+	registrationPublicNumber VARCHAR(20),
+	registrationPublicDate VARCHAR(20),
+	priorityNumber VARCHAR(20),
+	priorityDate VARCHAR(20),
+	internationalRegisterNumber VARCHAR(20),
+	internationalRegisterDate VARCHAR(20),
+	applicationStatus VARCHAR(20),
+	classificationCode VARCHAR(200),
+	viennaCode VARCHAR(200),
+	agentName VARCHAR(200),
+	regPrivilegeName TEXT,
+	`fullText` VARCHAR(50),
+	drawing VARCHAR(500),
+	bigDrawing VARCHAR(500)
+		
+);
+
+SELECT * FROM trademark;
+
+
+
+# board 테이블 생성
+CREATE TABLE board(
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	`code` VARCHAR(20) NOT NULL UNIQUE COMMENT 'notice(공지사항), QnA(질문게시판), work1(작업1), ...',
+	`name` VARCHAR(20) NOT NULL UNIQUE COMMENT '게시판 이름',
+	delStatus TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부 (0 = 삭제 전, 1 = 삭제 후)',
+	delDate DATETIME COMMENT '삭제 날짜'
+);
+
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'notice',
+`name` = '공지사항';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'QnA',
+`name` = '질문게시판';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'work1',
+`name` = 'trademarkWork';
+
+SELECT * FROM board;
+/*/
+# project 테이블 생성
+CREATE TABLE projectVo(
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	subProjectId INT UNSIGNED,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	`name` VARCHAR(20) NOT NULL COMMENT '프로젝트 이름',
+	delStatus TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부 (0 = 삭제 전, 1 = 삭제 후)',
+	delDate DATETIME COMMENT '삭제 날짜'
+);
+*/
+
+# 수정 : project 테이블 생성
+CREATE TABLE projectVo(
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	`name` VARCHAR(100) NOT NULL COMMENT '프로젝트 이름',
+	delStatus TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부 (0 = 삭제 전, 1 = 삭제 후)',
+	delDate DATETIME COMMENT '삭제 날짜'
+);
+
+
+SELECT * FROM projectVo;
+
+
+
+#DROP TABLE connectTrademark;
+# trademark - subProject connect table
+CREATE TABLE connectTrademark(
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	trademarkId INT UNSIGNED NOT NULL,
+	projectId INT UNSIGNED NOT NULL,
+	subProjectId INT UNSIGNED DEFAULT 0
+);
+
+SELECT * FROM connectTrademark;
+
+/*
+# test
+INSERT INTO connectTrademark
+SET regDate = NOW(),
+updateDate = NOW(),
+trademarkId = 1,
+projectId = 1;
+
+*/
+
+# subProject 테이블 생성
+CREATE TABLE subProject(
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	projectId INT UNSIGNED NOT NULL,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	`name` VARCHAR(100) COMMENT '새파일',
+	delStatus TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부 (0 = 삭제 전, 1 = 삭제 후)',
+	delDate DATETIME COMMENT '삭제 날짜'
+);
+
+SELECT * FROM subProject;
+
+
+
+
+
+
+
+# ===========================
+
+#full outer join
+/*
+select P.*, S.*
+	from projectVo as P
+		full outer Join subProject as S
+		ON P.id = S.projectId;
+*/	
+
+/*
+#full outer join
+SELECT *
+	FROM projectVo AS P LEFT JOIN subProject AS S
+	ON P.id = S.projectId
+UNION
+SELECT *
+	FROM projectVo AS P RIGHT JOIN subProject AS S 
+	ON P.id = S.projectId;	
+*/
+/*
+# project, supPorjectId, subPorjectName, subProjectDate 
+SELECT P.*, S.id AS supPorjectId, S.name AS subPorjectName, S.regDate AS subProjectDate
+	FROM projectVo AS P LEFT JOIN subProject AS S
+ON P.id = S.projectId
+*/
+
+# test
+SELECT `name`
+FROM subProject
+WHERE projectId = 1;
+
+#test
+INSERT INTO subProject
+SET regDate = NOW(),
+updateDate = NOW(),
+projectId = 1,
+`name` = "choon";
+
+#test 1
+SELECT P.*, S.name AS subProjectName
+				FROM projectVo AS P
+				JOIN subProject AS S
+				ON P.id = S.projectId
+				WHERE P.id =1;
+
+#test 2
+SELECT S.name AS subProjectName
+				FROM projectVo AS P
+				JOIN subProject AS S
+				ON P.id = S.projectId
+				WHERE P.id =1;
+#test 3
+SELECT T.*, P.name AS projectName
+			FROM trademark AS T
+			JOIN projectVo AS P
+			ON T.projectId = P.id
+			WHERE T.projectId = 1;
+			
+SELECT T.*
+			FROM trademark AS T
+			JOIN projectVo AS P
+			ON T.projectId = P.id
+			WHERE T.projectId = 2;
+
+# get subProjectName by project
+SELECT P.*, S.name AS subProjectName
+	FROM projectVo AS P
+	JOIN subProject AS S
+	ON P.subProjectId = S.id
+	WHERE P.id = 1;
+
+
+# getTrademark and subProjectName by trademark's projectId
+SELECT T.*, S.name AS subProjectName
+			FROM trademark AS T
+			JOIN projectVo AS P
+			ON T.projectId = P.id
+			JOIN subProject AS S
+			ON P.subProjectId = S.id
+			WHERE T.projectId = 1;

@@ -37,22 +37,21 @@ public class UserApiController {
 	
 	
 	
-	@RequestMapping("/usr/trademark/trademarkApi2")
-	public String trademarkApi2() {
-		return "usr/trademark/trademarkApi2";
+	@RequestMapping("/usr/trademark/trademarkApi")
+	public String trademarkApi() {
+		return "usr/trademark/trademarkApi";
 	}
 	
-	@RequestMapping("/usr/trademark/searchTrademard")
-	public String doSearchTrademard(Model model, @RequestParam(defaultValue = "10") int numOfRows, @RequestParam(defaultValue = "1") String searchString, @RequestParam(defaultValue = "1") int pageNo) {
+	@RequestMapping("/usr/trademark/searchTrademark")
+	public String doSearchTrademark(Model model, @RequestParam(defaultValue = "10") int numOfRows, @RequestParam(defaultValue = "TEST") String searchString, @RequestParam(defaultValue = "1") int pageNo) {
 		List<Trademark> trademarks = new ArrayList<>();
 		String totalCount;
 		
 		try {
 			String url = "http://kipo-api.kipi.or.kr/openapi/service/trademarkInfoSearchService/getWordSearch";
-			String serviceKey = "WTh4nA6jgRy5Jxmw4vhBoRbWDJFex7P%2BNr1NnXssp1P6N6NDjsY5hEZnOLCS4NEOpS8SSkrREQp%2FqX%2BsrB42DQ%3D%3D";
+//			String serviceKey = "WTh4nA6jgRy5Jxmw4vhBoRbWDJFex7P%2BNr1NnXssp1P6N6NDjsY5hEZnOLCS4NEOpS8SSkrREQp%2FqX%2BsrB42DQ%3D%3D";
 //			String serviceKey = "sd2%2Fw1FPMP7dCiLT1r8GNJatfwBCKhZfFVQAA3lNV55hr4o2tNP9B0NpNBn7iAGvAN8QwKTBfli73H%2Fdq7xZBw%3D%3D";
-			//
-//			String searchKeywork = searchString;
+			String serviceKey = "U4edfHljSlmlj96jWD%2Fc6swkeQW0otDCYK9srFWtMqjoiON7WlWpKF0NF%2F2wYAsP%2FMUdxBf7s4IHaUalVapzOg%3D%3D";
 			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -168,25 +167,22 @@ public class UserApiController {
 					// 리스트에 trademark 넣기
 					trademarks.add(trademark);
 					
-//					model.addAttribute("trademark", trademark);
-//					System.out.println("indexNo : " + getTagValue("indexNo", eElement));
-//					System.out.println("applicationDate : " + getTagValue("applicationDate", eElement));
 					
 				}
 			}
 			
-			List<SubProject> subProjects =  projectService.getSubprojects();
+			//List<SubProject> subProjects =  projectService.getSubprojects();
 			
-//			model.addAttribute("numOfRows", numOfRows);
+			model.addAttribute("numOfRows", numOfRows);
 			model.addAttribute("trademarks", trademarks);
-			model.addAttribute("subProjects", subProjects);
+			//model.addAttribute("subProjects", subProjects);
 			System.out.println(trademarks);
-			System.out.println("SubProjects"+subProjects);
+			//System.out.println("SubProjects"+subProjects);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "usr/trademark/searchTrademard";
+		return "usr/trademark/searchTrademark";
 	}
 	
 	@ResponseBody

@@ -1,5 +1,6 @@
 package com.cji.exam.trademark.controller;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +49,9 @@ public class UserWorkspaceController {
 		int projectCount = projects.size();
 		
 		
+		// 로그인 기능 구현 후 다시 수정하기
+		//List<Trademark> trademarks = trademarkservice.getTrademarksByProjectId(projectId);
+		
 //		model.addAttribute("board", board);
 		model.addAttribute("projects", projects);
 		model.addAttribute("projectCount", projectCount);
@@ -87,7 +91,7 @@ public class UserWorkspaceController {
 		
 		//SubProject subProjects = projectService.getSubProjects(projectId);
 		
-		List<Trademark> trademarks = trademarkservice.getTrademarks(projectId);
+		List<Trademark> trademarks = trademarkservice.getTrademarksByProjectId(projectId);
 		
 //		model.addAttribute("board", board);
 		model.addAttribute("project", project);
@@ -125,7 +129,7 @@ public class UserWorkspaceController {
 		
 		//SubProject subProjects = projectService.getSubProjects(projectId);
 		
-		List<Trademark> trademarks = trademarkservice.getTrademarks(projectId);
+		List<Trademark> trademarks = trademarkservice.getTrademarksByProjectId(projectId);
 		
 //		model.addAttribute("board", board);
 		model.addAttribute("project", project);
@@ -145,6 +149,7 @@ public class UserWorkspaceController {
 			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword) throws Exception {
 		
+		
 		if (ids == null) {
 			return rq.jsReturnOnView("상표를 다시 선택해주세요", true);
 		}
@@ -159,14 +164,14 @@ public class UserWorkspaceController {
 		System.out.println(trademarks);
 		
 		//WordHelper.generateWord(trademarks);
-		
-		worksapceService.doTrademarksSetToWork(trademarks);
+		//WordHelper.insertTrademark(trademarks);
+		//worksapceService.doTrademarksSetToWork(trademarks);
 		//worksapceService.doWordParser();
 		
 		
 		
-		
-		return "usr/workspace/download";
+		//return "/api/word";
+		return "/list?projectId=3";
 	}
 	
 	

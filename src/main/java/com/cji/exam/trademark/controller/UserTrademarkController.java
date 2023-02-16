@@ -81,17 +81,9 @@ public class UserTrademarkController {
 			trademarkService.connectTrademark(trademarkId, projectId);
 			
 			System.out.println(trademark);
-//			list.add(trademark);
-//			for(int j = 0; j < testArr2.length; j++) {
-//				System.out.println(testArr2[j]);
-//				
-//				
-////				list.add(testArr2[j]);
-//				
-//			}
 		}
 		
-		return Utility.jsReplace(Utility.f("%d개 상표를 저장했습니다", totalSelectedTrademark), "/usr/trademark/trademarkApi2");
+		return Utility.jsReplace(Utility.f("%d개 상표를 저장했습니다", totalSelectedTrademark), "/usr/trademark/trademarkApi");
 		 
 	}
 /*
@@ -133,10 +125,7 @@ public class UserTrademarkController {
 	}
 	*/
 	
-//	@RequestMapping("/usr/trademark/list")
-//	public String showList() {
-//		return "usr/trademark/list";
-//	}
+
 	
 	@RequestMapping("/usr/trademark/doDeleteTrademarks")
 	@ResponseBody

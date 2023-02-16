@@ -13,7 +13,7 @@ public interface TrademarkRepository {
 
 	public int getTrademarkCount();
 
-	public List<Trademark> getTrademarks(int projectId);
+	public List<Trademark> getTrademarksByProjectId(int projectId);
 
 	public int getLastInsertId();
 

@@ -11,14 +11,10 @@ showButton = false;
 
 
 const submitForm = function(form) {
-	
 	//수정
 	
 	let numOfRows = form.numOfRows.value.trim();
 	let searchString = form.searchString.value.trim();
-// 		let searchRecentYear = form.searchRecentYear.value.trim();
-	//let title = form.title.value.trim();
-	
 
 	form.submit();
 }
@@ -49,7 +45,7 @@ const submitForm = function(form) {
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form action="searchTrademard" method="POST" onsubmit="submitForm(this); return false;">
+		<form action="searchTrademark" method="POST" onsubmit="submitForm(this); return false;">
 <!-- 			<form onsubmit="return submitForm(this);"> -->
 <%-- 			<input type="hidden" name="numOfRows" value="${numOfRows }" /> --%>
 			<div class="table-box-type-1">
@@ -72,17 +68,9 @@ const submitForm = function(form) {
 						<tr>
 							<th>단어</th>
 							<td>
-								<input maxlength="38" class="input input-ghost w-full text-lg border-gray-400" type="text" name="searchString" placeholder="단어" value="${searchKeyword }"/>
+								<input maxlength="38" class="input input-ghost w-full text-lg border-gray-400" type="text" name="searchString" placeholder="단어" value="${searchString}"/>
 							</td>
 						</tr>
-<!-- 						<tr> -->
-<!-- 							<th>년도</th> -->
-<!-- 							<td><input maxlength="4" class="input input-ghost w-full text-lg border-gray-400" type="text" name="searchRecentYear" placeholder="년도" /></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<th>제목</th> -->
-<%-- 							<td><input maxlength="800" class="input input-ghost w-full text-lg border-gray-400" type="text" name="title" placeholder="제목" value="${title}" /></td> --%>
-<!-- 						</tr> -->
 						<tr>
 							<td colspan="2"><button class="btn btn-outline btn-accent w-full do-search-form">검색</button></td>
 						</tr>

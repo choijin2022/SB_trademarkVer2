@@ -53,7 +53,7 @@
 					
 	</insert>
 	
-	<select id="getTrademarks" resultType="Trademark">
+	<select id="getTrademarksByProjectId" resultType="Trademark">
 		SELECT T.*, P.name AS projectName
 			FROM trademark AS T
 			JOIN projectVo AS P

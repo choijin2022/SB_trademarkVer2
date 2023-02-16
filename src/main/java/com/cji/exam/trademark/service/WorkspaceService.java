@@ -55,7 +55,7 @@ public void doWordParser() throws Exception {
 		
 	}
 
-public void doTrademarksSetToWork(List<Trademark> trademarks) throws IOException, InvalidFormatException {
+public void doModifyAndReCreateToWord(List<Trademark> trademarks) throws IOException, InvalidFormatException {
 	//경로에 파일 생성
 //	String TEMPPATH = "C:\\cji_d\\01.sts\\wordTest\\test.docx";
 	String TEMPPATH = "C:\\Users\\cjidi\\Downloads\\test.docx";

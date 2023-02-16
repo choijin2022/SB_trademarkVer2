@@ -575,3 +575,8 @@ dd .inTree >li{
 }
 
 
+.btn_area {
+  	margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px
+}

@@ -10,20 +10,40 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+import com.cji.exam.trademark.service.MemberService;
 import com.cji.exam.trademark.util.Utility;
+
+import lombok.Getter;
 
 @Component
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Rq {
+	@Getter
+	private int loginedMemberId;
+	@Getter
+	private Member loginedMember;
 	
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
 	private HttpSession session;
 	
-	public Rq(HttpServletRequest req, HttpServletResponse resp) {
+	public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
 		this.req = req;
 		this.resp = resp;
 		this.session = req.getSession();
+		/*
+		int loginedMemberId = 0;
+		Member loginedMember = null;
+		
+		if(session.getAttribute("loginedMemberId") != null) {
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+			loginedMember = memberService.getMemberById(loginedMemberId);
+		}
+		
+		this.loginedMemberId = loginedMemberId;
+		this.loginedMember = loginedMember;
+		
+		*/
 	}
 	
 	public void jsPrintHistoryBack(String msg) {
@@ -44,5 +64,13 @@ public class Rq {
 		req.setAttribute("msg", msg);
 		req.setAttribute("historyBack", historyBack);
 		return "usr/common/js";
+	}
+
+	public void login(Member member) {
+		session.setAttribute("loginedMemberId", member.getId());
+	}
+
+	public void logout() {
+		session.removeAttribute("loginedMemberId");
 	}
 }

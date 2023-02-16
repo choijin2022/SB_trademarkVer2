@@ -29,10 +29,10 @@ public class TrademarkService {
 		
 	}
 
-	public List<Trademark> getTrademarks(int projectId) {
+	public List<Trademark> getTrademarksByProjectId(int projectId) {
 		System.out.println("trademark service getTrademarks");
 		
-		return trademarkRepository.getTrademarks(projectId);
+		return trademarkRepository.getTrademarksByProjectId(projectId);
 	}
 
 	public void connectTrademark(int trademarkId, int projectId) {
@@ -66,8 +66,6 @@ public class TrademarkService {
 	}
 
 	public List<Trademark> getTrademarksByTrademarkId(List<Integer> trademarkIds) {
-		
-		//return trademarkRepository.getTrademarksByTrademarkId(trademarkIds);
 	
 		List<Trademark> trademarks = new ArrayList<>();
 		for (int trademarkId : trademarkIds) {

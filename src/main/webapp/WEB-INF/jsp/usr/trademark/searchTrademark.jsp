@@ -30,14 +30,6 @@
 								<div></div>
 							</td>
 						</tr>
-<!-- 						<tr> -->
-<!-- 							<th>년도</th> -->
-<!-- 							<td><input maxlength="4" class="input input-ghost w-full text-lg border-gray-400" type="text" name="searchRecentYear" placeholder="년도" /></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<th>제목</th> -->
-<%-- 							<td><input maxlength="800" class="input input-ghost w-full text-lg border-gray-400" type="text" name="title" placeholder="제목" value="${title}" /></td> --%>
-<!-- 						</tr> -->
 						<tr>
 							<td colspan="2"><button class="btn btn-outline btn-accent w-full ">검색</button></td>
 						</tr>
@@ -50,16 +42,6 @@
 </section>
 
 <div>${subProjects}</div>
-
-<section>
-<%-- 	<c:forEach var="subProject" items="${subProjects}"> --%>
-<!-- 		<tr> -->
-<%-- 			<td>${subProject.id }</td> --%>
-<%-- 			<td>${subProject.name }</td> --%>
-<!-- 		</tr> -->
-<%-- 	</c:forEach> --%>
-	
-</section>
 
 <script>
 
@@ -441,7 +423,6 @@ btnModal.addEventListener("click", function(event){
 	        	
 				console.log("subProjects")
 				
-				//console.log(\${subProjects.id});
 				
 				let supProjectListHtml = ""
 				
@@ -706,8 +687,8 @@ $('.btn-stored-selected-trademark').click(function() {
 
 
 function pageUrl(pageNo) {
-//  	numOfRows = ${trademarks[0].numOfRows};
- 	numOfRows = 10;
+ 	numOfRows = ${trademarks[0].numOfRows};
+//  	numOfRows = 10;
  	searchString = "${trademarks[0].searchString}";
 	
 	
@@ -772,7 +753,7 @@ $('.creat-project-btn').click(function() {
 
 
 
-<form name="paging-form" action="searchTrademard" method="POST" >
+<form name="paging-form" action="searchTrademark" method="POST" >
 	<input type="hidden" name="numOfRows" value="">
 	<input type="hidden" name="searchString" value="">
 	<input type="hidden" name="pageNo" value="">
@@ -787,13 +768,9 @@ $('.creat-project-btn').click(function() {
 				
 				<c:set var="startPage" value="${pageNo - pageMenuLen >= 1 ? pageNo - pageMenuLen : 1}" />
 				<c:set var="endPage" value="${pageNo + pageMenuLen <= pagesCount ? pageNo + pageMenuLen : pagesCount}" />
-<%-- 				<c:set var="ServiceKey" value="WTh4nA6jgRy5Jxmw4vhBoRbWDJFex7P%2BNr1NnXssp1P6N6NDjsY5hEZnOLCS4NEOpS8SSkrREQp%2FqX%2BsrB42DQ%3D%3D" /> --%>
 				<c:set var="numOfRows" value="${trademarks[0].numOfRows}" />
 				<c:set var="searchString" value="${trademarks[0].searchString}" />
-<%-- 				<c:set var="url" value="http://kipo-api.kipi.or.kr/openapi/service/trademarkInfoSearchService/getWordSearch" /> --%>
 				
-<%-- 				<c:set var="pageBaseUri" value="${url}?ServiceKey=${ServiceKey}&numOfRows=${numOfRows}&searchKeyword=${searchKeyword }" /> --%>
-<%-- 				<c:set var="pageBaseUri" value="${url}?ServiceKey=${ServiceKey}&searchString=${searchString}" /> --%>
 				<c:set var="pageBaseUri" value="&searchString=${searchString}" />
 			
 				<c:if test="${trademarks[0].totalCount != 0 }">
@@ -822,5 +799,4 @@ $('.creat-project-btn').click(function() {
 		</div>
 	
 </section>
-
 <%@ include file="../common/foot.jsp"%>

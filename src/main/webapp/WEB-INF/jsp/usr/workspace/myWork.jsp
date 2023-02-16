@@ -36,7 +36,7 @@
 							<a class="h-full px-16 flex items-center" href="/usr/home/main"><span>로고</span></a>
 							<div class="flex-grow"></div>
 							<ul class="flex ">
-								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/trademark/trademarkApi2"><span>상표검색</span></a></li>
+								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/trademark/trademarkApi"><span>상표검색</span></a></li>
 								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/workspace/main"><span>work</span></a></li>
 							</ul>
 						</div>
