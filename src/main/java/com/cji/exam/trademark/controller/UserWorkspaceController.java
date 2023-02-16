@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cji.exam.trademark.helper.WordHelper;
 import com.cji.exam.trademark.service.ProjectService;
 import com.cji.exam.trademark.service.TrademarkService;
 import com.cji.exam.trademark.service.WorkspaceService;
@@ -156,6 +157,8 @@ public class UserWorkspaceController {
 		List<Trademark> trademarks = trademarkservice.getTrademarksByTrademarkId(trademarkIds);
 		
 		System.out.println(trademarks);
+		
+		//WordHelper.generateWord(trademarks);
 		
 		worksapceService.doTrademarksSetToWork(trademarks);
 		//worksapceService.doWordParser();

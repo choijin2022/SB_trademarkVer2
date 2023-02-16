@@ -254,11 +254,11 @@
 												<button class="btn-text-link btn btn-active btn-ghost btn-download-selected-trademark">상표 다운로드</button>
 												<button class="btn-text-link btn btn-active btn-ghost btn-delete-selected-trademark">상표 삭제</button>
 											</div>
-<!-- 											생성 -->
+<!-- 											생성 : api/word  -->
 											<form method="GET" name="do-create-word-form" action="/api/word">
 												<input type="hidden" name="ids" value="" />
 											</form>
-											
+<!-- 											다운로드 workspace/download -->
 											<form method="POST" name="do-download-trademarks-form" action="/usr/workspace/download">
 <!-- 											<form method="get" name="do-download-trademarks-form" action="/api/word"> -->
 												<input type="hidden" name="ids" value="" />
