@@ -192,5 +192,5 @@ $(document).on('click', '.btn-reload', function(){
 
 </script>
 
-<%@ include file = "../common/projectCreateModal.jsp" %>
+<%@ include file = "../modal/projectCreate.jsp" %>
 <%@ include file="../common/foot.jsp"%>

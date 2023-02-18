@@ -44,7 +44,10 @@ public class UserWorkspaceController {
 //		if (board == null) {
 //			return rq.jsReturnOnView("존재하지 않는 게시판입니다", true);
 //		}
-		List<ProjectVo> projects = projectService.getProjects();
+		
+		List<ProjectVo> projects = projectService.getProjectsByMemberId(rq.getLoginedMemberId());
+				
+//		projectService.getProjects();
 		
 		int projectCount = projects.size();
 		
@@ -90,10 +93,11 @@ public class UserWorkspaceController {
 		}
 		
 		//SubProject subProjects = projectService.getSubProjects(projectId);
-		
+		int allTrademarkCount = projectService.getTrademarkCountByProjectId(projectId);
 		List<Trademark> trademarks = trademarkservice.getTrademarksByProjectId(projectId);
 		
 //		model.addAttribute("board", board);
+		model.addAttribute("allTrademarkCount", allTrademarkCount);
 		model.addAttribute("project", project);
 		model.addAttribute("subProjectCount", subProjectCount);
 		model.addAttribute("trademarks", trademarks);

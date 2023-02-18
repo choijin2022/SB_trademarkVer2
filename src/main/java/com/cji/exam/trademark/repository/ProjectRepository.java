@@ -120,6 +120,14 @@ public interface ProjectRepository {
 				ORDER BY id DESC
 			""")
 	public List<SubProject> getSubProjectsByProjectId(int projectId);
+	
+	
+	@Select("""
+			SELECT COUNT(*) AS 전체상표수
+				FROM trademark
+				WHERE projectId = #{projectId};
+			""")
+	public int getTrademarkCountByProjectId(int projectId);
 
 	
 	

@@ -89,6 +89,10 @@ public class ProjectService {
 	public List<ProjectVo> getProjectsByMemberId(int loginedMemberId) {
 		return projectRepository.getProjectsByMemberId(loginedMemberId);
 	}
+
+	public int getTrademarkCountByProjectId(int projectId) {
+		return projectRepository.getTrademarkCountByProjectId(projectId);
+	}
 	
 	
 

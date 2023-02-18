@@ -46,11 +46,13 @@ public class UserApiController {
 		List<Trademark> trademarks = new ArrayList<>();
 		String totalCount;
 		
+		
+		
 		try {
 			String url = "http://kipo-api.kipi.or.kr/openapi/service/trademarkInfoSearchService/getWordSearch";
 //			String serviceKey = "WTh4nA6jgRy5Jxmw4vhBoRbWDJFex7P%2BNr1NnXssp1P6N6NDjsY5hEZnOLCS4NEOpS8SSkrREQp%2FqX%2BsrB42DQ%3D%3D";
-//			String serviceKey = "sd2%2Fw1FPMP7dCiLT1r8GNJatfwBCKhZfFVQAA3lNV55hr4o2tNP9B0NpNBn7iAGvAN8QwKTBfli73H%2Fdq7xZBw%3D%3D";
-			String serviceKey = "U4edfHljSlmlj96jWD%2Fc6swkeQW0otDCYK9srFWtMqjoiON7WlWpKF0NF%2F2wYAsP%2FMUdxBf7s4IHaUalVapzOg%3D%3D";
+			String serviceKey = "sd2%2Fw1FPMP7dCiLT1r8GNJatfwBCKhZfFVQAA3lNV55hr4o2tNP9B0NpNBn7iAGvAN8QwKTBfli73H%2Fdq7xZBw%3D%3D";
+//			String serviceKey = "U4edfHljSlmlj96jWD%2Fc6swkeQW0otDCYK9srFWtMqjoiON7WlWpKF0NF%2F2wYAsP%2FMUdxBf7s4IHaUalVapzOg%3D%3D";
 			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

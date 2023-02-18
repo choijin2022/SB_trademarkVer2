@@ -95,7 +95,7 @@
 										<section>
 											<div class="projectCard" style="border-width: 0px;">
 												<header style="padding: 10px 0px; border-bottom: 0px">
-													<div class="title">프로젝트 제목----------------------------------------------------------------</div>
+													<div class="title"><span> ${project.name } </span></div>
 													<div class="projectCard__btnGroup text-right">
 														<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
 														<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
@@ -107,23 +107,23 @@
 															<div class="m-3">
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">관리번호</span>
-																	<div class="editableInputWrap notHoverEdit"></div>
+																	<div class="editableInputWrap notHoverEdit">${project.projectCode }</div>
 																</div>
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">업체명</span>
-																	<div class="editableInputWrap notHoverEdit"></div>
+																	<div class="editableInputWrap notHoverEdit">${project.company}</div>
 																</div>
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">생성일</span>
-																	<div>20230211</div>
+																	<div>${project.regDate.substring(0,11)}</div>
 																</div>
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">최종수정일</span>
-																	<div>20230211</div>
+																	<div>${project.updateDate.substring(0,11)}</div>
 																</div>
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">상표수</span>
-																	<div>100</div>
+																	<div> ${allTrademarkCount} </div>
 																</div>
 															</div>
 														</div>
@@ -261,5 +261,6 @@ $(document).on('click', '.btn-reload', function(){
 </section>
 -->
 
-<%@ include file = "../common/projectCreateModal.jsp" %>
+
+<%@ include file = "../modal/projectCreate.jsp" %>
 <%@ include file="../common/foot.jsp"%>

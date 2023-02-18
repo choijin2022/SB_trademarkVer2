@@ -53,7 +53,7 @@
 								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;">
 									<div class="ltCnt myWorkSideBar side-bar " style="margin: 0px; height: 100%; overflow: auto; box-sizing: border-box; position: fixed;">
 										<div class="folder-list-btn-wrapper m-2 flex justify-evenly">
-											<div class="btn btn-grey btn-new-folder" title="새 폴더" style="width:60%; min-height:2rem; height:2rem;">
+											<div class="btn btn-grey btn-new-folder btn-modal" title="새 폴더" style="width:60%; min-height:2rem; height:2rem;">
 												<i class="fas fa-plus mr-10"></i>
 												새폴더
 											</div>
@@ -121,23 +121,23 @@
 															<div class="m-3">
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">관리번호</span>
-																	<div class="editableInputWrap notHoverEdit"></div>
+																	<div class="editableInputWrap notHoverEdit">${project.projectCode }</div>
 																</div>
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">업체명</span>
-																	<div class="editableInputWrap notHoverEdit"></div>
+																	<div class="editableInputWrap notHoverEdit">${project.company}</div>
 																</div>
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">생성일</span>
-																	<div>20230211</div>
+																	<div>${project.regDate.substring(0,11)}</div>
 																</div>
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">최종수정일</span>
-																	<div>20230211</div>
+																	<div>${project.updateDate.substring(0,11)}</div>
 																</div>
 																<div class="info-item-wrapper">
 																	<span class="info-item-label">상표수</span>
-																	<div>100</div>
+																	<div> ${allTrademarkCount} </div>
 																</div>
 															</div>
 														</div>
@@ -387,47 +387,5 @@
 
 
 
-
-
-
-<!--  표
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="table-box-type-1 show-project-list">
-			<c:choose>
-				<c:when test="${projectCount == 0 }">
-					<div class="text-center mt-4">프로젝트가 없습니다</div>
-				</c:when>
-				<c:otherwise>
-					<div class="table-box-type-1 ">
-						<table class="table w-full">
-							<colgroup>
-								<col width="60" />
-								<col />
-								<col width="150" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>프로젝트</th>
-									<th>날짜</th>
-								</tr>
-							</thead>
-							<tbody >
-								<tr class="hover" id="\${value.id}">
-									<td>\${thisIndexNum}</td>
-									<td><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
-									<td>\${value.regDate.substring(0,11)}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</div>
-</section>
--->
-
-<%@ include file = "../common/projectCreateModal.jsp" %>
+<%@ include file = "../modal/projectSubCreate.jsp" %>
 <%@ include file="../common/foot.jsp"%>
