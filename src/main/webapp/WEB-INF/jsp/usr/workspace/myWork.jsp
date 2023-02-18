@@ -25,50 +25,25 @@
 </script>
 
 
+
 <section class="text-xl">
 	<div class="container">
 		<div class="requireAuthentication">
 			<div id="warp" class="blankWrap myWork" style="height: 100%; padding-bottom: 0px;">
-				
-				<div class="project-manage-header project-manage ">
-					<header>
-						<div class="h-16 flex container mx-auto text-3xl fixed">
-							<a class="h-full px-16 flex items-center" href="/usr/home/main"><span>로고</span></a>
-							<div class="flex-grow"></div>
-							<ul class="flex ">
-								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/trademark/trademarkApi"><span>상표검색</span></a></li>
-								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/workspace/main"><span>work</span></a></li>
-							</ul>
-						</div>
-					</header>
-				</div>
-				
 				<div class="blankContents project-manage-page" style="height: calc(100% - 60px); padding: 0px;">
 					<div class="fullTypeCntWrap" style="height: 100%; min-height: 770px;">
 						<div class="myWorkFrameSetA FrameSplitter flex" style="min-height: 100%; height: 612.4px;">
-							
-<!-- 							<div class="splitter_panel hide-panel"> -->
-<!-- 								<div class="splitter_handle"> -->
-<!-- 									<em class="fa fa-caret-right" style="color: rgb(255, 255, 255); line-height: 195px;"></em> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="splitter_panel show-panel"> -->
-<!-- 								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;"> -->
-<!-- 									<div class="ltCnt myWorkSideBar"> -->
-<!-- 									<div id="projectTreeHandle" class="projectTreeHandle"></div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
 							
 							<div class="splitter_panel" style="width: 280px;top: 0px;">
 								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;">
 									<div class="ltCnt myWorkSideBar side-bar " style="margin: 0px; height: 100%; overflow: auto; box-sizing: border-box; position: fixed;">
 										<div class="folder-list-btn-wrapper m-2 flex justify-evenly">
-											<div class="btn btn-grey btn-new-folder" title="새 폴더" style="width:60%; min-height:2rem; height:2rem;">
+											<div id="btn-modal"  class="btn btn-grey btn-new-folder btn-modal" title="새 폴더" style="width:60%; min-height:2rem; height:2rem;">
 												<i class="fas fa-plus mr-10"></i>
+<!-- 												<button id="btn-modal" class="btn btn-outline btn-accent container w-1/6 flex mt-5 btn-modal" >새폴더</button> -->
 												새폴더
 											</div>
-											<div class="btn btn-grey btn-sync" title="새로 고침" style="min-height:2rem; height:2rem;">
+											<div class="btn btn-grey btn-sync btn-reload" title="새로 고침" style="min-height:2rem; height:2rem;">
 												<i class="fas fa-sync"></i>
 											</div>
 										</div>
@@ -222,10 +197,6 @@
 						</div>
 					</div>
 					
-					
-
-					
-					
 				</div>
 			</div>
 		</div>					
@@ -234,7 +205,14 @@
 	
 
 
+<script>
+// 새로고침 버튼 클릭 이벤트
+$(document).on('click', '.btn-reload', function(){
+	location.reload();
+});
 
+
+</script>
 
 
 
@@ -283,4 +261,5 @@
 </section>
 -->
 
+<%@ include file = "../common/projectCreateModal.jsp" %>
 <%@ include file="../common/foot.jsp"%>

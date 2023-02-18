@@ -103,4 +103,15 @@ public class UserMemberController {
 
 		return Utility.jsReplace(Utility.f("%s님 환영합니다", member.getNickname()), "/");
 	}
+	
+	
+	@RequestMapping("/usr/member/doLogout")
+	@ResponseBody
+	public String doLogout() {
+
+		rq.logout();
+
+		return Utility.jsReplace("로그아웃 되었습니다", "/"); 
+	}
+	
 }

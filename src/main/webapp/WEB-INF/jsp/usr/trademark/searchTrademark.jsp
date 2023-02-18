@@ -41,7 +41,7 @@
 	</div>
 </section>
 
-<div>${subProjects}</div>
+<%-- <div>${subProjects}</div> --%>
 
 <script>
 
@@ -140,8 +140,8 @@ function selectAllTrademark(selectAll)  {
 							<div class="text-center mt-4">프로젝트가 없습니다</div>
 						</c:when>
 						<c:otherwise>
-							<div class="table-box-type-1 of-y-scroll">
-								<table class="table w-full">
+							<div class="table-box-type-1 of-y-scroll" style="border: solid 1px #dfdfdf;">
+								<table class="table w-full" >
 									<colgroup>
 										<col />
 										<col width="60" />
@@ -160,6 +160,7 @@ function selectAllTrademark(selectAll)  {
 										
 									</tbody>
 								</table>
+								
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -167,12 +168,21 @@ function selectAllTrademark(selectAll)  {
 			</div>
 		
 			<div id="project-create" class="project-create">
-				<div>프로젝트 이름</div>
-					<div><input class="input input-bordered w-full max-w-xs" type="text" name="name" placeholder="프로젝트 이름을 입력해주세요" /></div>
-				<div>파일이름</div>
-				<div>
-					<input class="input input-bordered w-full max-w-xs" type="text" name="subProjectName" placeholder="제목을 입력해주세요" value="새파일"/>
+				<div> 새프로젝트 생성 </div>
+				<hr style="border: solid 1px #dfdfdf;">
+				<div class="modal-create-div mt-3"><span class="ml-0">프로젝트 이름</span>
+					<span class="modal-create-span"><input class="input input-bordered w-full max-w-xs" type="text" name="name" placeholder="프로젝트 이름을 입력해주세요" /></span>
 				</div>
+				<div class="modal-create-div"><span >파일이름</span>
+					<span class="modal-create-span"><input class="input input-bordered w-full max-w-xs" type="text" name="subProjectName" placeholder="제목을 입력해주세요" value="새파일"/></span>
+				</div>
+				<div class="modal-create-div">관리번호
+					<span class="modal-create-span"><input class="input input-bordered w-full max-w-xs" type="text" name="projectCode" placeholder="관리번호를 입력해주세요" /></span>
+				</div>
+				<div class="modal-create-div">업체명
+				<span class="modal-create-span"><input class="input input-bordered w-full max-w-xs" type="text" name="company" placeholder="업체명을 입력해주세요" /></span>
+				</div>
+				<hr style="border: solid 1px #dfdfdf;">
 			</div>
 			
 			<div class="storeButton flex justify-center container mt-3">
@@ -212,8 +222,33 @@ const modal = document.getElementById("modal_test")
 const modal_body =document.getElementById("modal_body")
 const btnModal = document.getElementById("btn-modal")
 
+
+
+
+// 저장 버튼 클릭 이벤트 - 모달창 활성화
 btnModal.addEventListener("click", function(event){
+	if(${rq.getLoginedMemberId()} == 0){
+		alert("로그인이 필요합니다.");
+		return;
+	}
 	
+	//모달창 내의 close 버튼 이벤트
+	let btnClose = document.getElementById("modal-close-btn");
+		btnClose.addEventListener("click", function(event){
+			$('.modal_test').hide();
+			$('.modal_body').hide();
+	});
+	
+	//모달창 내의 프로젝트 생성 버튼 이벤트 
+	let btnCreatProject = document.getElementById('show-creat-project-btn');
+	btnCreatProject.addEventListener("click", function(event){
+		$('.project-list').hide();
+		$('.project-create').show();
+		$('.show-creat-project-btn').hide();
+		$('.creat-project-btn').show();
+	});
+		
+		
 	console.log(${subProjects[0]});
 	
 	let testStatus = false;
@@ -279,22 +314,20 @@ btnModal.addEventListener("click", function(event){
 						<td class="project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
 						<td>\${value.regDate.substring(0,11)}</td>
 					</tr>	
-					<tr class="hover sub-project-tr hidden" id="\${value.id}">
-						<td class="sub-project-td"></td>
-						<td class="sub-project-td"></td>
-						<td class="sub-project-td">subPorjectName</td>
-						<td class="sub-project-td">subPorjectDate</td>
-					</tr>
 					
 					`
+// 					<tr class="hover sub-project-tr hidden" id="\${value.id}">
+// 						<td class="sub-project-td"></td>
+// 						<td class="sub-project-td"></td>
+// 						<td class="sub-project-td">subPorjectName</td>
+// 						<td class="sub-project-td">subPorjectDate</td>
+// 					</tr>
 					
 				thisIndexNum++;
 						
 				});
 				
 				$("#product-modal").html(supProjectListHtml);
-				
-				
 				
 				
 				
@@ -321,7 +354,6 @@ btnModal.addEventListener("click", function(event){
 		           
 					
 					//$('.sub-project-tr').addClass("hidden");
-					
 					
 					
 		           if($(this).hasClass("active")){
@@ -354,7 +386,6 @@ btnModal.addEventListener("click", function(event){
 						$('.btn-stored-selected-trademark').prop("disabled", true);
 					}
 					
-					
 					 
 					console.log(projectId);
 					setProjectId = projectId;
@@ -371,19 +402,7 @@ btnModal.addEventListener("click", function(event){
 			$('.modal_body').show();
 			$('.project-create').hide();
 			
-			let btnClose = document.getElementById("modal-close-btn")
-			btnClose.addEventListener("click", function(event){
-				$('.modal_test').hide();
-				$('.modal_body').hide();
-			});
 			
-			let btnCreatProject = document.getElementById('show-creat-project-btn');
-			btnCreatProject.addEventListener("click", function(event){
-				$('.project-list').hide();
-				$('.project-create').show();
-				$('.show-creat-project-btn').hide();
-				$('.creat-project-btn').show();
-			});
 	 },   
 	    error:function(e){  
 	        alert(e.responseText);  
@@ -391,10 +410,14 @@ btnModal.addEventListener("click", function(event){
 	});
 			
 	// subProject 가져오기
-	//let projectId = 0;
-	
+	// subProject 아이콘 클릭 이벤트 
 	$(document).on('click', '.select-sub-project-icon-td', function(){
-	    let projectId = parseInt($(this).attr('id'));
+		
+		
+// 		$(".sub-project-tr").remove()
+// 		$(".sub-project-tr").empty();
+		
+		let projectId = parseInt($(this).attr('id'));
 	    console.log("projectId");
 	    console.log(projectId);
 	    
@@ -404,66 +427,69 @@ btnModal.addEventListener("click", function(event){
 	    	 $(this).removeClass("hidden");
 	    }
 	    
-	    if(!projectId){
-	    	projectId = 0;
-	    }
+// 	    if(!projectId){
+// 	    	projectId = 0;
+// 	    }
 
-		//$('.sub-project-tr').removeClass("hidden");
-	    let params="projectId="+projectId;
+// 		$('.sub-project-tr').removeClass("hidden");
 // 	 	$('.sub-project-tr').attr('style', "display:none;");  //숨기기
 // 	 	$('.sub-project-td').attr('style', "display:none;");
 	   
+	    let params="projectId="+projectId;
 	    
 	    $.ajax({      
-	        url:"/usr/project/getAllProject",      
+	        url:"/usr/project/getSubProject",      
 	        data : params,      
 	        success:function(data){   
 	        	
-	        	console.log(data)
-	        	
 				console.log("subProjects")
+	        	console.log(data)
 				
-				
+				$(".sub-project-tr").remove();
+				$(".sub-project-tr").empty();
+	        	
 				let supProjectListHtml = ""
+				
 				
 				let thisIndexNum = 1;
 				$.each(data,function(index, value) {
 					let thisIndex = $(this).find("index");
 					
 					supProjectListHtml += `
-						<tr class="hover">
-							<td id="\${value.id}" class="select-sub-project-icon-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px' ></i></td>
-							<td >\${thisIndexNum}</td>
-							<td class="project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
-							<td>\${value.regDate.substring(0,11)}</td>
+						<tr class="hover sub-project-tr">
+							<td id="\${value.id}" class="select-sub-project-icon-td sub-project-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px' ></i></td>
+							<td class="sub-project-td">\${thisIndexNum}</td>
+							<td class="sub-project-td"><span id="\${value.id}" class="hover:underline select-seb-project-td">\${value.name}</span></td>
+							<td class="sub-project-td">\${value.regDate.substring(0,11)}</td>
 						</tr>	
-						<tr class="hover sub-project-tr hidden" id="\${value.id}">
-							<td class="sub-project-td"></td>
-							<td class="sub-project-td"></td>
-							<td class="sub-project-td">subPorjectName</td>
-							<td class="sub-project-td">subPorjectDate</td>
-						</tr>
-						
+
 						`
+// 						<tr class="hover sub-project-tr hidden" id="\${value.id}">
+// 							<td class="sub-project-td"></td>
+// 							<td class="sub-project-td"></td>
+// 							<td class="sub-project-td"></td>
+// 							<td class="sub-project-td">subPorjectDate</td>
+// 						</tr>
+						
 						
 					thisIndexNum++;
 							
 					});
 					
-					$("#product-modal").html(supProjectListHtml);
+					$("#product-modal").append(supProjectListHtml);
 					
 					
 					
-					
-					
-					// 특정 프로젝트 클릭시 프로젝트 id input
-					$('.select-project-td').click(function() {
+					// 특정 서브 프로젝트 클릭시 이벤트
+					$('.select-seb-project-td').click(function() {
 						
-						let projectId = parseInt($(this).attr('id'));
-						let selectId = projectId;
+						let thisSubProjectId = parseInt($(this).attr('id'));
 						
-						if (projectId == 0) {
-							alert('선택한 프로젝트가 없습니다');
+// 						let projectId = parseInt($(this).attr('id'));
+// 						let selectId = projectId;
+						
+						if (thisSubProjectId == 0) {
+							alert('선택한 서브 프로젝트가 없습니다');
 							return;
 						}
 						
@@ -472,6 +498,7 @@ btnModal.addEventListener("click", function(event){
 						console.log(testStatus);
 						
 						console.log(projectIdStatus);
+						
 // 						$('tr#' + projectId).removeClass("hidden");
 // 						$('tr').removeClass("hidden");
 // 						$(this).parent().closest("tr").removeClass("hidden");
@@ -536,6 +563,7 @@ btnModal.addEventListener("click", function(event){
 	
 	/*
 	// 다시 project 가져오기
+	
 	$(document).on('click', '.project-name-td-select', function(){
 		projectId = parseInt($(this).attr('id'));
 	    
@@ -657,6 +685,7 @@ btnModal.addEventListener("click", function(event){
 //
 // 체크박스에 선택한 상표 저장 
 $('.btn-stored-selected-trademark').click(function() {
+	
 	const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
 	if (values.length == 0) {
 		alert('선택한 상표가 없습니다');
@@ -709,6 +738,8 @@ function pageUrl(pageNo) {
 $('.creat-project-btn').click(function() {
 	let projectName = $('input[name=name]').val();
 	let subProjectName = $('input[name=subProjectName]').val();
+	let projectCode = $('input[name=projectCode]').val();
+	let company = $('input[name=company]').val();
 	
 	if (projectName.length == 0) {
 		alert('생성할 프로젝트 이름을 입력해주세요');
@@ -729,7 +760,8 @@ $('.creat-project-btn').click(function() {
 		data : {
 			name : projectName,
 			subProjectName : subProjectName,
-			
+			projectCode : projectCode,
+			company : company
 		},
 		success : function(data) {
 			console.log(data);	

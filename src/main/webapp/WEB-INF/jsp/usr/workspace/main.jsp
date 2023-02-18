@@ -8,10 +8,24 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
+		
+		<div>
+			<span> 전체 프로젝트 </span> 
+<%-- 			<c:if test="${projectCount } > 0"> --%>
+				<span> ${projectCount } 개</span>
+<%-- 			</c:if> --%>
+		</div>
 		<div class="mb-2 flex justify-between items-center">
-			<div>
-				<span>${projectCount } 개</span>
+			<div class="folder-list-btn-wrapper m-2 flex">
+				<div id="btn-modal"  class="btn btn-grey btn-new-folder btn-modal mr-3" title="새 폴더" style="width:70%; min-height:2rem; height:2rem;">
+					<i class="fas fa-plus mr-10"></i>
+					새폴더
+				</div>
+				<div class="btn btn-grey btn-sync btn-reload" title="새로 고침" style="min-height:2rem; height:2rem;">
+					<i class="fas fa-sync"></i>
+				</div>
 			</div>
+			
 			<form>
 				<input type="hidden" name="boardId" value="${boardId }" />
 				
@@ -169,4 +183,14 @@
 </section>
 -->
 
+<script>
+// 새로고침 버튼 클릭 이벤트
+$(document).on('click', '.btn-reload', function(){
+	location.reload();
+});
+
+
+</script>
+
+<%@ include file = "../common/projectCreateModal.jsp" %>
 <%@ include file="../common/foot.jsp"%>

@@ -32,19 +32,6 @@
 		<div class="requireAuthentication">
 			<div id="warp" class="blankWrap myWork" style="height: 100%; padding-bottom: 0px;">
 				
-				<div class="project-manage-header project-manage ">
-					<header>
-						<div class="h-16 flex container mx-auto text-3xl fixed">
-							<a class="h-full px-16 flex items-center" href="/usr/home/main"><span>로고</span></a>
-							<div class="flex-grow"></div>
-							<ul class="flex ">
-								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/trademark/trademarkApi2"><span>상표검색</span></a></li>
-								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/workspace/main"><span>work</span></a></li>
-							</ul>
-						</div>
-					</header>
-				</div>
-				
 				<div class="blankContents project-manage-page" style="height: calc(100% - 60px); padding: 0px;">
 					<div class="fullTypeCntWrap" style="height: 100%; min-height: 770px;">
 						<div class="myWorkFrameSetA FrameSplitter flex" style="min-height: 100%; height: 612.4px;">
@@ -442,4 +429,5 @@
 </section>
 -->
 
+<%@ include file = "../common/projectCreateModal.jsp" %>
 <%@ include file="../common/foot.jsp"%>

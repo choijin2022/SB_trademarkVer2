@@ -26,12 +26,12 @@ public class Rq {
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
 	private HttpSession session;
-	
+
 	public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
 		this.req = req;
 		this.resp = resp;
 		this.session = req.getSession();
-		/*
+		
 		int loginedMemberId = 0;
 		Member loginedMember = null;
 		
@@ -43,9 +43,8 @@ public class Rq {
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
 		
-		*/
 	}
-	
+
 	public void jsPrintHistoryBack(String msg) {
 		resp.setContentType("text/html; charset=UTF-8");
 		
@@ -59,12 +58,6 @@ public class Rq {
 			e.printStackTrace();
 		}
 	}
-	
-	public String jsReturnOnView(String msg, boolean historyBack) {
-		req.setAttribute("msg", msg);
-		req.setAttribute("historyBack", historyBack);
-		return "usr/common/js";
-	}
 
 	public void login(Member member) {
 		session.setAttribute("loginedMemberId", member.getId());
@@ -72,5 +65,27 @@ public class Rq {
 
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
+	}
+
+	public String jsReturnOnView(String msg, boolean historyBack) {
+		req.setAttribute("msg", msg);
+		req.setAttribute("historyBack", historyBack);
+		return "usr/common/js";
+	}
+	
+	public String getProfileImgUri(int membeId) {
+		return "/common/genFile/file/member/" + membeId + "/extra/profileImg/1";
+	}
+
+	public String getProfileFallbackImgUri() {
+		return "https://via.placeholder.com/150/?text=*^_^*";
+	}
+
+	public String getProfileFallbackImgOnErrorHtml() {
+		return "this.src = '" + getProfileFallbackImgUri() + "'";
+	}
+	
+	public String getRemoveProfileImgIfNotExitOnErrorHtmlAttr() {
+		return "$(this).remove()";
 	}
 }

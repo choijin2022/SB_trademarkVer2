@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class SubProject {
 	private int id;
 	private int projectId;
+	private int memberId;
 	private String regDate;
 	private String updateDate;
 	private String name;

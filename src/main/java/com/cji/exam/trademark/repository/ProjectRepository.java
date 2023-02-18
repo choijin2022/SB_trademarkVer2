@@ -16,18 +16,22 @@ public interface ProjectRepository {
 			INSERT INTO ProjectVo
 			SET regDate = NOW(),
 				updateDate = NOW(),
-				`name` = #{name}
+				memberId = #{memberId},
+				`name` = #{name},
+				projectCode = #{projectCode},
+				company = #{company}
 			""")
-	public void createProject(String name);
+	public void createProject(int memberId, String name, String projectCode, String company);
 	
 	@Insert("""
 			INSERT INTO subProject
 			SET regDate = NOW(),
 				updateDate = NOW(),
+				memberId = #{memberId},
 				projectId = #{projectId},
 				`name` = #{subProjectName}
 			""")
-	public void createSubProject(int projectId, String subProjectName);
+	public void createSubProject(int memberId, int projectId, String subProjectName);
 	
 	
 	@Select("""
@@ -36,6 +40,15 @@ public interface ProjectRepository {
 			ORDER BY id DESC
 			""")
 	public List<ProjectVo> getProjects();
+	
+	@Select("""
+			SELECT *
+			FROM ProjectVo
+			WHERE memberId = #{memberId}
+			ORDER BY id DESC
+			""")
+	public List<ProjectVo> getProjectsByMemberId(int memberId);
+	
 	
 	@Select("""
 			
@@ -47,7 +60,7 @@ public interface ProjectRepository {
 				FROM projectVo AS P RIGHT JOIN subProject AS S 
 				ON P.id = S.projectId;	
 			""")
-	public List<ProjectVo> getAllProjects();
+	public List<ProjectVo> getUionSubProjects();
 	
 	
 	@Select("""
@@ -58,7 +71,7 @@ public interface ProjectRepository {
 	@Select("""
 			SELECT *
 				FROM ProjectVo
-				where id = #{projectId}
+				WHERE id = #{projectId}
 			""")
 	public ProjectVo getProject(int projectId);
 
@@ -74,7 +87,7 @@ public interface ProjectRepository {
 	@Select("""
 			SELECT COUNT(id)
 			FROM subProject
-			where projectId = #{projectId}
+			WHERE projectId = #{projectId}
 			""")
 	public int getSubProjectCount(int projectId);
 
@@ -95,9 +108,18 @@ public interface ProjectRepository {
 	@Select("""
 			SELECT *
 				FROM subProject
-				where projectId = #{projectId}
+				WHERE projectId = #{projectId}
 			""")
-	public SubProject getSubproject(int projectId);
+	public SubProject getSubProject(int projectId);
+
+	
+	@Select("""
+			SELECT *
+				FROM subProject
+				WHERE projectId = #{projectId}
+				ORDER BY id DESC
+			""")
+	public List<SubProject> getSubProjectsByProjectId(int projectId);
 
 	
 	

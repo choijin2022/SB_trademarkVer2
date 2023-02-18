@@ -31,22 +31,22 @@ public class ProjectService {
 //		return subProjectId;
 //	}
 	
-	public int newCreateProject(String name) {
+	public int newCreateProject(int memberId, String name, String projectCode, String company) {
 			
-			projectRepository.createProject(name);
+			projectRepository.createProject(memberId, name,projectCode,company );
 			int projectId =  projectRepository.getLastInsertId();
 			
 			return projectId;
 		}
 	
-	public int createSubProject(int projectId, String subProjectName) {
+	public int createSubProject(int memberId, int projectId, String subProjectName) {
 		
-		projectRepository.createSubProject(projectId, subProjectName);
+		projectRepository.createSubProject(memberId, projectId, subProjectName);
 		
 		int subProjectId = projectRepository.getLastInsertId();
 		
 		
-		System.out.println(subProjectId);
+		System.out.println("subProjectId 생성 : " + subProjectId);
 		
 		return subProjectId;
 	}
@@ -56,8 +56,8 @@ public class ProjectService {
 		return projectRepository.getProject(projectId);
 	}
 	
-	public SubProject getSubproject(int projectId) {
-		return projectRepository.getSubproject(projectId);
+	public SubProject getSubProject(int projectId) {
+		return projectRepository.getSubProject(projectId);
 	}
 
 	public int getSubProjectCount(int projectId) {
@@ -74,12 +74,20 @@ public class ProjectService {
 		return projectRepository.getSubProjectName(projectId);
 	}
 
-	public List<ProjectVo> getAllProjects() {
-		return projectRepository.getAllProjects();
+	public List<ProjectVo> getUionSubProjects() {
+		return projectRepository.getUionSubProjects();
 	}
 
 	public List<SubProject> getSubprojects() {
 		return projectRepository.getSubprojects();
+	}
+
+	public List<SubProject> getSubProjectsByProjectId(int projectId) {
+		return projectRepository.getSubProjectsByProjectId(projectId);
+	}
+
+	public List<ProjectVo> getProjectsByMemberId(int loginedMemberId) {
+		return projectRepository.getProjectsByMemberId(loginedMemberId);
 	}
 	
 	

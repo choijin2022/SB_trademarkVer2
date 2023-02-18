@@ -24,3 +24,23 @@
 <body>
 
 	<main>
+	<div class="project-manage-header project-manage ">
+					<header>
+						<div class="h-16 flex container mx-auto text-3xl fixed">
+							<a class="h-full px-16 flex items-center" href="/usr/home/main"><span>로고</span></a>
+							<div class="flex-grow"></div>
+							<ul class="flex ">
+								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/trademark/trademarkApi"><span>상표검색</span></a></li>
+								<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/workspace/main"><span>work</span></a></li>
+								<c:if test="${rq.getLoginedMemberId() == 0 }">
+									<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/login"><span>LOGIN</span></a></li>
+									<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/join"><span>JOIN</span></a></li>
+								</c:if>
+								<c:if test="${rq.getLoginedMemberId() != 0 }">
+									<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/myPage"><span>MYPAGE</span></a></li>
+									<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
+								</c:if>
+							</ul>
+						</div>
+					</header>
+				</div>

@@ -20,19 +20,18 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.cji.exam.trademark.service.ProjectService;
-import com.cji.exam.trademark.service.TrademarkService;
-import com.cji.exam.trademark.vo.SubProject;
+import com.cji.exam.trademark.vo.Rq;
 import com.cji.exam.trademark.vo.Trademark;
 
 @Controller
 public class UserApiController {
 //	private static final int numOfRows = 50;
 	private ProjectService projectService;
-	
+	private Rq rq;
 	@Autowired
-	UserApiController(ProjectService projectService){
+	UserApiController(ProjectService projectService, Rq rq){
 		this.projectService = projectService;
-		
+		this.rq = rq;
 	}
 	
 	
@@ -98,7 +97,13 @@ public class UserApiController {
 					}
 					trademark.setSearchString(searchString);
 					trademark.setTotalCount(totalCount);
-					trademark.setIndexNo(getTagValue("indexNo", eElement));
+					if(pageNo >1) {
+						int thisIndexNo = Integer.parseInt(getTagValue("indexNo", eElement));
+						int addIndexNo = (numOfRows*pageNo-numOfRows)+thisIndexNo;
+						trademark.setIndexNo(Integer.toString(addIndexNo));
+					}else {
+						trademark.setIndexNo(getTagValue("indexNo", eElement));
+					}
 					trademark.setApplicantName(getTagValue("applicantName", eElement));
 					trademark.setPublicationNumber(getTagValue("publicationNumber", eElement));
 					trademark.setPublicationDate(getTagValue("publicationDate", eElement));
@@ -172,6 +177,12 @@ public class UserApiController {
 			}
 			
 			//List<SubProject> subProjects =  projectService.getSubprojects();
+//			if(rq.getLoginedMember() != null) {
+				model.addAttribute(rq.getLoginedMemberId());
+//			}
+//			if(rq.getLoginedMemberId() != 0) {
+			model.addAttribute("memberId", rq.getLoginedMemberId());
+//			}
 			
 			model.addAttribute("numOfRows", numOfRows);
 			model.addAttribute("trademarks", trademarks);
