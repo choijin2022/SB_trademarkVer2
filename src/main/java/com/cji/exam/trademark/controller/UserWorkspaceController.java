@@ -9,13 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cji.exam.trademark.helper.WordHelper;
 import com.cji.exam.trademark.service.ProjectService;
 import com.cji.exam.trademark.service.TrademarkService;
 import com.cji.exam.trademark.service.WorkspaceService;
+import com.cji.exam.trademark.util.Utility;
 import com.cji.exam.trademark.vo.ProjectVo;
+import com.cji.exam.trademark.vo.ResultData;
 import com.cji.exam.trademark.vo.Rq;
+import com.cji.exam.trademark.vo.SubProject;
 import com.cji.exam.trademark.vo.Trademark;
 
 @Controller
@@ -85,9 +89,13 @@ public class UserWorkspaceController {
 		
 		if(subProjectCount > 1) {
 			List<String> subProjectName = projectService.getSubProjectNames(projectId);
+			List<SubProject> subProjects = projectService.getSubProjectsByProjectId(projectId);
+			model.addAttribute("subProjects", subProjects);
 			model.addAttribute("subProjectName", subProjectName);
 		}else {
 			String subProjectName = projectService.getSubProjectName(projectId);
+			SubProject subProject = projectService.getSubProject(projectId);
+			model.addAttribute("subProject", subProject);
 			model.addAttribute("subProjectName", subProjectName);
 			System.out.println("subProjectName : " + subProjectName);
 		}
@@ -121,22 +129,27 @@ public class UserWorkspaceController {
 		
 		int subProjectCount = projectService.getSubProjectCount(projectId);
 		
-		
+		List<SubProject> subProjects = new ArrayList<>();
 		if(subProjectCount > 1) {
-			List<String> subProjectName = projectService.getSubProjectNames(projectId);
-			model.addAttribute("subProjectName", subProjectName);
+			subProjects = projectService.getSubProjectsByProjectId(projectId);
+			
 		}else {
-			String subProjectName = projectService.getSubProjectName(projectId);
-			model.addAttribute("subProjectName", subProjectName);
-			System.out.println("subProjectName : " + subProjectName);
+			SubProject subProject = projectService.getSubProject(projectId);
+			System.out.println("subProject : " + subProject);
+			subProjects.add(subProject);
 		}
 		
 		//SubProject subProjects = projectService.getSubProjects(projectId);
 		
-		List<Trademark> trademarks = trademarkservice.getTrademarksByProjectId(projectId);
+		List<Trademark> trademarks = trademarkservice.getTrademarksBySubId(subProjectId);
+		System.out.println("subProjects : "+subProjects);
+		int allTrademarkCount = projectService.getTrademarkCountByProjectId(projectId);
 		
 //		model.addAttribute("board", board);
+		model.addAttribute("allTrademarkCount", allTrademarkCount);
+//		model.addAttribute("board", board);
 		model.addAttribute("project", project);
+		model.addAttribute("subProjects", subProjects);
 		model.addAttribute("subProjectCount", subProjectCount);
 		model.addAttribute("trademarks", trademarks);
 		model.addAttribute("boardId", boardId);
@@ -144,15 +157,16 @@ public class UserWorkspaceController {
 		model.addAttribute("searchKeyword", searchKeyword);
 		
 		return "usr/workspace/list";
+//		return "usr/workspace/list?projectId="+projectId;
+//		return "usr/workspace/list?projectId="+projectId+"&subProjectId="+subProjectId;
 	}
 	
 	
 	
 	@RequestMapping("/usr/workspace/download")
-	public String doDownloadTrademarks(Model model, @RequestParam(defaultValue = "") String ids, @RequestParam(defaultValue = "3") int boardId,
+	public String doDownloadTrademarks(Model model, @RequestParam(defaultValue = "") String ids, @RequestParam(defaultValue = "0")int projectId, @RequestParam(defaultValue = "0")int subProjectId,@RequestParam(defaultValue = "3") int boardId,
 			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword) throws Exception {
-		
 		
 		if (ids == null) {
 			return rq.jsReturnOnView("상표를 다시 선택해주세요", true);
@@ -173,87 +187,37 @@ public class UserWorkspaceController {
 		//worksapceService.doWordParser();
 		
 		
-		
 		//return "/api/word";
-		return "/list?projectId=3";
+		return "/list?projectId="+projectId;
 	}
 	
-	
-	
-/*
-	@RequestMapping("/usr/project/createWork")
+	@RequestMapping("/usr/workspace/storedTrademark")
 	@ResponseBody
-	public String doWrite(int boardId, String title, String body) {
-
-		if (Utility.empty(title)) {
-			return Utility.jsHistoryBack("제목을 입력해주세요");
+	public String doStoredTrademarkFromDB(Model model, String ids, @RequestParam(defaultValue = "0")int projectId, @RequestParam(defaultValue = "0")int subProjectId, @RequestParam(defaultValue = "3") int boardId) {
+		
+		if(projectId == 0) {
+			return Utility.jsReplace(Utility.f("상표를 저장할 프로젝트를 선택해주세요."), "history.back()");
 		}
-		if (Utility.empty(body)) {
-			return Utility.jsHistoryBack("내용을 입력해주세요");
+		List<Integer> trademarkIds = new ArrayList<>();
+		
+		for (String idStr : ids.split("!")) {
+			trademarkIds.add(Integer.parseInt(idStr));
 		}
-
-		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
-
-		int id = writeArticleRd.getData1();
-
-		return Utility.jsReplace(Utility.f("%d번 글이 생성되었습니다", id), Utility.f("detail?id=%d", id));
-	}
-	
-	@RequestMapping("/usr/workspace/list")
-	public String showWorkspaceList(Model model, @RequestParam(defaultValue = "3") int boardId,
-			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "title") String searchKeywordTypeCode,
-			@RequestParam(defaultValue = "") String searchKeyword) {
-
-		if (page <= 0) {
-			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다", true);
-		}
-
-		Board board = boardService.getBoardById(boardId);
-
-		if (board == null) {
-			return rq.jsReturnOnView("존재하지 않는 게시판입니다", true);
-		}
-
-		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
-
-		int itemsInAPage = 10;
-
-		int pagesCount = (int) Math.ceil((double) articlesCount / itemsInAPage);
-
-		List<Article> articles = articleService.getArticles(boardId, searchKeywordTypeCode, searchKeyword, itemsInAPage,
-				page);
-
-		model.addAttribute("board", board);
-		model.addAttribute("articles", articles);
-		model.addAttribute("articlesCount", articlesCount);
+		System.out.println("trademarkIds : "+trademarkIds);
+		trademarkservice.storedTrademarksFromDB(trademarkIds, projectId);
+		String subProjectName = projectService.getSubProjectName(subProjectId);
+//		projectService.storedSubProject
+		
+//		projectService.createSubProject(rq.getLoginedMemberId(), projectId, subProjectName);
+		//SubProject subProjects = projectService.getSubProjects(projectId);
+		
+		
+//		model.addAttribute("board", board);
 		model.addAttribute("boardId", boardId);
-		model.addAttribute("page", page);
-		model.addAttribute("pagesCount", pagesCount);
-		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
-		model.addAttribute("searchKeyword", searchKeyword);
-
-		return "usr/project/list";
-	}
-	*/
+		
+		return Utility.jsReplace(Utility.f("%d개 상표를 저장했습니다", trademarkIds.size()), "/usr/workspace/list?projectId="+projectId);
+		}
 	
-//	@RequestMapping("/usr/project/getProject")
-//	@ResponseBody
-//	public ResultData<List<ProjectVo>> getProject(Model model) {
-//		
-//		List<ProjectVo> projects = projectService.getProjects();
-//		
-//		if(projects == null) {
-//			return ResultData.from("F-1", "프로젝트가 존재하지 않습니다");
-//		}
-//		
-//		int projectCount = projects.size();
-//		System.out.println("projectCount : "+projectCount);
-//		model.addAttribute("projects", projects);
-//		model.addAttribute("projectCount", projectCount);
-//		
-//		return ResultData.from("S-1", "프로젝트 조회 성공", "projects", projects);
-//	}
 	
 	
 }

@@ -74,11 +74,11 @@ public class UserTrademarkController {
 			
 			int trademarkId = trademarkService.storedTrademark(trademark, projectId);
 			
-			if(subProjectId !=0) {
-				trademarkService.connectTrademarkSub(trademarkId, projectId, subProjectId);
-			}
+//			if(subProjectId !=0) {
+//				trademarkService.connectTrademarkSub(trademarkId, projectId, subProjectId);
+//			}
 			
-			trademarkService.connectTrademark(trademarkId, projectId);
+//			trademarkService.connectTrademark(trademarkId, projectId);
 			
 			System.out.println(trademark);
 		}
@@ -129,7 +129,7 @@ public class UserTrademarkController {
 	
 	@RequestMapping("/usr/trademark/doDeleteTrademarks")
 	@ResponseBody
-	public String doDeleteTrademarks(@RequestParam(defaultValue = "") String ids) {
+	public String doDeleteTrademarks(@RequestParam(defaultValue = "") String ids, String projectId) {
 		
 		if (Utility.empty(ids)) {
 			return Utility.jsHistoryBack("선택한 상표가 없습니다");
@@ -145,7 +145,7 @@ public class UserTrademarkController {
 		
 		trademarkService.deleteTrademarks(trademarkIds);
 		
-		return Utility.jsReplace(Utility.f("%d개 상표를 삭제했습니다", trademarkIds.size()), "/usr/workspace/main");
+		return Utility.jsReplace(Utility.f("%d개 상표를 삭제했습니다", trademarkIds.size()), "/usr/workspace/list?projectId="+projectId);
 	}
 	
 }

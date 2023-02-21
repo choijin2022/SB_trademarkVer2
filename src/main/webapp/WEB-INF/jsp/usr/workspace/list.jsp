@@ -1,27 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <c:set var="pageTitle" value="MyWork" /> --%>
+<c:set var="pageTitle" value="workList" />
 <%@ include file="../common/fullTypeHead.jsp"%>
 
-<!-- <div class="side-bar"> -->
-<!-- 	<div class="status-icon"> -->
-<!-- 		<div>▶</div> -->
-<!--     	<div>▼</div> -->
-<!-- 	</div> -->
-<!-- 	<nav class="manu-box-1"> -->
-<!-- 	<input id="check-menu-btn" type="checkbox" /> -->
-<!--     <label for="check-menu-btn">프로젝트 이름</label> -->
-<!-- 		<ul class="menubars"> -->
-<!-- 			<li><a href="list?boardId=3">테스트 1</a></li> -->
-<!-- 			<li><a href="">테스트 2</a></li> -->
-<!-- 		</ul> -->
-	
-<!-- 	</nav> -->
-<!-- </div> -->
-<script>
-
-</script>
-									
 
 
 
@@ -53,7 +34,7 @@
 								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;">
 									<div class="ltCnt myWorkSideBar side-bar " style="margin: 0px; height: 100%; overflow: auto; box-sizing: border-box; position: fixed;">
 										<div class="folder-list-btn-wrapper m-2 flex justify-evenly">
-											<div class="btn btn-grey btn-new-folder btn-modal" title="새 폴더" style="width:60%; min-height:2rem; height:2rem;">
+											<div id="btn-modal" class="btn btn-grey btn-new-folder btn-modal" title="새 폴더" style="width:60%; min-height:2rem; height:2rem;">
 												<i class="fas fa-plus mr-10"></i>
 												새폴더
 											</div>
@@ -85,9 +66,9 @@
 																	</ul>
 																</c:when>
 																<c:otherwise>
-		 															<c:forEach var="subProjectName" items="${subProjectName}">
+		 															<c:forEach var="subProject" items="${subProjects}">
 																	<ul class="inTree hover" >
-																		<li><a href="list?projectId=${project.id}">${subProjectName}</a></li>
+																		<li><a href="list?projectId=${project.id}&subProjectId=${subProject.id}">${subProject.name}</a></li>
 																	</ul>
 																	</c:forEach>
 																</c:otherwise>
@@ -112,7 +93,7 @@
 													<div class="title"> <span style="font-size:30px">${project.name } </span></div>
 													<div class="projectCard__btnGroup text-right">
 														<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
-														<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
+<!-- 														<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div> -->
 													</div>
 												</header>
 												<div class="projectCard-cts" >
@@ -150,10 +131,10 @@
 																	
 																	<div class="project-memo-btn-wrapper">
 																		<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
-																		<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a>
-																		</div>
-																		<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a>
-																		</div>
+<!-- 																		<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a> -->
+<!-- 																		</div> -->
+<!-- 																		<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a> -->
+<!-- 																		</div> -->
 																		<div class="btn-text"><span>저장</span></div>
 																		<div class="btn-text"><span>취소</span></div>
 																	</div>
@@ -197,33 +178,47 @@
 												</c:when>
 												<c:otherwise>
 													<div class="table-box-type-1">
-														<table class="table w-full">
+														<table class="w-full" style="table-layout: fixed; ">
+<!-- 														<table class="table w-full "> -->
+															
+															<colgroup>
+																<col width="27"/>
+																<col width="35" />
+																<col width=""/>
+																<col width="100" />
+																<col width="120" />
+																<col width="90" />
+																<col width="50" />
+																<col width="50" />
+																<col width="150" />
+															</colgroup>
+															 
 															<thead>
 																<tr>
-																	<th style="width :2px"><input type="checkbox" class="checkbox-all-member-id" /></th>
+																	<th width="27" ><input type="checkbox" class="checkbox-all-member-id" /></th>
 																	<th style="width :2.5px">No</th>
 																	<th style="width:150px;">이미지</th>
-																	<td>이름</td>
+																	<td style="word-break:break-word;">이름</td>
 																	<th>출원번호</th>
 																	<th>출원일자</th>
 																	<th>상품분류</th>
-																	<th style="width :1px">유사군</th>
+<!-- 																	<th style="width :1px">유사군</th> -->
 																	<th>법적상태</th>
 																	<th>출원인 이름</th>
 																</tr>
 															</thead>
 											
 															<tbody style="font-size: 1rem;">
-																<c:forEach var="trademark" items="${trademarks}">
-																	<tr class="hover">
+																<c:forEach var="trademark" items="${trademarks}" varStatus = "status">
+																	<tr class="hover" style="word-wrap: break-word;">
 																		<td style="width :2px"><input type="checkbox" class="checkbox-member-id" value="${trademark.id }" /></td>
-																		<td style="width :2.5px">${trademark.indexNo}</td>
+																		<td style="width :2.5px">${status.count}</td>
 																		<td><img style="width:200px;" src="${trademark.bigDrawing}"/></td>
-																		<td>${trademark.title}</td>
+																		<td style="width:100px;">${trademark.title}</td>
 																		<td>${trademark.applicationNumber}</td>
 																		<td>${trademark.applicationDate}</td>
 																		<td>${trademark.classificationCode}</td>
-																		<td>${trademark.similarityCode}</td>
+<%-- 																		<td>${trademark.similarityCode}</td> --%>
 																		<td>${trademark.applicationStatus}</td>
 																		<td>${trademark.applicantName}</td>
 																	</tr>
@@ -244,6 +239,8 @@
 <!-- 											생성 : api/word  -->
 											<form method="GET" name="do-create-word-form" action="/api/word">
 												<input type="hidden" name="ids" value="" />
+												<input type="hidden" name="projectId" value="${project.id}" />
+												<input type="hidden" name="subProjectId" value="${subProjectId.id}" />
 											</form>
 <!-- 											다운로드 workspace/download -->
 <!-- 											<form method="POST" name="do-download-trademarks-form" action="/usr/workspace/download"> -->
@@ -253,7 +250,9 @@
 											
 											<form method="POST" name="do-delete-trademarks-form" action="/usr/trademark/doDeleteTrademarks">
 												<input type="hidden" name="ids" value="" />
+												<input type="hidden" name="projectId" value="" />
 											</form>
+
 																						
 											<div class="page-menu mt-2 flex justify-center">
 												<div class="btn-group">
@@ -302,10 +301,10 @@
 											if (confirm('선택한 상표를 삭제하시겠습니까?') == false) {
 												return;
 											}
-											
+											let projectId = ${project.id};
 											console.log(values);
-											
 											$('input[name=ids]').val(values.join(','));
+											$('input[name=projectId]').val(projectId);
 											$('form[name=do-delete-trademarks-form]').submit();
 											
 											console.log($('form[name=do-delete-trademarks-form]'));
@@ -350,7 +349,8 @@
 											
 											console.log($('form[name=do-delete-trademarks-form]'));
 										})
-									
+										
+										
 										//체크박스 선택
 											$('.checkbox-all-member-id').change(function() {
 											const allCheck = $(this);
@@ -384,8 +384,5 @@
 
 
 
-
-
-
-<%@ include file = "../modal/projectSubCreate.jsp" %>
+<%@ include file = "../modal/projectList.jsp" %>	
 <%@ include file="../common/foot.jsp"%>

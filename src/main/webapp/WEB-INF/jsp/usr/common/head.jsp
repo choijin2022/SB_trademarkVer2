@@ -33,12 +33,12 @@
 <!-- 				<li class="hover:underline"><a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1"><span>NOTICE</span></a></li> -->
 <!-- 				<li class="hover:underline"><a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=2"><span>FREE</span></a></li> -->
 				<c:if test="${rq.getLoginedMemberId() == 0 }">
-					<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/login"><span>LOGIN</span></a></li>
-					<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/join"><span>JOIN</span></a></li>
+					<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/login"><span>login</span></a></li>
+					<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/join"><span>join</span></a></li>
 				</c:if>
 				<c:if test="${rq.getLoginedMemberId() != 0 }">
-					<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/myPage"><span>MYPAGE</span></a></li>
-					<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
+<!-- 					<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/myPage"><span>MYPAGE</span></a></li> -->
+					<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/doLogout"><span>logout</span></a></li>
 				</c:if>
 			</ul>
 		</div>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cji.exam.trademark.repository.ProjectRepository;
 import com.cji.exam.trademark.vo.ProjectVo;
+import com.cji.exam.trademark.vo.ResultData;
 import com.cji.exam.trademark.vo.SubProject;
 
 @Service
@@ -93,7 +94,12 @@ public class ProjectService {
 	public int getTrademarkCountByProjectId(int projectId) {
 		return projectRepository.getTrademarkCountByProjectId(projectId);
 	}
-	
-	
+
+	public void deleteProject(int projectId) {
+		System.out.println("project Service");		
+		System.out.println(projectId);
+		projectRepository.deleteProject(projectId);
+	}
+
 
 }

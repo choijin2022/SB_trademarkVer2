@@ -1,138 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="search" />
-<%@ include file="../common/head.jsp"%>
+<!DOCTYPE html>
 
 
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<form>
-			<div class="table-box-type-1">
-				<table class="table table-zebra w-full">
-<%-- 					<colgroup> --%>
-<%-- 						<col width="200" /> --%>
-<%-- 					</colgroup> --%>
-
-					<tbody>
-						<tr>
-							<th>보기</th>
-							<td>
-								<select name="numOfRows" class="select select-bordered w-full">
-									<option value="${trademarks[0].numOfRows}">${trademarks[0].numOfRows}개씩 보기</option>
-<!-- 									<option value="50">50개씩 보기</option> -->
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th>단어</th>
-							<td>
-								<input maxlength="38" class="input input-ghost w-full text-lg border-gray-400" type="text" name="searchString" placeholder="단어" value="${trademarks[0].searchString}"/>
-								<div></div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2"><button class="btn btn-outline btn-accent w-full ">검색</button></td>
-						</tr>
-						
-					</tbody>
-				</table>
-			</div>
-		</form>
-	</div>
-</section>
-
-<%-- <div>${subProjects}</div> --%>
-
-
-
-
-<script>
-
-
-
-$('.checkbox-all-member-id').change(function() {
-	const allCheck = $(this);
-	const allChecked = allCheck.prop('checked');
-	$('.checkbox-member-id').prop('checked', allChecked);
-	$('.checkbox-member-id:is(:disabled)').prop('checked', false)
-})
-$('.checkbox-member-id').change(function() {
-	const checkboxMemberIdCount = $('.checkbox-member-id').length;
-	const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
-	const checkboxDisabledCount = $('.checkbox-member-id:is(:disabled)').length;
-	const allChecked = (checkboxMemberIdCount - checkboxDisabledCount) == checkboxMemberIdCheckedCount;
-	$('.checkbox-all-member-id').prop('checked', allChecked);
-})
-function selectAllTrademark(selectAll)  {
-	  const checkboxes 
-	     = document.querySelectorAll('input[type="checkbox"]');
-	  
-	  checkboxes.forEach((checkbox) => {
-	    checkbox.checked = selectAll.checked
-	  })
-}
-</script>
-
-
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<table class="table table-zebra w-full">
-			<thead>
-				<tr>
-					<th class="text-sm"><input type="checkbox" class="checkbox-all-member-id" onclick='selectAllTrademark(this)'></th>
-					<th class="text-sm">No</th>
-					<th class="text-sm">이미지</th>
-					<th class="text-sm">출원번호</th>
-					<th class="text-sm">출원일자</th>
-					<th class="text-sm">상품분류</th>
-					<th class="text-sm">법적상태</th>
-					<th class="text-sm">출원인 이름</th>
-				</tr>
-			</thead>
-
-			<tbody id="product">
-				<c:if test="${trademarks[0].itemsTotalCount != 0 }">
-					<h2><span class="ml-2 text-base hitCount"> total ${trademarks[0].itemsTotalCount} </span ></h2>
-					<c:forEach var="trademark" items="${trademarks}" begin="0" end="${trademarks[0].numOfRows}" step="1" varStatus="status">
-<%-- 								<input type="hidden" name="${trademark.indexNo}" value="${trademark}"/> --%>
-							
-						<tr class="hover">
-							<td><input name="checkbox-member-id" type="checkbox" class="checkbox-member-id" value="${trademark.indexNo},${trademark.title},${trademark.applicantName},${trademark.applicationNumber},${trademark.applicationDate},${trademark.publicationNumber},${trademark.publicationDate},${trademark.registrationNumber},${trademark.registrationDate},${trademark.registrationPublicNumber},${trademark.registrationPublicDate},${trademark.priorityNumber},${trademark.priorityDate},${trademark.internationalRegisterNumber},${trademark.internationalRegisterDate},${trademark.applicationStatus},${trademark.classificationCode},${trademark.viennaCode},${trademark.agentName},${trademark.regPrivilegeName},${trademark.fullText},${trademark.drawing},${trademark.bigDrawing}" /></td>
-							<td>${trademark.indexNo}</td>
-							<td><img style="width:150px;" src="${trademark.bigDrawing}"/></td>
-							<td>${trademark.applicationNumber}</td>
-							<td>${trademark.applicationDate}</td>
-							<td>${trademark.classificationCode}</td>
-							<td>${trademark.applicationStatus}</td>
-							<td>${trademark.applicantName}</td>
-						</tr>
-					</c:forEach>
-				</c:if>
-			</tbody>
-		</table>
-		<div class="storeButton mt-2 flex justify-end justify-right">
-<!-- 			<input class="btn-outline btn-accent container w-1/6 flex justify-right mt-5 btn-modal" type='button' value='폴더생성' onclick='setClassName()'/> -->
-			<button id="btn-modal" class="btn btn-outline btn-accent container w-1/6 flex mt-5 btn-modal" >저장</button>
-<!-- 			<button class="btn btn-outline btn-accent container w-1/6 flex justify-left mt-5 btn-stored-selected-trademark" >저장</button> -->
-		</div>	
-<!-- 		</form> -->
-	</div>
-	
-
-	
-	<div class="pageNav flex justify-center mt-5">
-		<div class="btn-group">
-			<c:set var="maxPageNum" value="5" />
-		</div>
-	</div>
-		
-</section>
 
 <section>
-<!-- 	<div id="modal" class="modal"> -->
-<!--       <div id="modal_body" class="modal_body">Modal ?????????</div> -->
-<!--     </div> -->
-   
 	<div id="modal_test" class="modal_test"> 
 		<div id="modal_body" class="modal_body">
 			<div id="project-list" class="project-list">
@@ -204,20 +76,17 @@ function selectAllTrademark(selectAll)  {
 </section>
 
 
-
-<!-- <form method="POST" name="do-stored-trademark-form" action="../trademark/storedTrademark" onsubmit="return false;"> -->
-<form method="POST" name="do-stored-trademark-form" action="../trademark/storedTrademark" >
-<!-- <form id = "checkedTd" name="do-stored-trademark-form"  > -->
-	
-	<input type="hidden" name="test" value="" />
+<!--저장 -->
+<form method="POST" name="do-stored-trademark-form" action="../workspace/storedTrademark" >
+	<input type="hidden" name="ids" value="" />
 	<input type="hidden" name="projectId" value="" />
 	<input type="hidden" name="subProjectId" value="" />
-	
 	<c:if test="${subProjectId eq ''}">
 		<input type="hidden" name="subProjectId" value="0" />
 	</c:if>
-	
 </form>
+
+
 
 
 
@@ -225,15 +94,16 @@ function selectAllTrademark(selectAll)  {
 let setProjectId;
 let setSubProjectId;
 
-
+let thisPageProjectId = ${project.id};
 
 // 저장 버튼 클릭 이벤트 - 모달창 활성화
-$('#btn-modal').click(function() {
+$('.btn-modal').click(function() {
 	if(${rq.getLoginedMemberId()} == 0){
 		alert("로그인이 필요합니다.");
 		return;
 	}
 	
+	console.log("????");
 	//모달창 내의 close 버튼 이벤트
 	$('#modal-close-btn').click(function(){
 			$('.modal_test').hide();
@@ -268,12 +138,6 @@ $('#btn-modal').click(function() {
 	$('.show-creat-project-btn').show();
 	$('.creat-project-btn').hide();
 	
-// 	$('.project-sub-name-tr').hide();
-// 	$('.project-sub-name-td').hide();
-	
-
-// 	$('#project-sub-name-tr').attr('style', "display:none;");  //숨기기
-// 	$('#project-sub-name-td').attr('style', "display:none;");
 	
 	
 	if(!setProjectId){
@@ -306,24 +170,25 @@ $('#btn-modal').click(function() {
 			let thisIndexNum = 1;
 			$.each(data,function(index, value) {
 				let thisIndex = $(this).find("index");
-				console.log("thisIndex : ",thisIndex);
 				
 				projectLitHtml += `
 					<tr id="\${thisIndexNum}" class="hover project-tr">
-						<td id="\${value.id}"  class="select-sub-project-icon-td project-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px' ></i></td>
+						<td id="\${value.id}"  class="select-project-icon-td project-td " style="position: relative;">
+							<i class='fas fa-angle-double-right select-project-icon' style='cursor:pointer; font-size:10px' ></i>
+							<div class="folderOptView">
+							<ul class="folderOptView-body hover">
+								<li style="text-decoration: none">no : \${thisIndexNum}</li>
+								<li><a href='javascript:void(0);' onclick="delete_project(\${value.id});"><span>삭제</span></a></li>
+							</ul>
+						</div>
+						</td>
 						<td class="project-td">\${thisIndexNum}</td>
 						<td class="project-td project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-name">\${value.name}</span></td>
 						<td class="project-td">\${value.regDate.substring(0,11)}</td>
 					</tr>	
 					
 					`
-// 					<tr class="hover sub-project-tr hidden" id="\${value.id}">
-// 						<td class="sub-project-td"></td>
-// 						<td class="sub-project-td"></td>
-// 						<td class="sub-project-td">subPorjectName</td>
-// 						<td class="sub-project-td">subPorjectDate</td>
-// 					</tr>
-					
+// 					<li><a href='javascript:void(0);' onclick="rename_project(\${value.id});"><span >이름바꾸기</span></a></li>
 				thisIndexNum++;
 						
 				});
@@ -344,27 +209,19 @@ $('#btn-modal').click(function() {
 					console.log(isCheckedBox);
 					console.log(isCheckedProjectId);
 					
-	//					$('tr#' + projectId).removeClass("hidden");
-	//					$('tr').removeClass("hidden");
-	//					$(this).parent().closest("tr").removeClass("hidden");
-					//$(this).parent().parent().siblings('#' + projectId).removeClass("hidden");
-		           
 					
-					//$('.sub-project-tr').addClass("hidden");
 					
 					
 		           if($(this).hasClass("active")){
 		            	$(this).parent('.project-td').removeClass("active");
 		            	$(this).parent('.project-td').siblings().removeClass("active");
 		                $(this).removeClass("active");
-// 		                $('.sub-project-tr').addClass("hidden");
 		                
 		            } else{
 		            	if($('.select-project-name').hasClass("active")){
 		                    $('.select-project-name').removeClass("active");
 		                    $('.select-project-name').parent().removeClass("active");
 		                    $('.select-project-name').parent().siblings().removeClass("active");
-// 		                    $('.sub-project-tr').addClass("hidden");
 		                }
 		                $(this).addClass("active");
 		                $(this).parent('.project-td').addClass("active");
@@ -378,11 +235,6 @@ $('#btn-modal').click(function() {
 		            console.log(isProjectActive);
 		            isCheckedProjectId = isProjectActive;
 		            
-// 					if(isCheckedBox && isCheckedProjectId){
-// 						$('.btn-stored-selected-trademark').removeAttr("disabled");
-// 					}else{
-// 						$('.btn-stored-selected-trademark').prop("disabled", true);
-// 					}
 					
 					 
 					console.log(projectId);
@@ -395,7 +247,40 @@ $('#btn-modal').click(function() {
 					
 				//$('form[name=do-stored-trademark-form]').submit();
 			
-				})
+				});
+				
+				 // 모달창 내의 아이콘 클릭 이벤트	 
+				 $('.select-project-icon').click(function() {
+						//let icon = $(this);
+						$(this).siblings('.folderOptView').attr('style', "display:inline-block;");
+						console.log("아이콘 클릭!!!")
+					// 모달창 닫기
+						
+						$(document).mouseup(function (e){
+							let container = $('.folderOptView');
+							if( container.has(e.target).length === 0){
+							container.css('display','none');
+							}
+
+						});
+						let obj = $('.folderOptView').offset();
+// 						let obj = $(this).offset({ top: 0, left: 0 });
+						let projectId = parseInt($(this).parent().attr('id'));
+						let thisProjectIndexNum = parseInt($(this).parent().parent().attr('id'));
+						    console.log("projectId : ", projectId);
+						    console.log("thisProjectIndexNum : ", thisProjectIndexNum);
+						if(thisProjectIndexNum == 1){
+							$(this).siblings('.folderOptView').css('top',10);
+						
+						}else if(thisProjectIndexNum > 4){
+							$(this).siblings('.folderOptView').css('top', obj.top + 54*4);    
+						}else{
+							$(this).siblings('.folderOptView').css('top', obj.top + 54*(thisProjectIndexNum-1));    
+							
+						}
+
+					});
+				
 				
 				
 			}
@@ -409,8 +294,8 @@ $('#btn-modal').click(function() {
 	        alert(e.responseText);  
 	   }
 	});
-	
 
+	
 	 
 	 
 	 
@@ -425,28 +310,6 @@ $('#btn-modal').click(function() {
 		console.log("select-sub-project-icon-td 클릭시 projectId ",projectId );
 	    console.log("select-sub-project-icon-td 클릭시 thisProjectIndexNum ",thisProjectIndexNum);
 	    
-	    // (version2)프로젝트 및 서브프로젝트 정보를 한꺼번에 가져올 경우 서브 프로젝트 hidden 
-// 	    $(this).parent().siblings('#' + projectId).removeClass("hidden");
-	    
-// 	    if($('.sub-project-tr').attr('id') == projectId){
-// 	    	 $(this).removeClass("hidden");
-// 	    }
-// 	    if(!projectId){
-// 	    	projectId = 0;
-// 	    }
-// 		$('.sub-project-tr').removeClass("hidden");
-// 	 	$('.sub-project-tr').attr('style', "display:none;");  //숨기기
-// 	 	$('.sub-project-td').attr('style', "display:none;");
-
-
-
-	   //version2 만약 프로젝트의 서브프로젝트가 액티브 상태이면 더이상 after()하지 않도록
-	   //추후 수정하기
-// 	   let isSubProjectShow = $(this).hasClass("subProject-show");
-// 	   console.log("isSubProjectShow",isSubProjectShow);
-	    //if 시작
-// 	    if(isSubProjectShow == false){	   
-	
 	
 	    let projectParams="projectId="+projectId;
 	    
@@ -473,19 +336,13 @@ $('#btn-modal').click(function() {
 					
 					supProjectListHtml += `
 						<tr class="hover sub-project-tr">
-							<td id="\${value.id}" class="select-sub-project-icon-td sub-project-td"><i class='select-sub-project-icon' style='font-size:10px' ></i></td>
+							<td id="\${value.id}" class="sub-project-td"><i style='font-size:10px' ></i></td>
 							<td class="sub-project-td">\${thisIndexNum}</td>
 							<td class="sub-project-td"><span id="\${value.id}" class="hover:underline select-seb-project-name">\${value.name}</span></td>
 							<td class="sub-project-td">\${value.regDate.substring(0,11)}</td>
 						</tr>	
 
 						`
-// 						<tr class="hover sub-project-tr hidden" id="\${value.id}">
-// 							<td class="sub-project-td"></td>
-// 							<td class="sub-project-td"></td>
-// 							<td class="sub-project-td"></td>
-// 							<td class="sub-project-td">subPorjectDate</td>
-// 						</tr>
 						
 						
 					thisIndexNum++;
@@ -493,14 +350,7 @@ $('#btn-modal').click(function() {
 					});
 				
 				
-				// (version1)
-// 					$('#' + projectId, 'project-tr').append(supProjectListHtml);
-// 					$("#product-modal").append(supProjectListHtml);
 					console.log(thisProjectIndexNum);
-// 					$("tbody:nth-child(thisProjectIndexNum)").append(supProjectListHtml);
-// 					console.log(tbody:nth-child(thisProjectIndexNum));
-// 					console.log(tr:nth-child(thisProjectIndexNum));
-// 					$(`#modal_body tr:nth-child(\${thisProjectIndexNum})`).after(supProjectListHtml);
 					$(`#product-modal tr:nth-child(\${thisProjectIndexNum})`).after(supProjectListHtml);
 
 					
@@ -524,11 +374,6 @@ $('#btn-modal').click(function() {
 						console.log(isCheckedProjectId);
 						console.log(isCheckedSubProjectId);
 						
-// 						$('tr#' + projectId).removeClass("hidden");
-// 						$('tr').removeClass("hidden");
-// 						$(this).parent().closest("tr").removeClass("hidden");
-						//$(this).parent().parent().siblings('#' + projectId).removeClass("hidden");
-						//$('.sub-project-tr').addClass("hidden");
 						
 						
 						
@@ -580,12 +425,14 @@ $('#btn-modal').click(function() {
 	            alert(e.responseText);  
 	        }  
 	    });  
-	// if 끝
-// 	}	
 	
 	}); 
 
 });
+	
+
+	
+	
 //
 // 체크박스에 선택한 상표 저장 
 $('.btn-stored-selected-trademark').click(function() {
@@ -611,10 +458,13 @@ $('.btn-stored-selected-trademark').click(function() {
 	let valuesArr = values.join('!');
 	console.log(valuesArr)
 	
-	$('input[name=test]').val(valuesArr);
+	$('input[name=ids]').val(valuesArr);
+	
+	console.log($('input[name=ids]').val())
+	
 	$('form[name=do-stored-trademark-form]').submit();
 	
-})
+});
 
 
 
@@ -666,79 +516,61 @@ $('.creat-project-btn').click(function() {
 	
 });
 
-
-
 </script>
+
 
 
 <script>
-// 페이징 처리
-function pageUrl(pageNo) {
- 	numOfRows = ${trademarks[0].numOfRows};
-//  	numOfRows = 10;
- 	searchString = "${trademarks[0].searchString}";
+// 클릭시 프로젝트 네임 수정
+function rename_project(projectId){
+	console.log(projectId);
+	let projectParams="projectId="+projectId;
+	/*
+	//ajax 시작
+	$.ajax({
+		url : "/usr/project/modifyProjectName",
+		type : 'GET',
+		data : projectParams,
+		success : function(data) {
+			console.log(data);	
+			
+			alert("프로젝트 삭제 성공")
+	     },
+		error : function(e) {
+			alert(e.responseText);
+		}
+	});
+	return;
+	*/
+	
+};
+// 클릭시 프로젝트 삭제
+function delete_project(projectId){
+	console.log(projectId);
+	let projectParams="projectId="+projectId;
+	if (confirm('선택한 프로젝트를 삭제하시겠습니까?') == false) {
+		return;
+	}
+// 	$('input[name=projectId]').val(projectId);
 	
 	
-	$('input[name=numOfRows]').val(numOfRows);
-	$('input[name=searchString]').val(searchString);
-	$('input[name=pageNo]').val(pageNo);
-	console.log(pageNo);
-	$('form[name=paging-form]').submit();
-	
-	
-}
-
-
+	//ajax 시작
+	$.ajax({
+		url : "/usr/project/deleteProject",
+		type : 'GET',
+		data : projectParams,
+		success : function(data) {
+			console.log(data);	
+			
+			alert("프로젝트 삭제 성공")
+	     },
+		error : function(e) {
+			alert(e.responseText);
+		}
+	});
+	return;
+};
 </script>
 
 
 
-<form name="paging-form" action="searchTrademark" method="POST" >
-	<input type="hidden" name="numOfRows" value="">
-	<input type="hidden" name="searchString" value="">
-	<input type="hidden" name="pageNo" value="">
-</form>
-
-<section>
-	<div class="page-menu mt-3 flex justify-center">
-			<div class="btn-group">
-				<c:set var="pageNo" value="${trademarks[0].pageNo}" />
-				<c:set var="pagesCount" value="${trademarks[0].pagesCount}" />
-				<c:set var="pageMenuLen" value="5" />
-				
-				<c:set var="startPage" value="${pageNo - pageMenuLen >= 1 ? pageNo - pageMenuLen : 1}" />
-				<c:set var="endPage" value="${pageNo + pageMenuLen <= pagesCount ? pageNo + pageMenuLen : pagesCount}" />
-				<c:set var="numOfRows" value="${trademarks[0].numOfRows}" />
-				<c:set var="searchString" value="${trademarks[0].searchString}" />
-				
-				<c:set var="pageBaseUri" value="&searchString=${searchString}" />
-			
-				<c:if test="${trademarks[0].totalCount != 0 }">
-					<c:if test="${pageNo == 1 }">
-						<a class="btn btn-sm btn-disabled">«</a>
-						<a class="btn btn-sm btn-disabled">&lt;</a>
-					</c:if>
-					<c:if test="${pageNo > 1 }">
-						<a class="btn btn-sm" onclick="pageUrl(1)">«</a>
-						<a type="button" class="btn btn-sm" onclick="pageUrl(${pageNo-1})">&lt;</a>
-<%-- 						<a class="btn btn-sm" onclick="${pageBaseUri }&pageNo=${pageNo-1}">&lt;</a> --%>
-					</c:if>
-					<c:forEach begin="${startPage }" end="${endPage }" var="i">
-						<a class="btn btn-sm ${pageNo == i ? 'btn-active' : ''}" onclick="pageUrl(${i })">${i }</a>
-					</c:forEach>
-					<c:if test="${pageNo < pagesCount }">
-						<a class="btn btn-sm" onclick="pageUrl(${pageNo + 1 })">&gt;</a>
-						<a class="btn btn-sm" onclick="pageUrl(${pagesCount })">»</a>
-					</c:if>
-					<c:if test="${pageNo == pagesCount }">
-						<a class="btn btn-sm btn-disabled">&gt;</a>
-						<a class="btn btn-sm btn-disabled">»</a>
-					</c:if>
-				</c:if>
-			</div>
-		</div>
-	
-</section>
-
-<%-- <%@ include file="../modal/projectCreate.jsp"%> --%>
-<%@ include file="../common/foot.jsp"%>

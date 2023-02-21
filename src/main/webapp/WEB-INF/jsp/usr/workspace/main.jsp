@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="WorkMain" />
+<c:set var="pageTitle" value="workMain" />
 <%@ include file="../common/head.jsp"%>
 
 
@@ -90,29 +90,29 @@
 											<span class="info-item-label">최종수정일</span>
 											<div>${project.updateDate}</div>
 										</div>
-										<div class="info-item-wrapper">
-											<span class="info-item-label">상표수</span>
-											<div></div>
-										</div>
+<!-- 										<div class="info-item-wrapper"> -->
+<!-- 											<span class="info-item-label">상표수</span> -->
+<!-- 											<div></div> -->
+<!-- 										</div> -->
 									</div>
 									<div class="col-sm-5 col-xs-5">
 										<div class="clearfix cts__memo">
 											<div class="projectMemo">
-												<div class="memo__header">메모장</div>
-				<!-- 								<textarea name="" id="" cols="33" rows="5" style="display: none; opacity: 0; z-index: 0;"></textarea> -->
-												<textarea name="" id="projectTextarea" cols="40" rows="5" ></textarea>
-				<!-- 								<div class="contents" style="opacity: 1; z-index: 999; overflow: hidden auto;"></div> -->
-												<div class="contents" style="opacity: 1; overflow: hidden auto;"></div>
-												
-												<div class="project-memo-btn-wrapper">
-													<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
-													<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a>
+												<form id="memoForm" action="/usr/memo/doWrite" method="post">
+													<input type="hidden" name="memoCode" value="" />
+													<input type="hidden" name="projectId" value="" />
+													<div class="memo__header">메모장</div>
+													<textarea name="body" form="memoForm" id="main-page-memo" cols="40" rows="5" ></textarea>
+													<div class="contents" style="opacity: 1; overflow: hidden auto;"></div>
+													
+													<div class="project-memo-btn-wrapper">
+														<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
+	<!-- 													<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a></div> -->
+	<!-- 													<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a></div> -->
+														<div id="${project.id}" class="btn-mainpage-memo-save btn-text"><span>저장</span></div>
+	<%-- 													<div id="${project.id}" class="btn-mainpage-memo-retraction btn-text"><span>취소</span></div> --%>
 													</div>
-													<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a>
-													</div>
-													<div class="btn-text"><span>저장</span></div>
-													<div class="btn-text"><span>취소</span></div>
-												</div>
+												</form>
 											</div>
 										</div>
 										
@@ -144,44 +144,6 @@
 
 
 
-<!--  표
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="table-box-type-1 show-project-list">
-			<c:choose>
-				<c:when test="${projectCount == 0 }">
-					<div class="text-center mt-4">프로젝트가 없습니다</div>
-				</c:when>
-				<c:otherwise>
-					<div class="table-box-type-1 ">
-						<table class="table w-full">
-							<colgroup>
-								<col width="60" />
-								<col />
-								<col width="150" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>프로젝트</th>
-									<th>날짜</th>
-								</tr>
-							</thead>
-							<tbody >
-								<tr class="hover" id="\${value.id}">
-									<td>\${thisIndexNum}</td>
-									<td><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
-									<td>\${value.regDate.substring(0,11)}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</div>
-</section>
--->
 
 <script>
 // 새로고침 버튼 클릭 이벤트
@@ -189,6 +151,35 @@ $(document).on('click', '.btn-reload', function(){
 	location.reload();
 });
 
+// 메모 저장 클릭 이벤트
+$('.btn-mainpage-memo-save').click(function(){
+	let projectId = parseInt($(this).attr('id'));
+	let memoCode = "${pageTitle}";
+	let body = $("#main-page-memo").val();
+	console.log("projectId ",projectId );
+	console.log("memoCode ",memoCode );
+	console.log("body ",body );
+	$('input[name=projectId]').val(projectId);
+	$('input[name=memoCode]').val(memoCode);
+	//ajax 시작
+	let xhr = $.ajax({
+		url : "/usr/memo/doWrite",
+		type : 'post',
+		data : {
+			memoCode : memoCode,
+			projectId : projectId,
+			body : body,
+		},
+		success : function(data) {
+			console.log(data);	
+			location.reload();
+	     },
+		error : function(e) {
+			alert(e.responseText);
+		}
+	});
+	
+});
 
 </script>
 

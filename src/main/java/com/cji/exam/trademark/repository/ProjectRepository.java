@@ -2,6 +2,7 @@ package com.cji.exam.trademark.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -128,6 +129,14 @@ public interface ProjectRepository {
 				WHERE projectId = #{projectId};
 			""")
 	public int getTrademarkCountByProjectId(int projectId);
+
+	
+	
+	@Delete("""
+			DELETE FROM projectVo
+			WHERE id = #{projectId}
+			""")
+	public void deleteProject(int projectId);
 
 	
 	

@@ -154,7 +154,7 @@ body {
   display: none;
 
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 150;
+  z-index: 30;
 }
 
 .modal_block {
@@ -178,7 +178,7 @@ body {
   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
   transform: translateX(-50%) translateY(-50%);
-  z-index: 151;
+  z-index: 31;
 }
 
 
@@ -594,3 +594,29 @@ dd .inTree >li{
     margin-top: 30px;
     margin-bottom: 20px
 }
+
+.folderOptView{
+	display: none;
+	position: fixed;
+/*     left: 176px; */
+/*     top: 173px; */
+    left: 22%;
+    top: 0;
+  	text-align: center;
+  	background-color: rgb(255, 255, 255);
+  	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-170%) translateY(95%);
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+	z-index: 50;
+}
+.folderOptView-body{
+    margin-top: 6px;
+	
+}
+
+.folderOptView ul>li:hover {
+	text-decoration: underline;
+}
+

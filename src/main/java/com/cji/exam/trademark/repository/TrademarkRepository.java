@@ -24,4 +24,9 @@ public interface TrademarkRepository {
 	public void deleteTrademarks(int trademarkIds);
 
 	public Trademark getTrademarkById(int trademarkId);
+
+	public void storedTrademarkFromDB(Trademark trademark, int projectId);
+
+	public List<Trademark> getTrademarksBySubId(int subProjectId);
+
 }

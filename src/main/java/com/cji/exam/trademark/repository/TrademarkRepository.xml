@@ -53,6 +53,13 @@
 					
 	</insert>
 	
+	<insert id="storedTrademarkFromDB">
+	INSERT INTO trademark
+				SET regDate = NOW(),
+					updateDate = NOW(),
+					projectId = #{projectId},
+	</insert>
+	
 	<select id="getTrademarksByProjectId" resultType="Trademark">
 		SELECT T.*, P.name AS projectName
 			FROM trademark AS T
@@ -80,6 +87,12 @@
 			WHERE id = #{id}
 	
 	</delete>
-
+	<select id="getTrademarksBySubId" resultType="Trademark">
+		SELECT t.*
+			FROM trademark AS t
+			JOIN subProject AS s
+			ON t.projectId = s.projectId
+			WHERE s.id = #{subProjectId};
+	</select>
 	
 </mapper>

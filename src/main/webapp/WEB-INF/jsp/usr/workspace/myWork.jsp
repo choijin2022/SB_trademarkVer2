@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <c:set var="pageTitle" value="MyWork" /> --%>
+<c:set var="pageTitle" value="MyWork" />
 <%@ include file="../common/fullTypeHead.jsp"%>
 
 <!-- <div class="side-bar"> -->
@@ -73,7 +73,7 @@
 																<c:otherwise>
 		 															<c:forEach var="subProjectName" items="${subProjectName}">
 																	<ul class="inTree hover" >
-																		<li><a href="list?projectId=${project.id}">${subProjectName}</a></li>
+																		<li><a href="list?projectId=${project.id}&subProjectId=${subProject.id}">${subProjectName}</a></li>
 																	</ul>
 																	</c:forEach>
 																</c:otherwise>
@@ -98,7 +98,7 @@
 													<div class="title"><span> ${project.name } </span></div>
 													<div class="projectCard__btnGroup text-right">
 														<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
-														<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
+<!-- 														<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div> -->
 													</div>
 												</header>
 												<div class="projectCard-cts" >
@@ -136,10 +136,10 @@
 																	
 																	<div class="project-memo-btn-wrapper">
 																		<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
-																		<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a>
-																		</div>
-																		<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a>
-																		</div>
+<!-- 																		<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a> -->
+<!-- 																		</div> -->
+<!-- 																		<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a> -->
+<!-- 																		</div> -->
 																		<div class="btn-text"><span>저장</span></div>
 																		<div class="btn-text"><span>취소</span></div>
 																	</div>
@@ -160,6 +160,7 @@
 														<span>${subProjectCount} 개</span>
 													</c:if>
 												</div>
+												<!--  
 												<form>
 													<input type="hidden" name="boardId" value="${boardId }" />
 													
@@ -173,6 +174,7 @@
 									
 													<button class="ml-2 btn btn-active btn-ghost">검색</button>
 												</form>
+												-->
 											</div>
 										</section>
 									
@@ -222,44 +224,7 @@ $(document).on('click', '.btn-reload', function(){
 
 
 
-<!--  표
-<section class="mt-8 text-xl">
-	<div class="container mx-auto px-3">
-		<div class="table-box-type-1 show-project-list">
-			<c:choose>
-				<c:when test="${projectCount == 0 }">
-					<div class="text-center mt-4">프로젝트가 없습니다</div>
-				</c:when>
-				<c:otherwise>
-					<div class="table-box-type-1 ">
-						<table class="table w-full">
-							<colgroup>
-								<col width="60" />
-								<col />
-								<col width="150" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th>번호</th>
-									<th>프로젝트</th>
-									<th>날짜</th>
-								</tr>
-							</thead>
-							<tbody >
-								<tr class="hover" id="\${value.id}">
-									<td>\${thisIndexNum}</td>
-									<td><span id="\${value.id}" class="hover:underline select-project-td">\${value.name}</span></td>
-									<td>\${value.regDate.substring(0,11)}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</div>
-</section>
--->
+
 
 
 <%@ include file = "../modal/projectCreate.jsp" %>
