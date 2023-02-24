@@ -43,12 +43,12 @@
 		<c:choose>
 			<c:when test="${projectCount == 0 }">
 				<div class="text-center mt-4">조건에 일치하는 검색결과가 없습니다</div>
-			</c:when>
 			<c:when test="null">
 				<section>
-					<div><span> 서버 또는 DB 연결 확인!!</span></div>
+					<div><span> 서버 또는 DB 연결 확인 필요!!</span></div>
 				</section>				
-			</c:when>
+			</c:when></c:when>
+			
 			<c:otherwise>
 				<c:forEach var="project" items="${projects}">
 					<section>

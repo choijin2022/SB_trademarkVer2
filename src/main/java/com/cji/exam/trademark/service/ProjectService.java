@@ -101,5 +101,9 @@ public class ProjectService {
 		projectRepository.deleteProject(projectId);
 	}
 
+	public void updateProjectName(int projectId, String rename) {
+		projectRepository.updateProjectName(projectId, rename);
+	}
+
 
 }

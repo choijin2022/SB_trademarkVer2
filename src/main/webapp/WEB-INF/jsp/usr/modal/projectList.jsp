@@ -178,17 +178,22 @@ $('.btn-modal').click(function() {
 							<div class="folderOptView">
 							<ul class="folderOptView-body hover">
 								<li style="text-decoration: none">no : \${thisIndexNum}</li>
+								<li ><a class="rename-project-opt" href='javascript:void(0);'><span >이름바꾸기</span></a></li>
 								<li><a href='javascript:void(0);' onclick="delete_project(\${value.id});"><span>삭제</span></a></li>
 							</ul>
 						</div>
 						</td>
 						<td class="project-td">\${thisIndexNum}</td>
 						<td class="project-td project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-name">\${value.name}</span></td>
+						<td style="bgcolor:grey;" class ="project-name-for-input-td hidden" ><input type="text" id="\${value.id}" value="\${value.name}"/></td>
 						<td class="project-td">\${value.regDate.substring(0,11)}</td>
 					</tr>	
-					
-					`
-// 					<li><a href='javascript:void(0);' onclick="rename_project(\${value.id});"><span >이름바꾸기</span></a></li>
+	 					
+						`
+// 					<tr id="\${thisIndexNum}" class="project-td project-name-tr-input hidden">
+// 						<td colspan='4'><input type="text" id="\${value.id}" value="\${value.name}"/></td>
+// 					</tr>
+						
 				thisIndexNum++;
 						
 				});
@@ -280,6 +285,58 @@ $('.btn-modal').click(function() {
 						}
 
 					});
+				 
+				// 클릭시 프로젝트 네임 수정
+				 $('.rename-project-opt').click(function(){
+					 
+					console.log("이름 바꾸기");
+					let renameTextTd = $(this).parent().parent().parent().parent().siblings('.project-name-for-input-td');
+				 	let nameTextTd = $(this).parent().parent().parent().parent().siblings('.project-name-td-select');
+				 	let nameTextInput = renameTextTd.children().first();
+				 	
+				 	let projectId = $(this).parent().parent().parent().parent().attr('id');
+				 	console.log(projectId);
+
+				 	
+				 	
+				 	
+				 	nameTextTd.addClass("hidden");
+				 	renameTextTd.removeClass("hidden");
+				 	 
+				 	$(document).mouseup(function (e){
+						if( renameTextTd.has(e.target).length === 0){
+							let newName = nameTextInput.val();
+							console.log(newName);
+							rename_update(projectId,newName);
+							
+						
+							renameTextTd.addClass("hidden");
+							nameTextTd.removeClass("hidden");
+// 							$(this).parent().parent().parent().parent().siblings('.project-name-td-select').removeClass("hidden");
+						}
+// 						xhr.abort();
+				 	});
+				 	
+				 	
+				 	/*
+				 	//ajax 시작
+				 	$.ajax({
+				 		url : "/usr/project/modifyProjectName",
+				 		type : 'GET',
+				 		data : projectParams,
+				 		success : function(data) {
+				 			console.log(data);	
+				 			
+				 			alert("프로젝트 삭제 성공")
+				 	     },
+				 		error : function(e) {
+				 			alert(e.responseText);
+				 		}
+				 	});
+				 	return;
+				 	*/
+				 	
+				 });
 				
 				
 				
@@ -348,7 +405,6 @@ $('.btn-modal').click(function() {
 					thisIndexNum++;
 							
 					});
-				
 				
 					console.log(thisProjectIndexNum);
 					$(`#product-modal tr:nth-child(\${thisProjectIndexNum})`).after(supProjectListHtml);
@@ -521,29 +577,31 @@ $('.creat-project-btn').click(function() {
 
 
 <script>
-// 클릭시 프로젝트 네임 수정
-function rename_project(projectId){
+
+// 마우스가 외부에 한번이라도 클릭될 시, 프로젝트 이름 업데이트
+function rename_update(projectId, rename){
 	console.log(projectId);
-	let projectParams="projectId="+projectId;
-	/*
+ 	let params="projectId="+projectId+"&rename="+rename;
+ 	console.log(rename);
+ 	
 	//ajax 시작
-	$.ajax({
-		url : "/usr/project/modifyProjectName",
+	xhr = $.ajax({
+		url : "/usr/project/renameProject",
 		type : 'GET',
-		data : projectParams,
+		data : params,
 		success : function(data) {
 			console.log(data);	
 			
-			alert("프로젝트 삭제 성공")
 	     },
 		error : function(e) {
 			alert(e.responseText);
 		}
 	});
 	return;
-	*/
 	
-};
+}
+
+
 // 클릭시 프로젝트 삭제
 function delete_project(projectId){
 	console.log(projectId);

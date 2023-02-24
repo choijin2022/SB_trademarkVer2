@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.cji.exam.trademark.vo.ProjectVo;
 import com.cji.exam.trademark.vo.SubProject;
@@ -137,6 +138,14 @@ public interface ProjectRepository {
 			WHERE id = #{projectId}
 			""")
 	public void deleteProject(int projectId);
+
+	@Update("""
+			UPDATE projectVo 
+			SET `name` = #{rename},
+			updateDate = NOW()
+			WHERE id = #{projectId};
+			""")
+	public void updateProjectName(int projectId, String rename);
 
 	
 	

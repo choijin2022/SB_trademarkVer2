@@ -163,4 +163,23 @@ public class UserProjectController {
 		return Utility.jsReplace(Utility.f("해당 프로젝트를 삭제했습니다"), Utility.f("/usr/workspace/main"));
 //		return Utility.jsReplace(Utility.f("해당 프로젝트를 삭제했습니다"), "/usr/workspace/main");
 	}
+	
+	@RequestMapping("/usr/project/renameProject")
+	@ResponseBody
+	public  List<ProjectVo> projectNameUpdate(int projectId, String rename, Model model) {
+		
+		projectService.updateProjectName(projectId, rename);
+		
+//		if(projects == null) {
+//			return ResultData.from("F-1", "프로젝트가 존재하지 않습니다");
+//		}
+		
+		List<ProjectVo> projects = projectService.getProjects();
+		
+		List<SubProject> subProjects = projectService.getSubprojects();
+		model.addAttribute("projects", projects);
+		model.addAttribute("subProjects", subProjects);
+		
+		return  projects;
+	}
 }
