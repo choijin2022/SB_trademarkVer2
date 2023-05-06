@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cji.exam.trademark.service.ProjectService;
 import com.cji.exam.trademark.service.TrademarkService;
 import com.cji.exam.trademark.util.Utility;
 import com.cji.exam.trademark.vo.Trademark;
@@ -26,6 +25,7 @@ public class UserTrademarkController {
 		
 	}
 	
+	// ver01 기존 방식
 	@RequestMapping("/usr/trademark/storedTrademark")
 	@ResponseBody
 	public String doStoreTrademark(String test, @RequestParam(defaultValue = "0")int projectId, @RequestParam(defaultValue = "0")int subProjectId) {
@@ -86,6 +86,85 @@ public class UserTrademarkController {
 		return Utility.jsReplace(Utility.f("%d개 상표를 저장했습니다", totalSelectedTrademark), "/usr/trademark/trademarkApi");
 		 
 	}
+	
+	// 끝 
+	
+	/*
+	// ver02 Iterator 사용해보기
+	@RequestMapping("/usr/trademark/storedTrademark")
+	@ResponseBody
+	public String doStoreTrademark(String test, @RequestParam(defaultValue = "0")int projectId, @RequestParam(defaultValue = "0")int subProjectId) {
+		if(projectId == 0) {
+			return Utility.jsReplace(Utility.f("상표를 저장할 프로젝트를 선택해주세요."), "history.back()");
+		}
+		System.out.println("projectId : " + projectId);
+		
+		
+		String[] testArr = test.split("!");
+		System.out.println("controller 실행");
+		int totalSelectedTrademark = testArr.length;
+		
+		
+		
+		DataShelf dataShelf = new DataShelf(totalSelectedTrademark);
+//		DataElement dataElement;
+		for(int i = 0; i< totalSelectedTrademark; i++) {
+			dataShelf.appendDataName(new DataElement(testArr[i]));
+			System.out.println("dataShelf : "+dataShelf);
+			
+		}
+		
+		Iterator<DataElement> it = dataShelf.iterator();
+		System.out.println("it :"+it);
+		
+		/*
+		for(int i = 0; i < testArr.length; i++) {
+			System.out.println(testArr[i]);
+			String[] testArr2 = testArr[i].split(",",-1);
+			
+			Trademark trademark = new Trademark();
+			trademark.setProjectId(projectId);
+			
+			trademark.setIndexNo(testArr2[0]);
+			trademark.setTitle(testArr2[1]);
+			trademark.setApplicantName(testArr2[2]);
+			trademark.setApplicationNumber(testArr2[3]);
+			trademark.setApplicationDate(testArr2[4]);
+			trademark.setPublicationNumber(testArr2[5]);
+			trademark.setPublicationDate(testArr2[6]);
+			trademark.setRegistrationNumber(testArr2[7]);
+			trademark.setRegistrationDate(testArr2[8]);
+			trademark.setRegistrationPublicNumber(testArr2[9]);
+			trademark.setRegistrationPublicDate(testArr2[10]);
+			trademark.setPriorityNumber(testArr2[11]);
+			trademark.setPriorityDate(testArr2[12]);
+			trademark.setInternationalRegisterNumber(testArr2[13]);
+			trademark.setInternationalRegisterDate(testArr2[14]);
+			trademark.setApplicationStatus(testArr2[15]);
+			trademark.setClassificationCode(testArr2[16]);
+			trademark.setViennaCode(testArr2[17]);
+			trademark.setAgentName(testArr2[18]);
+			trademark.setRegPrivilegeName(testArr2[19]);
+			trademark.setFullText(testArr2[20]);
+			trademark.setDrawing(testArr2[21]);
+			trademark.setBigDrawing(testArr2[22]);
+//			int rowNum = Integer.parseInt(testArr2[23]);
+//			trademark.setNumOfRows(rowNum);
+			
+			int trademarkId = trademarkService.storedTrademark(trademark, projectId);
+			
+			System.out.println(trademark);
+		}
+		
+		
+		
+		return Utility.jsReplace(Utility.f("%d개 상표를 저장했습니다", totalSelectedTrademark), "/usr/trademark/trademarkApi");
+		 
+	}
+	*/
+	
+	
+	
 /*
 	private List<Map<String, String>> SetListMap(String[] testArr) {
 		List<Map<String, String>> ListMap = new ArrayList<>();

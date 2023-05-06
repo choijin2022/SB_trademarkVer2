@@ -1,5 +1,7 @@
 package com.cji.exam.trademark.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,11 @@ public class MemoService {
 		memoRepository.writeMemo(loginedMemberId,memoCode, projectId,body  );
 		int memoId = memoRepository.getLastInsertId();
 		return memoRepository.getMemoById(memoId);
+	}
+
+	public List<Memo> getMemosByMemberId(int loginedMemberId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

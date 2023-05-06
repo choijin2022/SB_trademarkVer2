@@ -24,12 +24,12 @@ import com.cji.exam.trademark.vo.Rq;
 import com.cji.exam.trademark.vo.Trademark;
 
 @Controller
-public class UserApiController {
+public class UserApiTdController {
 //	private static final int numOfRows = 50;
 	private ProjectService projectService;
 	private Rq rq;
 	@Autowired
-	UserApiController(ProjectService projectService, Rq rq){
+	public UserApiTdController(ProjectService projectService, Rq rq){
 		this.projectService = projectService;
 		this.rq = rq;
 	}

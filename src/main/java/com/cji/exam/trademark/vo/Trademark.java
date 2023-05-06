@@ -55,4 +55,5 @@ public class Trademark {
 	private String similarityCode;
 	
 	
+	
 }

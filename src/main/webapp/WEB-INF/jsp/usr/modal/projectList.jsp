@@ -103,7 +103,6 @@ $('.btn-modal').click(function() {
 		return;
 	}
 	
-	console.log("????");
 	//모달창 내의 close 버튼 이벤트
 	$('#modal-close-btn').click(function(){
 			$('.modal_test').hide();

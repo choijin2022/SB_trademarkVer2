@@ -28,6 +28,20 @@ public class UserMemoController {
 		this.memoService = memoService;
 		this.rq = rq;
 	}
+	
+	@RequestMapping("/usr/memo/getMemo")
+	@ResponseBody
+	public ResultData<Memo> getMemo(int projectId, String memoCode, String body) {
+
+		if (Utility.empty(body)) {
+			return ResultData.from("F-1","내용을 입력해주세요");
+		}
+
+		Memo memo = memoService.writeMemo(rq.getLoginedMemberId(),memoCode, projectId, body);
+
+
+		return ResultData.from("S-1", "메모 저장 성공", "memo", memo);
+	}
 
 
 

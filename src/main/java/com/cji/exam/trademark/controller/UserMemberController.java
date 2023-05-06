@@ -114,4 +114,17 @@ public class UserMemberController {
 		return Utility.jsReplace("로그아웃 되었습니다", "/"); 
 	}
 	
+	@RequestMapping("/usr/member/findLoginId")
+	public String showfindLoginId() {
+		return "usr/member/findLoginId";
+	}
+	
+	@RequestMapping("/usr/member/findLoginPw")
+	public String showfindLoginPw() {
+		return "usr/member/findLoginPw";
+	}
+	
+	
+	
+	
 }

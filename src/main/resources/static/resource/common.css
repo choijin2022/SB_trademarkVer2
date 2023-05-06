@@ -505,42 +505,6 @@ img {
 }
 
 
-/* myWrok - splitter */
-/* .projectTreeHandle { */
-/*     padding-left: 3px; */
-/*     position: absolute; */
-/*     top: 0; */
-/*     left: 283px; */
-/*     width: 20px; */
-/*     height: 200px; */
-/*     background-color: #455A64; */
-/*     border-radius: 0 3px 3px 0; */
-/*     cursor: pointer; */
-/*     font-size: 25px; */
-
-/* } */
-/*     height: calc(100vh - 70px); */
-
-/* .blankWrap.kwork .splitter-vertical > .splitter_bar { */
-/*     border: 0px; */
-/*     border-left: 1px solid rgba(0, 0, 0, 0.1); */
-/*     width: 5px; */
-/*     box-shadow: -5px 0 5px -3px rgb(0 0 0 / 5%); */
-/*     background-color: transparent; */
-/*     z-index: 10; */
-/* } */
-
-/* .blankWrap.kwork .splitter-vertical:hover > .splitter_ba { */
-/*   color:grey; */
-/*   background-color: grey; */
-/*   z-index: 11; */
-/* } */
-
-/* .splitter_container.splitter-vertical > .splitter_panel ~ .splitter_panel { */
-/*     right: 0; */
-/*     top: 0; */
-/* } */
-
 
 
 /* myWork의 side-bar 리스트*/
@@ -620,3 +584,47 @@ dd .inTree >li{
 	text-decoration: underline;
 }
 
+
+/* main page */
+.banner-section{
+	height: 320px;
+	width: 100%;
+	background-color: #9FE2BF;
+	display: flex;
+	
+}
+
+.banner-section img{
+	height: 240px;
+	width: 380px;
+}
+
+.login-wrapper {
+	background-color:white;
+	right: 0;
+    left: auto;
+    position: absolute;
+    margin-top: 28px;
+    margin-right: 3.5%;
+    border-radius: 15px;
+}
+
+
+
+.table-box-type-2 > table {
+	width: 100%;
+	font-size: 1rem;
+	
+}
+ 
+.table-box-type-2 > table th, .table-box-type-2 > table td {
+	padding: 10px;
+	text-align: center;
+	
+}
+
+.login-wrapper hr {
+    background:rgba(209, 213, 219, var(--tw-bg-opacity));
+    height:1px;
+    border:0;
+}

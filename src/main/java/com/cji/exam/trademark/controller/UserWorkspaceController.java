@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cji.exam.trademark.helper.WordHelper;
+import com.cji.exam.trademark.service.MemoService;
 import com.cji.exam.trademark.service.ProjectService;
 import com.cji.exam.trademark.service.TrademarkService;
 import com.cji.exam.trademark.service.WorkspaceService;
 import com.cji.exam.trademark.util.Utility;
+import com.cji.exam.trademark.vo.Memo;
 import com.cji.exam.trademark.vo.ProjectVo;
 import com.cji.exam.trademark.vo.ResultData;
 import com.cji.exam.trademark.vo.Rq;
@@ -29,13 +31,15 @@ public class UserWorkspaceController {
 	private TrademarkService trademarkservice;
 	private Rq rq;
 	private WorkspaceService worksapceService;
+	private MemoService memoService;
 	
 	@Autowired
-	UserWorkspaceController( ProjectService projectService, TrademarkService trademarkservice, Rq rq,WorkspaceService worksapceService){
+	UserWorkspaceController( ProjectService projectService, TrademarkService trademarkservice, Rq rq,WorkspaceService worksapceService, MemoService memoService){
 		this.projectService = projectService;
 		this.trademarkservice = trademarkservice;
 		this.rq = rq;
 		this.worksapceService = worksapceService;
+		this.memoService = memoService;
 	}
 	
 	
@@ -50,7 +54,9 @@ public class UserWorkspaceController {
 //		}
 		
 		List<ProjectVo> projects = projectService.getProjectsByMemberId(rq.getLoginedMemberId());
-				
+		
+		List<Memo> memos = memoService.getMemosByMemberId(rq.getLoginedMemberId());
+		
 //		projectService.getProjects();
 		
 		int projectCount = projects.size();
@@ -61,6 +67,7 @@ public class UserWorkspaceController {
 		
 //		model.addAttribute("board", board);
 		model.addAttribute("projects", projects);
+		model.addAttribute("memos", memos);
 		model.addAttribute("projectCount", projectCount);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);

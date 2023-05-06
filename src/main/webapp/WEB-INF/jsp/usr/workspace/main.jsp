@@ -3,6 +3,35 @@
 <c:set var="pageTitle" value="workMain" />
 <%@ include file="../common/head.jsp"%>
 
+<script>
+const params = {};
+params.id = parseInt('${param.id}');
+
+function mainPage__getMemo() {
+	
+	$.get('../reactionPoint/getReactionPoint', {
+		id : params.id,
+		relTypeCode : 'article',
+		ajaxMode : 'Y'
+	}, function(data){
+		if(data.data1.sumReactionPoint > 0){
+			let goodBtn = $('#goodBtn'); 
+			goodBtn.removeClass('btn-outline');
+			goodBtn.prop('href', '../reactionPoint/delReactionPoint?id=${article.id}&relTypeCode=article&point=1')
+		}else if(data.data1.sumReactionPoint < 0){
+			let badBtn = $('#badBtn');
+			badBtn.removeClass('btn-outline');
+			badBtn.prop('href', '../reactionPoint/delReactionPoint?id=${article.id}&relTypeCode=article&point=-1')
+		}
+	}, 'json');
+}
+
+$(function(){
+//		실전코드
+	mainPage__getMemo();
+	
+})
+</script>
 
 
 
@@ -67,7 +96,7 @@
 									</div>
 								</div>
 								<div class="projectCard__btnGroup text-right">
-									<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
+									<div title="수정" class="btn-icon mr-2 "><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
 									<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div>
 								</div>
 							</header>
@@ -134,17 +163,6 @@
 </section>
 
 
-
-
-
-
-
-
-
-
-
-
-
 <script>
 // 새로고침 버튼 클릭 이벤트
 $(document).on('click', '.btn-reload', function(){
@@ -162,7 +180,7 @@ $('.btn-mainpage-memo-save').click(function(){
 	$('input[name=projectId]').val(projectId);
 	$('input[name=memoCode]').val(memoCode);
 	//ajax 시작
-	let xhr = $.ajax({
+	$.ajax({
 		url : "/usr/memo/doWrite",
 		type : 'post',
 		data : {
@@ -170,6 +188,13 @@ $('.btn-mainpage-memo-save').click(function(){
 			projectId : projectId,
 			body : body,
 		},
+		async : false,
+		beforeSend : function(xhr, opts) {
+	        // when validation is false
+	        if (false) {
+	            xhr.abort();
+	        }
+	    },
 		success : function(data) {
 			console.log(data);	
 			location.reload();
@@ -179,9 +204,22 @@ $('.btn-mainpage-memo-save').click(function(){
 		}
 	});
 	
+	
 });
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <%@ include file = "../modal/projectCreate.jsp" %>
 <%@ include file="../common/foot.jsp"%>
