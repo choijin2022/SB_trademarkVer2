@@ -95,7 +95,7 @@
 						<c:if test="${rq.getLoginedMemberId() != 0 }">
 							<div >
 								<span>${rq.loginedMember.name} 님, 환영합니다</span>
-<!-- 								<img src="https://item.kakaocdn.net/do/c5c470298d527ef65eb52883f0f186c48f324a0b9c48f77dbce3a43bd11ce785"/> -->
+								
 							</div>
 						</c:if>
 					</div>

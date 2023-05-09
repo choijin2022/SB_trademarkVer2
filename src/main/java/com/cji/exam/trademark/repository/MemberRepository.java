@@ -16,5 +16,9 @@ public interface MemberRepository {
 	public Member getMemberByLoginId(String loginId);
 
 	public Member getMemberByNameAndEmail(String name, String email);
-
+	
+	public void doModify(int loginedMemberId, String nickname, String cellphoneNum, String email);
+	
+	public void doPassWordModify(int loginedMemberId, String loginPw);
+	
 }

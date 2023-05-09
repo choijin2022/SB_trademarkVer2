@@ -1,8 +1,11 @@
 package com.cji.exam.trademark.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.cji.exam.trademark.vo.Memo;
 
@@ -32,5 +35,23 @@ public interface MemoRepository {
 			WHERE id = #{memoId}
 			""")
 	public Memo getMemoById(int memoId);
+	
+	@Select("""
+			SELECT *
+			FROM memo
+			WHERE projectId = #{projectId}
+			""")
+	public Memo getMemoByProjectId(int projectId);
 
+	@Select("""
+			SELECT *
+			FROM memo
+			WHERE memberId = #{loginedMemberId}
+			""")
+	public List<Memo> getMemosByMemberId(int loginedMemberId);
+	
+	
+	
+	
+	
 }

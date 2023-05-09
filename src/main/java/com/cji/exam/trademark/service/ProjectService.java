@@ -105,5 +105,9 @@ public class ProjectService {
 		projectRepository.updateProjectName(projectId, rename);
 	}
 
+	public List<ProjectVo> getProjectsAndMemosByMemberId(int loginedMemberId) {
+		return projectRepository.getProjectsAndMemosByMemberId(loginedMemberId);
+	}
+
 
 }

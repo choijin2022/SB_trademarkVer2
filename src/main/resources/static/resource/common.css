@@ -628,3 +628,16 @@ dd .inTree >li{
     height:1px;
     border:0;
 }
+
+
+/* 프로젝트 메인 페이지*/
+
+.project-name-for-input input {
+  outline: 3px solid #e96c7c;
+}
+
+.editable__label button{
+/* 	background-color:grey; */
+	outline: 2px solid grey;
+	border-radius: 5px;
+}

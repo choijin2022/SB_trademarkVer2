@@ -2,6 +2,8 @@ package com.cji.exam.trademark.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,17 +32,15 @@ public class UserMemoController {
 	}
 	
 	@RequestMapping("/usr/memo/getMemo")
-	@ResponseBody
-	public ResultData<Memo> getMemo(int projectId, String memoCode, String body) {
-
-		if (Utility.empty(body)) {
-			return ResultData.from("F-1","내용을 입력해주세요");
-		}
-
-		Memo memo = memoService.writeMemo(rq.getLoginedMemberId(),memoCode, projectId, body);
-
-
-		return ResultData.from("S-1", "메모 저장 성공", "memo", memo);
+	public List<Memo> getMemo(int loginedMemberId, String relTypeCode) {
+//		try {
+//			Memo memo = memoService.getMemoByProjectId(projectId);
+//			return memo;
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+		return memoService.getMemosByMemberId(loginedMemberId);
 	}
 
 

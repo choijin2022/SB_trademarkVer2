@@ -403,15 +403,10 @@ btnModal.addEventListener("click", function(event){
 			
 				})
 				
-				
-				
-				
-				
 			}
 			$('.modal_test').show();
 			$('.modal_body').show();
 			$('.project-create').hide();
-			
 			
 	 },   
 	    error:function(e){  

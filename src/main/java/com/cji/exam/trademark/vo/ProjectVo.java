@@ -18,6 +18,7 @@ public class ProjectVo {
 	private int delStatus;
 	private String delDate;
 	
+	private String memoBody;
 	
 	private int subProjecId;
 	private String subProjectName;

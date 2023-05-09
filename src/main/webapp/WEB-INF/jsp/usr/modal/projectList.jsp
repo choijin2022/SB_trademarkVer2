@@ -189,9 +189,6 @@ $('.btn-modal').click(function() {
 					</tr>	
 	 					
 						`
-// 					<tr id="\${thisIndexNum}" class="project-td project-name-tr-input hidden">
-// 						<td colspan='4'><input type="text" id="\${value.id}" value="\${value.name}"/></td>
-// 					</tr>
 						
 				thisIndexNum++;
 						
@@ -379,7 +376,6 @@ $('.btn-modal').click(function() {
 				console.log("subProjects")
 	        	console.log(data)
 				
-	        	// (version1)
 				$(".sub-project-tr").remove();
 				$(".sub-project-tr").empty();
 	        	
@@ -417,8 +413,6 @@ $('.btn-modal').click(function() {
 						
 						console.log("thisSubProjectId",thisSubProjectId);
 						
-// 						let projectId = parseInt($(this).attr('id'));
-// 						let selectId = projectId;
 						
 						if (thisSubProjectId == 0) {
 							alert('선택한 서브 프로젝트가 없습니다');
@@ -609,7 +603,6 @@ function delete_project(projectId){
 		return;
 	}
 // 	$('input[name=projectId]').val(projectId);
-	
 	
 	//ajax 시작
 	$.ajax({

@@ -16,20 +16,6 @@
 				<div class="blankContents project-manage-page" style="height: calc(100% - 60px); padding: 0px;">
 					<div class="fullTypeCntWrap" style="height: 100%; min-height: 770px;">
 						<div class="myWorkFrameSetA FrameSplitter flex" style="min-height: 100%; height: 612.4px;">
-							
-<!-- 							<div class="splitter_panel hide-panel"> -->
-<!-- 								<div class="splitter_handle"> -->
-<!-- 									<em class="fa fa-caret-right" style="color: rgb(255, 255, 255); line-height: 195px;"></em> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="splitter_panel show-panel"> -->
-<!-- 								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;"> -->
-<!-- 									<div class="ltCnt myWorkSideBar"> -->
-<!-- 									<div id="projectTreeHandle" class="projectTreeHandle"></div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-							
 							<div class="splitter_panel" style="width: 280px;top: 0px;">
 								<div id="MYWORK-FOLDER-LIST-SECTION" style="overflow: hidden;">
 									<div class="ltCnt myWorkSideBar side-bar " style="margin: 0px; height: 100%; overflow: auto; box-sizing: border-box; position: fixed;">
@@ -131,10 +117,6 @@
 																	
 																	<div class="project-memo-btn-wrapper">
 																		<span style="float: right; font-size: 11px; margin-top: 3px;"></span>
-<!-- 																		<div class="btn-project-memo"><a href="" class="fas fa-pencil-alt"></a> -->
-<!-- 																		</div> -->
-<!-- 																		<div class="btn-project-memo"><a href="" class="fas fa-trash-alt"></a> -->
-<!-- 																		</div> -->
 																		<div class="btn-text"><span>저장</span></div>
 																		<div class="btn-text"><span>취소</span></div>
 																	</div>

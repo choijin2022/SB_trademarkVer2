@@ -146,6 +146,14 @@ public interface ProjectRepository {
 			WHERE id = #{projectId};
 			""")
 	public void updateProjectName(int projectId, String rename);
+	
+	
+	@Select("""
+			SELECT * 
+				FROM  Memo
+				WHERE memberId = #{loginedMemberId}
+			""")
+	public List<ProjectVo> getProjectsAndMemosByMemberId(int loginedMemberId);
 
 	
 	

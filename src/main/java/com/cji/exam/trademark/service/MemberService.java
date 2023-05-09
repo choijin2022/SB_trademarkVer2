@@ -2,6 +2,7 @@ package com.cji.exam.trademark.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.cji.exam.trademark.repository.MemberRepository;
 import com.cji.exam.trademark.util.Utility;
@@ -11,11 +12,21 @@ import com.cji.exam.trademark.vo.ResultData;
 @Service
 public class MemberService {
 	
+	@Value("${custom.siteMainUri}")
+	private String siteMainUri;
+	@Value("${custom.siteName}")
+	private String siteName;
+	
 	private MemberRepository memberRepository;
+	private AttrService attrService;
+	private MailService mailService;
+	
 	
 	@Autowired
-	private MemberService(MemberRepository memberRepository) {
+	private MemberService(MemberRepository memberRepository, AttrService attrService, MailService mailService) {
 		this.memberRepository = memberRepository;
+		this.attrService = attrService;
+		this.mailService = mailService;
 	}
 	
 	public ResultData<Integer> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
@@ -54,5 +65,59 @@ public class MemberService {
 	public Member getMemberByNameAndEmail(String name, String email) {
 		return memberRepository.getMemberByNameAndEmail(name, email);
 	}
+	
+	
+	public void doModify(int loginedMemberId, String nickname, String cellphoneNum, String email) {
+		memberRepository.doModify(loginedMemberId, nickname, cellphoneNum, email);
+	}
+
+	public void doPassWordModify(int loginedMemberId, String loginPw) {
+		memberRepository.doPassWordModify(loginedMemberId, loginPw);
+	}
+	
+	
+	public String genMemberModifyAuthKey(int loginedMemberId) {
+			
+			String memberModifyAuthKey = Utility.getTempPassword(10);
+			
+			attrService.setValue("member", loginedMemberId, "extra", "memberModifyAuthKey", memberModifyAuthKey, Utility.getDateStrLater(60 * 5));
+			
+			return memberModifyAuthKey;
+		}
+
+	public ResultData checkMemberModifyAuthKey(int loginedMemberId, String memberModifyAuthKey) {
+		String saved = attrService.getValue("member", loginedMemberId, "extra", "memberModifyAuthKey");
+		
+		if (!saved.equals(memberModifyAuthKey)) {
+			return ResultData.from("F-1", "일치하지 않거나 만료된 인증코드입니다");
+		}
+		
+		return ResultData.from("S-1", "정상 인증코드입니다");
+	}
+	
+	public ResultData notifyTempLoginPwByEmail(Member member) {
+			
+			String title = "[" + siteName + "] 임시 패스워드 발송";
+			String tempPassword = Utility.getTempPassword(8);
+			String body = "<h1>임시 패스워드 : " + tempPassword + "</h1>";
+			body += "<a href=\"" + siteMainUri + "/usr/member/login\" target=\"_blank\">로그인 하러가기</a>";
+			
+			ResultData sendRd = mailService.send(member.getEmail(), title, body);
+			
+			if (sendRd.isFail()) {
+				return sendRd;
+			}
+			
+			setTempPassword(member, tempPassword);
+			
+			return ResultData.from("S-1", "계정의 이메일주소로 임시 패스워드가 발송되었습니다");
+		}
+
+	
+	private void setTempPassword(Member member, String tempPassword) {
+		memberRepository.doPassWordModify(member.getId(), tempPassword);
+	}
+
+	
 
 }

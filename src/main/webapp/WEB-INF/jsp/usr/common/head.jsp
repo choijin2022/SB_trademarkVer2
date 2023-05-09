@@ -28,7 +28,7 @@
 			<div class="flex-grow"></div>
 			<ul class="flex">
 				<li class="hover:underline"><a class="h-full px-2 text-xl flex items-center" href="/usr/trademark/trademarkApi"><span>상표검색</span></a></li>
-				<li class="hover:underline"><a class="h-full px-2 text-xl flex items-center" href="/usr/patent/patentApi"><span>특허검색</span></a></li>
+<!-- 				<li class="hover:underline"><a class="h-full px-2 text-xl flex items-center" href="/usr/patent/patentApi"><span>특허검색</span></a></li> -->
 				<li class="hover:underline"><a class="h-full px-2 text-xl flex items-center" href="/usr/workspace/main"><span>work</span></a></li>
 <!-- 				<li class="hover:underline"><a class="h-full px-2 flex items-center" href="/"><span>HOME</span></a></li> -->
 <!-- 				<li class="hover:underline"><a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1"><span>NOTICE</span></a></li> -->
@@ -38,7 +38,7 @@
 					<li class="hover:underline"><a class="h-full px-2 text-xl flex items-center" href="/usr/member/join"><span>join</span></a></li>
 				</c:if>
 				<c:if test="${rq.getLoginedMemberId() != 0 }">
-<!-- 					<li class="hover:underline"><a class="h-full px-2 text-2xl flex items-center" href="/usr/member/myPage"><span>MYPAGE</span></a></li> -->
+					<li class="hover:underline"><a class="h-full px-2 text-xl flex items-center" href="/usr/member/myPage"><span>mypage</span></a></li>
 					<li class="hover:underline"><a class="h-full px-2 text-xl flex items-center" href="/usr/member/doLogout"><span>logout</span></a></li>
 				</c:if>
 			</ul>

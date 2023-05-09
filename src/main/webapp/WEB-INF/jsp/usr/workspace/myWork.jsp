@@ -3,21 +3,7 @@
 <c:set var="pageTitle" value="MyWork" />
 <%@ include file="../common/fullTypeHead.jsp"%>
 
-<!-- <div class="side-bar"> -->
-<!-- 	<div class="status-icon"> -->
-<!-- 		<div>▶</div> -->
-<!--     	<div>▼</div> -->
-<!-- 	</div> -->
-<!-- 	<nav class="manu-box-1"> -->
-<!-- 	<input id="check-menu-btn" type="checkbox" /> -->
-<!--     <label for="check-menu-btn">프로젝트 이름</label> -->
-<!-- 		<ul class="menubars"> -->
-<!-- 			<li><a href="list?boardId=3">테스트 1</a></li> -->
-<!-- 			<li><a href="">테스트 2</a></li> -->
-<!-- 		</ul> -->
-	
-<!-- 	</nav> -->
-<!-- </div> -->
+
 <script>
 
 
@@ -95,9 +81,13 @@
 										<section>
 											<div class="projectCard" style="border-width: 0px;">
 												<header style="padding: 10px 0px; border-bottom: 0px">
-													<div class="title"><span> ${project.name } </span></div>
+													<div class="title">
+														<div class ="project-name-for-input hidden" ><input type="text" id="${project.id}" value="${project.name}"/></div>
+														<button class="rename-project-update-btn hidden ml-3">수정</button>
+														<span class="project-title-span"> ${project.name } </span>
+													</div>
 													<div class="projectCard__btnGroup text-right">
-														<div title="수정" class="btn-icon mr-2"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
+														<div id="${project.id}" title="수정" class="btn-icon mr-2 rename-project-btn"><i aria-hidden="true" class="fas fa-pencil-alt"></i></div>
 <!-- 														<div title="삭제" class="btn-icon mr-5"><i aria-hidden="true" class="fas fa-trash-alt"></i></div> -->
 													</div>
 												</header>
@@ -160,21 +150,6 @@
 														<span>${subProjectCount} 개</span>
 													</c:if>
 												</div>
-												<!--  
-												<form>
-													<input type="hidden" name="boardId" value="${boardId }" />
-													
-													<select data-value="${searchKeywordTypeCode }" class="select select-bordered" name="searchKeywordTypeCode">
-														<option value="title">상표명</option>
-														<option value="body">내용</option>
-														<option value="title,body">상표명 + 내용</option>
-													</select>
-													
-													<input class="ml-2 w-84 input input-bordered" type="text" name="searchKeyword" placeholder="검색어를 입력해주세요" maxlength="20" value="${searchKeyword }" />
-									
-													<button class="ml-2 btn btn-active btn-ghost">검색</button>
-												</form>
-												-->
 											</div>
 										</section>
 									
@@ -208,11 +183,73 @@
 
 
 <script>
+
 // 새로고침 버튼 클릭 이벤트
 $(document).on('click', '.btn-reload', function(){
 	location.reload();
 });
 
+<!-- // 클릭시 프로젝트 네임 수정 -->
+$('.rename-project-btn').click(function(){
+	 
+	console.log("이름 바꾸기");
+	
+	let renameText = $(this).parent().siblings().children('.project-name-for-input');
+	let nameText = $(this).parent().siblings().children('.project-title-span');
+	let nameTextInput = renameText.children().first();
+	let renameButton  = $(this).parent().siblings().children('.rename-project-update-btn');
+	
+	let projectId = $(this).attr('id');
+	
+	renameText.removeClass("hidden");
+	renameButton.removeClass("hidden");
+	nameText.addClass("hidden");
+	
+	console.log(projectId);
+	console.log(renameText);
+	console.log(nameText);
+	console.log(nameTextInput);
+	$('.rename-project-update-btn').click(function(){
+		let newName = nameTextInput.val();	
+		rename_update(projectId, newName);
+		
+		location.reload();
+		
+	 });
+	
+	$(document).mouseup(function (e){
+		if( renameText.has(e.target).length === 0){
+			let newName = nameTextInput.val();
+			console.log(newName);
+		
+			renameText.addClass("hidden");
+			renameButton.addClass("hidden");
+			nameText.removeClass("hidden");
+		}
+	});
+});
+
+//프로젝트 이름 업데이트 버튼 클릭 후, 프로젝트 이름 업데이트
+function rename_update(projectId, rename){
+	console.log(projectId);
+ 	let params="projectId="+projectId+"&rename="+rename;
+ 	console.log(rename);
+ 	
+	//ajax 시작
+	xhr = $.ajax({
+		url : "/usr/project/renameProject",
+		type : 'GET',
+		data : params,
+		success : function(data) {
+			console.log(data);	
+			
+	     },
+		error : function(e) {
+			alert(e.responseText);
+		}
+	});
+	return;
+}
 
 </script>
 

@@ -53,9 +53,13 @@ public class UserWorkspaceController {
 //			return rq.jsReturnOnView("존재하지 않는 게시판입니다", true);
 //		}
 		
+		
+		
 		List<ProjectVo> projects = projectService.getProjectsByMemberId(rq.getLoginedMemberId());
 		
 		List<Memo> memos = memoService.getMemosByMemberId(rq.getLoginedMemberId());
+		
+		List<ProjectVo> projectsAndMemos = projectService.getProjectsAndMemosByMemberId(rq.getLoginedMemberId());
 		
 //		projectService.getProjects();
 		

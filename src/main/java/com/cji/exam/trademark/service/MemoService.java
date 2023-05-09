@@ -27,8 +27,12 @@ public class MemoService {
 	}
 
 	public List<Memo> getMemosByMemberId(int loginedMemberId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return memoRepository.getMemosByMemberId(loginedMemberId);
+	}
+
+	public Memo getMemoByProjectId(int projectId) {
+		return memoRepository.getMemoByProjectId(projectId);
 	}
 
 
