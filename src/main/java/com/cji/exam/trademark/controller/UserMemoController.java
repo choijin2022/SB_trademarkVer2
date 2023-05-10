@@ -48,13 +48,25 @@ public class UserMemoController {
 	@RequestMapping("/usr/memo/doWrite")
 	@ResponseBody
 	public ResultData<Memo> doWrite(int projectId, String memoCode, String body) {
-
-		if (Utility.empty(body)) {
+		String memoBody = body.trim();
+		if (Utility.empty(memoBody)) {
 			return ResultData.from("F-1","내용을 입력해주세요");
 		}
-
-		Memo memo = memoService.writeMemo(rq.getLoginedMemberId(),memoCode, projectId, body);
-
+		Memo memo = new Memo();
+		int memoId;
+		memo = memoService.getMemoByProjectId(projectId);
+		if(memo == null) {
+			memo = memoService.writeMemo(rq.getLoginedMemberId(),memoCode, projectId, body);
+		}
+		else {
+			memoId = memo.getId();
+			if(memoBody == null) {
+				memoService.deleteMemo(memoId);
+			}else {
+				memoService.updateMemoBody(memoId,memoBody);
+				
+			}
+		}
 
 		return ResultData.from("S-1", "메모 저장 성공", "memo", memo);
 	}

@@ -88,11 +88,15 @@
 	
 	</delete>
 	<select id="getTrademarksBySubId" resultType="Trademark">
-		SELECT t.*
+		SELECT t.*, s.id AS subProjectId, s.memberId AS memberId
 			FROM trademark AS t
-			JOIN subProject AS s
-			ON t.projectId = s.projectId
-			WHERE s.id = #{subProjectId};
+			LEFT JOIN projectVo AS p
+			ON t.projectId = p.id
+			INNER JOIN subProject AS s
+			ON p.id = s.projectId
+			INNER JOIN `member` AS m
+			ON p.memberId = m.id
+			WHERE p.id = #{subProjectId};
 	</select>
 	
 </mapper>

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Trademark {
 	private int id;
+	private int memberId;
 	private int projectId;
 	private int subProjectId;
 	private String regDate;
@@ -50,6 +51,7 @@ public class Trademark {
 	private String fullText;
 	private String drawing;
 	private String bigDrawing;
+	
 	
 	// 유사군
 	private String similarityCode;

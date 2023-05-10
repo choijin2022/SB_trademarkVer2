@@ -27,6 +27,6 @@ public interface TrademarkRepository {
 
 	public void storedTrademarkFromDB(Trademark trademark, int projectId);
 
-	public List<Trademark> getTrademarksBySubId(int subProjectId);
+	public List<Trademark> getTrademarksBySubId(int projectId, int subProjectId);
 
 }

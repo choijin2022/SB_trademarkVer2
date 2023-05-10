@@ -55,13 +55,11 @@ public class UserWorkspaceController {
 		
 		
 		
-		List<ProjectVo> projects = projectService.getProjectsByMemberId(rq.getLoginedMemberId());
+//		List<ProjectVo> projects = projectService.getProjectsByMemberId(rq.getLoginedMemberId());
 		
-		List<Memo> memos = memoService.getMemosByMemberId(rq.getLoginedMemberId());
 		
-		List<ProjectVo> projectsAndMemos = projectService.getProjectsAndMemosByMemberId(rq.getLoginedMemberId());
+		List<ProjectVo> projects = projectService.getProjectsAndMemosByMemberId(rq.getLoginedMemberId());
 		
-//		projectService.getProjects();
 		
 		int projectCount = projects.size();
 		
@@ -71,7 +69,6 @@ public class UserWorkspaceController {
 		
 //		model.addAttribute("board", board);
 		model.addAttribute("projects", projects);
-		model.addAttribute("memos", memos);
 		model.addAttribute("projectCount", projectCount);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
@@ -152,13 +149,12 @@ public class UserWorkspaceController {
 		
 		//SubProject subProjects = projectService.getSubProjects(projectId);
 		
-		List<Trademark> trademarks = trademarkservice.getTrademarksBySubId(subProjectId);
+		List<Trademark> trademarks = trademarkservice.getTrademarksBySubId(projectId, subProjectId);
 		System.out.println("subProjects : "+subProjects);
 		int allTrademarkCount = projectService.getTrademarkCountByProjectId(projectId);
 		
 //		model.addAttribute("board", board);
 		model.addAttribute("allTrademarkCount", allTrademarkCount);
-//		model.addAttribute("board", board);
 		model.addAttribute("project", project);
 		model.addAttribute("subProjects", subProjects);
 		model.addAttribute("subProjectCount", subProjectCount);
@@ -168,8 +164,6 @@ public class UserWorkspaceController {
 		model.addAttribute("searchKeyword", searchKeyword);
 		
 		return "usr/workspace/list";
-//		return "usr/workspace/list?projectId="+projectId;
-//		return "usr/workspace/list?projectId="+projectId+"&subProjectId="+subProjectId;
 	}
 	
 	

@@ -51,8 +51,8 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<div class="mb-2 flex justify-between items-center">
- 
+<!-- 		<div class="mb-2 flex justify-between items-center"> -->
+		<div class="mb-2 items-center">
             <div class="banner-section">
             	<div class="mt-10"><img src="http://www.kipris.or.kr/khome/images/main_new/Visual_object_img.png"></div>
 				<div class="login-wrapper">
@@ -96,12 +96,24 @@
 							<div >
 								<span>${rq.loginedMember.name} 님, 환영합니다</span>
 								
+								<div class="w-40 rounded-xl mb-2">
+									<img class="w-5 rounded-xl" src="https://i.namu.wiki/i/IUKpnzynPCMlkcs4qRLos3NAnwQu48KLCi7eUXFK0RDyRO1o4rgquRpH2iEJh6G4CGkiGglBWuDp04zsc4Cwww.webp" onerror="${rq.getProfileFallbackImgOnErrorHtml() }" alt="" />
+								</div>
 							</div>
 						</c:if>
 					</div>
 				</div>
             </div>
-
+           
+            <div class="content-section-wrapper mt-5">
+            	<div class="top-item-title"><span>공지사항</span></div>
+            	<div class="notice-list-wrapper">
+            		<c:forEach var="notice" items="${notices}">
+            			<div class="notice-list-item"><a href="">${notice.title}</a></div>
+            		</c:forEach>
+            	</div>
+			</div>	
+					
 		</div>
 	</div>
 </section>

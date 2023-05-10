@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartRequest;
+import javax.servlet.http.HttpServletRequest;
+
 
 import com.cji.exam.trademark.service.MemberService;
 import com.cji.exam.trademark.util.Utility;
@@ -20,7 +22,6 @@ public class UserMemberController {
 	
 	private MemberService memberService;
 	private Rq rq;
-	
 	@Autowired
 	public UserMemberController(MemberService memberService, Rq rq) {
 		this.memberService = memberService;
@@ -160,7 +161,7 @@ public class UserMemberController {
 	
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify(String memberModifyAuthKey, String nickname, String cellphoneNum, String email) {
+	public String doModify(HttpServletRequest req, String memberModifyAuthKey, String nickname, String cellphoneNum, String email, MultipartRequest multipartRequest) {
 
 		if (Utility.empty(memberModifyAuthKey)) {
 			return Utility.jsHistoryBack("회원 수정 인증코드가 필요합니다");
@@ -181,6 +182,8 @@ public class UserMemberController {
 		if (Utility.empty(email)) {
 			return Utility.jsHistoryBack("이메일을 입력해주세요");
 		}
+		
+
 
 		memberService.doModify(rq.getLoginedMemberId(), nickname, cellphoneNum, email);
 		

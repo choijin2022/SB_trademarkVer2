@@ -129,7 +129,7 @@ $(function(){
 													<input type="hidden" name="memoCode" value="" />
 													<input type="hidden" name="projectId" value="" />
 													<div class="memo__header">메모장</div>
-													<textarea name="body" form="memoForm" id="main-page-memo" cols="40" rows="5" >${memo.body}</textarea>
+													<textarea name="body" form="memoForm" id="main-page-memo" cols="40" rows="5" >${project.memoBody}</textarea>
 													<div class="contents" style="opacity: 1; overflow: hidden auto;"></div>
 													
 													<div class="project-memo-btn-wrapper">
@@ -255,6 +255,7 @@ $('.btn-mainpage-memo-save').click(function(){
 //프로젝트 이름 업데이트 버튼 클릭 후, 프로젝트 이름 업데이트
  function rename_update(projectId, rename){
  	console.log(projectId);
+ 	
   	let params="projectId="+projectId+"&rename="+rename;
   	console.log(rename);
   	

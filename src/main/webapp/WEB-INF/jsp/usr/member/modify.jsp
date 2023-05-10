@@ -14,6 +14,24 @@
 			return;
 		}
 		
+		const deleteProfileImgFileInput = form["deleteFile__member__0__extra__profileImg__1"];
+		
+		if (deleteProfileImgFileInput.checked) {
+			form["file__member__0__extra__profileImg__1"].value = '';
+		}
+		
+		const maxSizeMb = 10;
+		const maxSize = maxSizeMb * 1024 * 1024;
+		
+		const profileImgFileInput = form["file__member__0__extra__profileImg__1"];
+		if (profileImgFileInput.value) {
+			if (profileImgFileInput.files[0].size > maxSize) {
+				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요");
+				profileImgFileInput.focus();
+				return;
+			}
+		}
+		
 		form.cellphoneNum.value = form.cellphoneNum.value.trim();
 		
 		if (form.cellphoneNum.value.length == 0) {
@@ -39,7 +57,7 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form action="doModify" method="POST" onsubmit="MemberModify__submit(this); return false;">
+		<form action="doModify" method="POST" enctype="multipart/form-data" onsubmit="MemberModify__submit(this); return false;">
 			<input type="hidden" name="memberModifyAuthKey" value="${param.memberModifyAuthKey }" />
 			<div class="table-box-type-1">
 				<table class="table table-zebra w-full">

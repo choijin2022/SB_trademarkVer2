@@ -2,12 +2,14 @@ package com.cji.exam.trademark.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.cji.exam.trademark.vo.Memo;
+import com.cji.exam.trademark.vo.ProjectVo;
 
 
 @Mapper
@@ -49,6 +51,35 @@ public interface MemoRepository {
 			WHERE memberId = #{loginedMemberId}
 			""")
 	public List<Memo> getMemosByMemberId(int loginedMemberId);
+	
+	
+	@Select("""
+			SELECT B.body AS memoBody
+				FROM projectVo AS A
+				 LEFT JOIN memo AS B
+				 ON A.id = B.projectId
+				 WHERE A.memberId = #{loginedMemberId};				
+
+			""")
+	public List<String> getMemoBodysByMemberId(int loginedMemberId);
+
+	
+	@Delete("""
+			DELETE FROM memo
+				WHERE id = #{memoId};
+			
+			
+			""")
+	public void deleteMemo(int memoId);
+	
+	@Update("""
+			UPDATE memo
+			     SET updateDate = NOW(),
+			         `body` = #{memoBody}
+			     WHERE id = #{memoId};
+			
+			""")
+	public void updateMemoBody(int memoId, String memoBody);
 	
 	
 	

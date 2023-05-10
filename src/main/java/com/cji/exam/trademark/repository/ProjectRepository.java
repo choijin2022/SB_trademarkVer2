@@ -149,9 +149,11 @@ public interface ProjectRepository {
 	
 	
 	@Select("""
-			SELECT * 
-				FROM  Memo
-				WHERE memberId = #{loginedMemberId}
+			SELECT A.*, B.body AS memoBody
+				FROM projectVo AS A
+				 LEFT JOIN memo AS B
+				 ON A.id = B.projectId
+				 WHERE A.memberId = #{loginedMemberId};
 			""")
 	public List<ProjectVo> getProjectsAndMemosByMemberId(int loginedMemberId);
 

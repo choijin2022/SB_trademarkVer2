@@ -1,13 +1,19 @@
 package com.cji.exam.trademark.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cji.exam.trademark.service.MemberService;
+import com.cji.exam.trademark.service.NoticeService;
 import com.cji.exam.trademark.util.Utility;
 import com.cji.exam.trademark.vo.Member;
+import com.cji.exam.trademark.vo.Notice;
 import com.cji.exam.trademark.vo.Rq;
 
 @Controller
@@ -15,14 +21,22 @@ public class UsrHomeController {
 	
 	private MemberService memberService;
 	private Rq rq;
+	private NoticeService noticeService;
+	
 	@Autowired
-	public UsrHomeController(MemberService memberService, Rq rq) {
+	public UsrHomeController(MemberService memberService, Rq rq,NoticeService noticeService) {
 		this.memberService = memberService;
 		this.rq = rq;
+		this.noticeService = noticeService;
 	}
 	
 	@RequestMapping("/usr/home/main")
-	public String showMain() {
+	public String showMain(Model model) {
+		List<Notice> notices = new ArrayList<>();
+		
+		notices = noticeService.getNotices();
+		model.addAttribute("notices", notices);
+		
 		return "usr/home/main";
 	}
 	

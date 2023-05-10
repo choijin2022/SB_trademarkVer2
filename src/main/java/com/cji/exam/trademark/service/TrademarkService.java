@@ -126,9 +126,9 @@ public class TrademarkService {
 		
 	}
 
-	public List<Trademark> getTrademarksBySubId(int subProjectId) {
+	public List<Trademark> getTrademarksBySubId(int projectId, int subProjectId) {
 		
-		return trademarkRepository.getTrademarksBySubId(subProjectId);
+		return trademarkRepository.getTrademarksBySubId(projectId, subProjectId);
 	}
 
 
