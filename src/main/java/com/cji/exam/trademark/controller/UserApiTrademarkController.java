@@ -24,12 +24,12 @@ import com.cji.exam.trademark.vo.Rq;
 import com.cji.exam.trademark.vo.Trademark;
 
 @Controller
-public class UserApiTdController {
+public class UserApiTrademarkController {
 //	private static final int numOfRows = 50;
 	private ProjectService projectService;
 	private Rq rq;
 	@Autowired
-	public UserApiTdController(ProjectService projectService, Rq rq){
+	public UserApiTrademarkController(ProjectService projectService, Rq rq){
 		this.projectService = projectService;
 		this.rq = rq;
 	}
@@ -60,8 +60,6 @@ public class UserApiTdController {
 			
 			documentInfo.getDocumentElement().normalize();
 			System.out.println("root tag : " + documentInfo.getDocumentElement().getNodeName());
-			//수정 시작
-			
 			
 			NodeList nCoutnNode = documentInfo.getElementsByTagName("count");
 			totalCount = getCountItem(nCoutnNode,"totalCount");
@@ -70,7 +68,6 @@ public class UserApiTdController {
 			System.out.println("setPageNo : "+setPageNo);
 			System.out.println("pageNo : " + pageNo);
 			
-			// 수정 끝
 			NodeList nList = documentInfo.getElementsByTagName("item");
 			System.out.println("파싱할 tag수 : " + nList.getLength());
 			System.out.println(nList.getLength());

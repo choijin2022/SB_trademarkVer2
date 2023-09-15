@@ -81,13 +81,18 @@ function selectAllTrademark(selectAll)  {
 				<tr>
 					<th class="text-sm"><input type="checkbox" class="checkbox-all-member-id" onclick='selectAllTrademark(this)'></th>
 					<th class="text-sm">No</th>
+				</tr>
+				<tr>
 					<th class="text-sm">이미지</th>
-					<th class="text-sm">출원번호</th>
-					<th class="text-sm">출원일자</th>
-					<th class="text-sm">상품분류</th>
+					<th class="text-sm">출원번호(출원일자)</th>
+					<th class="text-sm">IPC</th>
 					<th class="text-sm">법적상태</th>
 					<th class="text-sm">출원인 이름</th>
 				</tr>
+				<tr>
+					<th class="text-sm"> 요약</th>
+				</tr>
+				
 			</thead>
 
 			<tbody id="product">
@@ -99,12 +104,16 @@ function selectAllTrademark(selectAll)  {
 						<tr class="hover">
 							<td><input name="checkbox-member-id" type="checkbox" class="checkbox-member-id" value="${trademark.indexNo},${trademark.title},${trademark.applicantName},${trademark.applicationNumber},${trademark.applicationDate},${trademark.publicationNumber},${trademark.publicationDate},${trademark.registrationNumber},${trademark.registrationDate},${trademark.registrationPublicNumber},${trademark.registrationPublicDate},${trademark.priorityNumber},${trademark.priorityDate},${trademark.internationalRegisterNumber},${trademark.internationalRegisterDate},${trademark.applicationStatus},${trademark.classificationCode},${trademark.viennaCode},${trademark.agentName},${trademark.regPrivilegeName},${trademark.fullText},${trademark.drawing},${trademark.bigDrawing}" /></td>
 							<td>${trademark.indexNo}</td>
+						</tr>
+						<tr>
 							<td><img style="width:150px;" src="${trademark.bigDrawing}"/></td>
-							<td>${trademark.applicationNumber}</td>
-							<td>${trademark.applicationDate}</td>
+							<td>${trademark.applicationNumber} ${trademark.applicationDate}</td>
 							<td>${trademark.classificationCode}</td>
 							<td>${trademark.applicationStatus}</td>
 							<td>${trademark.applicantName}</td>
+						</tr>
+						<tr>
+							<td class="text-sm"> 요약</td>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -224,30 +233,24 @@ function selectAllTrademark(selectAll)  {
 <script>
 let setProjectId;
 let setSubProjectId;
-const modal = document.getElementById("modal_test")
-const modal_body =document.getElementById("modal_body")
-const btnModal = document.getElementById("btn-modal")
-
 
 
 
 // 저장 버튼 클릭 이벤트 - 모달창 활성화
-btnModal.addEventListener("click", function(event){
+$('#btn-modal').click(function() {
 	if(${rq.getLoginedMemberId()} == 0){
 		alert("로그인이 필요합니다.");
 		return;
 	}
 	
 	//모달창 내의 close 버튼 이벤트
-	let btnClose = document.getElementById("modal-close-btn");
-		btnClose.addEventListener("click", function(event){
+	$('#modal-close-btn').click(function(){
 			$('.modal_test').hide();
 			$('.modal_body').hide();
 	});
 	
 	//모달창 내의 프로젝트 생성 버튼 이벤트 
-	let btnCreatProject = document.getElementById('show-creat-project-btn');
-	btnCreatProject.addEventListener("click", function(event){
+	$('#show-creat-project-btn').click(function(){
 		$('.project-list').hide();
 		$('.project-create').show();
 		$('.show-creat-project-btn').hide();
@@ -274,7 +277,12 @@ btnModal.addEventListener("click", function(event){
 	$('.show-creat-project-btn').show();
 	$('.creat-project-btn').hide();
 	
+// 	$('.project-sub-name-tr').hide();
+// 	$('.project-sub-name-td').hide();
+	
 
+// 	$('#project-sub-name-tr').attr('style', "display:none;");  //숨기기
+// 	$('#project-sub-name-td').attr('style', "display:none;");
 	
 	
 	if(!setProjectId){
@@ -318,7 +326,12 @@ btnModal.addEventListener("click", function(event){
 					</tr>	
 					
 					`
-
+// 					<tr class="hover sub-project-tr hidden" id="\${value.id}">
+// 						<td class="sub-project-td"></td>
+// 						<td class="sub-project-td"></td>
+// 						<td class="sub-project-td">subPorjectName</td>
+// 						<td class="sub-project-td">subPorjectDate</td>
+// 					</tr>
 					
 				thisIndexNum++;
 						
@@ -340,7 +353,13 @@ btnModal.addEventListener("click", function(event){
 					console.log(isCheckedBox);
 					console.log(isCheckedProjectId);
 					
-
+	//					$('tr#' + projectId).removeClass("hidden");
+	//					$('tr').removeClass("hidden");
+	//					$(this).parent().closest("tr").removeClass("hidden");
+					//$(this).parent().parent().siblings('#' + projectId).removeClass("hidden");
+		           
+					
+					//$('.sub-project-tr').addClass("hidden");
 					
 					
 		           if($(this).hasClass("active")){
@@ -387,10 +406,12 @@ btnModal.addEventListener("click", function(event){
 			
 				})
 				
+				
 			}
 			$('.modal_test').show();
 			$('.modal_body').show();
 			$('.project-create').hide();
+			
 			
 	 },   
 	    error:function(e){  
@@ -498,7 +519,6 @@ btnModal.addEventListener("click", function(event){
 						
 						let thisSubProjectId = parseInt($(this).attr('id'));
 						
-						
 						console.log("thisSubProjectId",thisSubProjectId);
 						
 // 						let projectId = parseInt($(this).attr('id'));
@@ -527,13 +547,12 @@ btnModal.addEventListener("click", function(event){
 			                $(this).removeClass("active");
 // 			                $('.sub-project-tr').addClass("hidden");
 			                
-			            } else{
-			            	if($('.select-seb-project-name').hasClass("active")){
+			            } else if($('.select-seb-project-name').hasClass("active")){
 			                    $('.select-seb-project-name').removeClass("active");
 			                    $('.select-seb-project-name').parent().removeClass("active");
 			                    $('.select-seb-project-name').parent().siblings().removeClass("active");
 // 			                    $('.sub-project-tr').addClass("hidden");
-			                }
+			            }else{
 			            	$(this).addClass("subProject-show");
 			                $(this).addClass("active");
 			                $(this).parent().addClass("active");
@@ -574,129 +593,8 @@ btnModal.addEventListener("click", function(event){
 // 	}	
 	
 	}); 
-	
-	
-	/*
-	// 다시 project 가져오기
-	
-	$(document).on('click', '.project-name-td-select', function(){
-		projectId = parseInt($(this).attr('id'));
-	    
-		if(!projectId){
-	    	projectId = 0;
-	    }
-	    
-		let params="projectId="+projectId;
-		$.get('/usr/project/getSubProject', {
-			data : params,
-			ajaxMode : 'Y'
-		}, function(data){
-			console.log("data---------------",data);
-			let projectLitHtml = ""
-			
-			if(data == null){
-				projectLitHtml = `
-					<tr class="hover" >
-						<td colspan="3">프로젝트가 없습니다.</td>
-					</tr>
-				`
-				$("#product-modal").html(projectLitHtml);
-			
-			}else{
-			console.log(data);
-			 //리스트 생성
-			let thisIndexNum = 1;
-			console.log($('input[name=checkbox-member-id]').val());
-			 $.each(data,function(index, value) {
-				let thisIndex = $(this).find("index");
-				console.log(thisIndex);
-				console.log(data);
-				console.log(index);
-				console.log(value.id);
-				projectLitHtml += `
-					<tr class="hover" id="\${value.id}">
-						<td id="\${value.id}" class="select-sub-project-icon-td"><i class='fas fa-angle-double-right select-sub-project-icon' style='font-size:10px'></i></td>
-						<td>\${thisIndexNum}</td>
-						<td class="project-name-td-select"><span id="\${value.id}" class="hover:underline select-project-name">\${value.name}</span></td>
-						<td>\${value.regDate.substring(0,11)}</td>
-					</tr>
-					<tr class="hover sub-project-tr hidden" id="\${value.id}">
-						<td class="sub-project-td"></td>
-						<td class="sub-project-td"></td>
-						<td class="sub-project-td">subPorjectName</td>
-						<td class="sub-project-td">subPorjectDate</td>
-					</tr>
-	
-				`
-				thisIndexNum++;
-				console.log(projectLitHtml);
-				
-				
-			 }); 
-		 
-			$("#product-modal").html(projectLitHtml);
-			
-			console.log(isCheckedBox);
-			
-			console.log(isCheckedProjectId);
-			
-			// 특정 프로젝트 클릭시 프로젝트 id input
-			$('.select-project-name').click(function() {
-				
-				projectId = parseInt($(this).attr('id'));
-				let selectId = projectId;
-				
-				if (projectId == 0) {
-					alert('선택한 프로젝트가 없습니다');
-					return;
-				}
-				
-				console.log(isCheckedBox);
-				console.log(isCheckedProjectId);
-			
-            if($(this).hasClass("active")){
-            	$(this).parent().removeClass("active");
-            	$(this).parent().siblings().removeClass("active");
-                $(this).removeClass("active");
-            } else{
-            	if($('.select-project-name').hasClass("active")){
-                    $('.select-project-name').removeClass("active");
-                    $('.select-project-name').parent().removeClass("active");
-                    $('.select-project-name').parent().siblings().removeClass("active");
-                }
-                $(this).addClass("active");
-                $(this).parent().addClass("active");
-            	$(this).parent().siblings().addClass("active");
-            }
-            
-            let isActive = $('.select-project-name').hasClass("active");
-            console.log("isActive");
-            console.log(isActive);
-            
-            isCheckedProjectId = isActive;
-			if(isCheckedBox && isCheckedProjectId){
-				$('.btn-stored-selected-trademark').removeAttr("disabled");
-			}else{
-				$('.btn-stored-selected-trademark').prop("disabled", true);
-			}
-			console.log(projectId);
-			setProjectId = projectId;
-			$('input[name=projectId]').val(setProjectId);
-			console.log(setProjectId);
-			console.log($('input[name=checkbox-member-id]').val());
-			console.log($('input[name=projectId').val());
-			
-			})
-			
-			}
-	
-		});
-	
-	});
-	
-	*/
+
 });
-//
 //
 // 체크박스에 선택한 상표 저장 
 $('.btn-stored-selected-trademark').click(function() {
@@ -723,27 +621,10 @@ $('.btn-stored-selected-trademark').click(function() {
 	console.log(valuesArr)
 	
 	$('input[name=test]').val(valuesArr);
-	
 	$('form[name=do-stored-trademark-form]').submit();
 	
 })
 
-
-
-function pageUrl(pageNo) {
- 	numOfRows = ${trademarks[0].numOfRows};
-//  	numOfRows = 10;
- 	searchString = "${trademarks[0].searchString}";
-	
-	
-	$('input[name=numOfRows]').val(numOfRows);
-	$('input[name=searchString]').val(searchString);
-	$('input[name=pageNo]').val(pageNo);
-	console.log(pageNo);
-	$('form[name=paging-form]').submit();
-	
-	
-}
 
 
 
@@ -794,6 +675,27 @@ $('.creat-project-btn').click(function() {
 	
 });
 
+
+
+</script>
+
+
+<script>
+// 페이징 처리
+function pageUrl(pageNo) {
+ 	numOfRows = ${trademarks[0].numOfRows};
+//  	numOfRows = 10;
+ 	searchString = "${trademarks[0].searchString}";
+	
+	
+	$('input[name=numOfRows]').val(numOfRows);
+	$('input[name=searchString]').val(searchString);
+	$('input[name=pageNo]').val(pageNo);
+	console.log(pageNo);
+	$('form[name=paging-form]').submit();
+	
+	
+}
 
 
 </script>

@@ -121,7 +121,25 @@
 			<artifactId>guava</artifactId>
 			<version>31.1-jre</version>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.moxy -->
+		<dependency>
+		    <groupId>org.eclipse.persistence</groupId>
+		    <artifactId>org.eclipse.persistence.moxy</artifactId>
+		    <version>4.0.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		</dependency>
+<!-- RestTemplate   -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-web</artifactId>
+		    <version>2.7.2</version>
+	    </dependency>
+
+
 	</dependencies>
 
 	<build>

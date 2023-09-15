@@ -6,9 +6,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.sl.draw.geom.Path;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -17,7 +20,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 import com.cji.exam.trademark.vo.Trademark;
 
-public class WordHelper {
+public class WordHelper3 {
 /*
  * 
     public static ByteArrayInputStream generateWord()
@@ -72,11 +75,14 @@ public class WordHelper {
          // Creating first Row
             XWPFTable table = doc.createTable();
             XWPFTableRow row1 = table.getRow(0);
+            
             row1.getCell(0).setText("No");
             row1.addNewTableCell().setText("유사도");
             row1.addNewTableCell().setText("표장");
+            row1.getCell(2).setWidth("10.00%");
             row1.addNewTableCell().setText("현재상태");
             row1.addNewTableCell().setText("출원번호/우선권 ");
+            row1.getCell(4).setWidth("10.00%");
             row1.addNewTableCell().setText("출원인/등록권자 ");
             row1.addNewTableCell().setText("유사군/품목");
 //                row1.setAlignment(ParagraphAlignment.CENTER);
@@ -89,10 +95,12 @@ public class WordHelper {
     			XWPFTableRow row = table.createRow();
     			String imgF = trademark.getBigDrawing();
     			XWPFParagraph p = doc.createParagraph();
+//    			InputStream is = new URL(imgF).openStream();
+//    			p.getParagraphText(imgF);
     			
     			row.getCell(0).setText(Integer.toString(i));
     			row.getCell(1).setText("");
-    			row.getCell(2).setText("");
+    			row.getCell(2).addParagraph(p);
     			row.getCell(3).setText(trademark.getApplicationStatus());
     			row.getCell(4).setText(trademark.getApplicationNumber());
     			row.getCell(5).setText(trademark.getApplicantName());
